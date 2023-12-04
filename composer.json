@@ -1,0 +1,34 @@
+{
+    "name": "te4g/docker-client",
+    "description": "A PHP client to interact with Docker API",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Te4g\\DockerClient\\": "src",
+            "Vendor\\Library\\Generated\\": "src/generated/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Te4g",
+            "email": "47118498+Te4g@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "jane-php/open-api-runtime": "^7.5",
+        "nyholm/psr7": "^1.8",
+        "symfony/http-client": "^6.4|^7.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.40"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
+
+
+

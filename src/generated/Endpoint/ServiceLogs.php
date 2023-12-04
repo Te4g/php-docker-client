@@ -1,0 +1,96 @@
+<?php
+
+namespace Vendor\Library\Generated\Endpoint;
+
+class ServiceLogs extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
+{
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
+    protected $id;
+    /**
+    * Get `stdout` and `stderr` logs from a service. See also
+    [`/containers/{id}/logs`](#operation/ContainerLogs).
+
+    **Note**: This endpoint works only for services with the `local`,
+    `json-file` or `journald` logging drivers.
+
+    *
+    * @param string $id ID or name of the service
+    * @param array $queryParameters {
+    *     @var bool $details Show service context and extra details provided to logs.
+    *     @var bool $follow Keep connection after returning logs.
+    *     @var bool $stdout Return logs from `stdout`
+    *     @var bool $stderr Return logs from `stderr`
+    *     @var int $since Only return logs since this time, as a UNIX timestamp
+    *     @var bool $timestamps Add timestamps to every log line
+    *     @var string $tail Only return this number of log lines from the end of the logs.
+    Specify as an integer or `all` to output all log lines.
+
+    * }
+    */
+    public function __construct(string $id, array $queryParameters = array())
+    {
+        $this->id = $id;
+        $this->queryParameters = $queryParameters;
+    }
+    public function getMethod(): string
+    {
+        return 'GET';
+    }
+    public function getUri(): string
+    {
+        return str_replace(array('{id}'), array($this->id), '/services/{id}/logs');
+    }
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    {
+        return array(array(), null);
+    }
+    public function getExtraHeaders(): array
+    {
+        return array('Accept' => array('application/json'));
+    }
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(array('details', 'follow', 'stdout', 'stderr', 'since', 'timestamps', 'tail'));
+        $optionsResolver->setRequired(array());
+        $optionsResolver->setDefaults(array('details' => false, 'follow' => false, 'stdout' => false, 'stderr' => false, 'since' => 0, 'timestamps' => false, 'tail' => 'all'));
+        $optionsResolver->addAllowedTypes('details', array('bool'));
+        $optionsResolver->addAllowedTypes('follow', array('bool'));
+        $optionsResolver->addAllowedTypes('stdout', array('bool'));
+        $optionsResolver->addAllowedTypes('stderr', array('bool'));
+        $optionsResolver->addAllowedTypes('since', array('int'));
+        $optionsResolver->addAllowedTypes('timestamps', array('bool'));
+        $optionsResolver->addAllowedTypes('tail', array('string'));
+        return $optionsResolver;
+    }
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Vendor\Library\Generated\Exception\ServiceLogsNotFoundException
+     * @throws \Vendor\Library\Generated\Exception\ServiceLogsInternalServerErrorException
+     * @throws \Vendor\Library\Generated\Exception\ServiceLogsServiceUnavailableException
+     *
+     * @return null
+     */
+    protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (200 === $status) {
+            return json_decode($body);
+        }
+        if (404 === $status) {
+            throw new \Vendor\Library\Generated\Exception\ServiceLogsNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+        }
+        if (500 === $status) {
+            throw new \Vendor\Library\Generated\Exception\ServiceLogsInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+        }
+        if (503 === $status) {
+            throw new \Vendor\Library\Generated\Exception\ServiceLogsServiceUnavailableException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+        }
+    }
+    public function getAuthenticationScopes(): array
+    {
+        return array();
+    }
+}

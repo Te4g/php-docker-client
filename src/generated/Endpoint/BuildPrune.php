@@ -1,0 +1,83 @@
+<?php
+
+namespace Vendor\Library\Generated\Endpoint;
+
+class BuildPrune extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
+{
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
+    /**
+    *
+    *
+    * @param array $queryParameters {
+    *     @var int $keep-storage Amount of disk space in bytes to keep for cache
+    *     @var bool $all Remove all types of build cache
+    *     @var string $filters A JSON encoded value of the filters (a `map[string][]string`) to
+    process on the list of build cache objects.
+
+    Available filters:
+
+    - `until=<timestamp>` remove cache older than `<timestamp>`. The `<timestamp>` can be Unix timestamps, date formatted timestamps, or Go duration strings (e.g. `10m`, `1h30m`) computed relative to the daemon's local time.
+    - `id=<id>`
+    - `parent=<id>`
+    - `type=<string>`
+    - `description=<string>`
+    - `inuse`
+    - `shared`
+    - `private`
+
+    * }
+    */
+    public function __construct(array $queryParameters = array())
+    {
+        $this->queryParameters = $queryParameters;
+    }
+    public function getMethod(): string
+    {
+        return 'POST';
+    }
+    public function getUri(): string
+    {
+        return '/build/prune';
+    }
+    public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
+    {
+        return array(array(), null);
+    }
+    public function getExtraHeaders(): array
+    {
+        return array('Accept' => array('application/json'));
+    }
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(array('keep-storage', 'all', 'filters'));
+        $optionsResolver->setRequired(array());
+        $optionsResolver->setDefaults(array());
+        $optionsResolver->addAllowedTypes('keep-storage', array('int'));
+        $optionsResolver->addAllowedTypes('all', array('bool'));
+        $optionsResolver->addAllowedTypes('filters', array('string'));
+        return $optionsResolver;
+    }
+    /**
+     * {@inheritdoc}
+     *
+     * @throws \Vendor\Library\Generated\Exception\BuildPruneInternalServerErrorException
+     *
+     * @return null|\Vendor\Library\Generated\Model\BuildPrunePostResponse200
+     */
+    protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
+    {
+        $status = $response->getStatusCode();
+        $body = (string) $response->getBody();
+        if (200 === $status) {
+            return $serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\BuildPrunePostResponse200', 'json');
+        }
+        if (500 === $status) {
+            throw new \Vendor\Library\Generated\Exception\BuildPruneInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+        }
+    }
+    public function getAuthenticationScopes(): array
+    {
+        return array();
+    }
+}
