@@ -1,6 +1,9 @@
 # php-docker-client
 
 ### How to use
+```
+composer require te4g/php-docker-client
+```
 ```php
 <?php
 
