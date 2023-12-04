@@ -2,8 +2,6 @@
 
 namespace Te4g\DockerClient;
 
-require __DIR__ . '/../vendor/autoload.php';
-
 use Vendor\Library\Generated\Client as DockerGeneratedClient;
 use Symfony\Component\HttpClient\Psr18Client;
 
