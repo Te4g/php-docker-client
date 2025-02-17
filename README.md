@@ -2,7 +2,7 @@
 
 ### How to use
 ```
-composer require te4g/php-docker-client
+composer require te4g/docker-client
 ```
 ```php
 <?php
