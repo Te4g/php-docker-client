@@ -3,3 +3,4 @@ composer.lock
 .jane-openapi
 open-api.yaml
 .php-cs-fixer.cache
+test.php

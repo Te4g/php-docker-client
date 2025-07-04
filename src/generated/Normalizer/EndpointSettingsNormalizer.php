@@ -49,7 +49,7 @@ if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR
             elseif (\array_key_exists('IPAMConfig', $data) && $data['IPAMConfig'] === null) {
                 $object->setIPAMConfig(null);
             }
-            if (\array_key_exists('Links', $data)) {
+            if (\array_key_exists('Links', $data) && $data['Links'] !== null) {
                 $values = [];
                 foreach ($data['Links'] as $value) {
                     $values[] = $value;
@@ -59,7 +59,7 @@ if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR
             if (\array_key_exists('MacAddress', $data)) {
                 $object->setMacAddress($data['MacAddress']);
             }
-            if (\array_key_exists('Aliases', $data)) {
+            if (\array_key_exists('Aliases', $data) && $data['Aliases'] !== null) {
                 $values_1 = [];
                 foreach ($data['Aliases'] as $value_1) {
                     $values_1[] = $value_1;
@@ -103,7 +103,7 @@ if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR
             if (\array_key_exists('GlobalIPv6PrefixLen', $data)) {
                 $object->setGlobalIPv6PrefixLen($data['GlobalIPv6PrefixLen']);
             }
-            if (\array_key_exists('DNSNames', $data)) {
+            if (\array_key_exists('DNSNames', $data) && $data['DNSNames'] !== null) {
                 $values_3 = [];
                 foreach ($data['DNSNames'] as $value_3) {
                     $values_3[] = $value_3;
