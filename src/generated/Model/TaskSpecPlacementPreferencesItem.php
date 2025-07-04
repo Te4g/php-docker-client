@@ -7,19 +7,19 @@ class TaskSpecPlacementPreferencesItem
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var TaskSpecPlacementPreferencesItemSpread
      */
     protected $spread;
     /**
-     *
+     * 
      *
      * @return TaskSpecPlacementPreferencesItemSpread
      */
@@ -28,7 +28,7 @@ class TaskSpecPlacementPreferencesItem
         return $this->spread;
     }
     /**
-     *
+     * 
      *
      * @param TaskSpecPlacementPreferencesItemSpread $spread
      *

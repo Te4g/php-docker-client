@@ -7,7 +7,7 @@ class ClusterVolumeSpecAccessModeSecretsItem
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class ClusterVolumeSpecAccessModeSecretsItem
     /**
     * Key is the name of the key of the key-value pair passed to
     the plugin.
-
+    
     *
     * @var string
     */
@@ -25,7 +25,7 @@ class ClusterVolumeSpecAccessModeSecretsItem
     This can be a Secret name or ID. The Secret data is
     retrieved by swarm and used as the value of the key-value
     pair passed to the plugin.
-
+    
     *
     * @var string
     */
@@ -33,7 +33,7 @@ class ClusterVolumeSpecAccessModeSecretsItem
     /**
     * Key is the name of the key of the key-value pair passed to
     the plugin.
-
+    
     *
     * @return string
     */
@@ -44,7 +44,7 @@ class ClusterVolumeSpecAccessModeSecretsItem
     /**
     * Key is the name of the key of the key-value pair passed to
     the plugin.
-
+    
     *
     * @param string $key
     *
@@ -61,7 +61,7 @@ class ClusterVolumeSpecAccessModeSecretsItem
     This can be a Secret name or ID. The Secret data is
     retrieved by swarm and used as the value of the key-value
     pair passed to the plugin.
-
+    
     *
     * @return string
     */
@@ -74,7 +74,7 @@ class ClusterVolumeSpecAccessModeSecretsItem
     This can be a Secret name or ID. The Secret data is
     retrieved by swarm and used as the value of the key-value
     pair passed to the plugin.
-
+    
     *
     * @param string $secret
     *

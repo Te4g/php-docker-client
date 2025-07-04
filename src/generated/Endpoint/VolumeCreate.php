@@ -4,9 +4,8 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class VolumeCreate extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     /**
-     *
+     * 
      *
      * @param \Vendor\Library\Generated\Model\VolumeCreateOptions $volumeConfig Volume configuration
      */
@@ -14,6 +13,7 @@ class VolumeCreate extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint
     {
         $this->body = $volumeConfig;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'POST';
@@ -28,7 +28,7 @@ class VolumeCreate extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -42,14 +42,14 @@ class VolumeCreate extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (201 === $status) {
-            return $serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\Volume', 'json');
+            return $serializer->deserialize($body, 'Vendor\Library\Generated\Model\Volume', 'json');
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\VolumeCreateInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\VolumeCreateInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

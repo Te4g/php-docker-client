@@ -7,7 +7,7 @@ class FilesystemChange
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -20,13 +20,13 @@ class FilesystemChange
     protected $path;
     /**
     * Kind of change
-
+    
     Can be one of:
-
+    
     - `0`: Modified ("C")
     - `1`: Added ("A")
     - `2`: Deleted ("D")
-
+    
     *
     * @var int
     */
@@ -55,13 +55,13 @@ class FilesystemChange
     }
     /**
     * Kind of change
-
+    
     Can be one of:
-
+    
     - `0`: Modified ("C")
     - `1`: Added ("A")
     - `2`: Deleted ("D")
-
+    
     *
     * @return int
     */
@@ -71,13 +71,13 @@ class FilesystemChange
     }
     /**
     * Kind of change
-
+    
     Can be one of:
-
+    
     - `0`: Modified ("C")
     - `1`: Added ("A")
     - `2`: Deleted ("D")
-
+    
     *
     * @param int $kind
     *

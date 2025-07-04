@@ -7,43 +7,43 @@ class SystemDfGetResponse200
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var int
      */
     protected $layersSize;
     /**
+     * 
      *
-     *
-     * @var ImageSummary[]
+     * @var list<ImageSummary>
      */
     protected $images;
     /**
+     * 
      *
-     *
-     * @var ContainerSummary[]
+     * @var list<ContainerSummary>
      */
     protected $containers;
     /**
+     * 
      *
-     *
-     * @var Volume[]
+     * @var list<Volume>
      */
     protected $volumes;
     /**
+     * 
      *
-     *
-     * @var BuildCache[]
+     * @var list<BuildCache>
      */
     protected $buildCache;
     /**
-     *
+     * 
      *
      * @return int
      */
@@ -52,7 +52,7 @@ class SystemDfGetResponse200
         return $this->layersSize;
     }
     /**
-     *
+     * 
      *
      * @param int $layersSize
      *
@@ -65,18 +65,18 @@ class SystemDfGetResponse200
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return ImageSummary[]
+     * @return list<ImageSummary>
      */
     public function getImages(): array
     {
         return $this->images;
     }
     /**
+     * 
      *
-     *
-     * @param ImageSummary[] $images
+     * @param list<ImageSummary> $images
      *
      * @return self
      */
@@ -87,18 +87,18 @@ class SystemDfGetResponse200
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return ContainerSummary[]
+     * @return list<ContainerSummary>
      */
     public function getContainers(): array
     {
         return $this->containers;
     }
     /**
+     * 
      *
-     *
-     * @param ContainerSummary[] $containers
+     * @param list<ContainerSummary> $containers
      *
      * @return self
      */
@@ -109,18 +109,18 @@ class SystemDfGetResponse200
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return Volume[]
+     * @return list<Volume>
      */
     public function getVolumes(): array
     {
         return $this->volumes;
     }
     /**
+     * 
      *
-     *
-     * @param Volume[] $volumes
+     * @param list<Volume> $volumes
      *
      * @return self
      */
@@ -131,18 +131,18 @@ class SystemDfGetResponse200
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return BuildCache[]
+     * @return list<BuildCache>
      */
     public function getBuildCache(): array
     {
         return $this->buildCache;
     }
     /**
+     * 
      *
-     *
-     * @param BuildCache[] $buildCache
+     * @param list<BuildCache> $buildCache
      *
      * @return self
      */

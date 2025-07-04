@@ -7,7 +7,7 @@ class Mount
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -26,13 +26,14 @@ class Mount
     protected $source;
     /**
     * The mount type. Available types:
-
+    
     - `bind` Mounts a file or directory from the host into the container. Must exist prior to creating the container.
     - `volume` Creates a volume with the given name and options (or uses a pre-existing volume with the same name and options). These are **not** removed when the container is removed.
+    - `image` Mounts an image.
     - `tmpfs` Create a tmpfs with the given options. The mount source cannot be specified for tmpfs.
     - `npipe` Mounts a named pipe from the host into the container. Must exist prior to creating the container.
     - `cluster` a Swarm cluster volume
-
+    
     *
     * @var string
     */
@@ -61,6 +62,12 @@ class Mount
      * @var MountVolumeOptions
      */
     protected $volumeOptions;
+    /**
+     * Optional configuration for the `image` type.
+     *
+     * @var MountImageOptions
+     */
+    protected $imageOptions;
     /**
      * Optional configuration for the `tmpfs` type.
      *
@@ -113,13 +120,14 @@ class Mount
     }
     /**
     * The mount type. Available types:
-
+    
     - `bind` Mounts a file or directory from the host into the container. Must exist prior to creating the container.
     - `volume` Creates a volume with the given name and options (or uses a pre-existing volume with the same name and options). These are **not** removed when the container is removed.
+    - `image` Mounts an image.
     - `tmpfs` Create a tmpfs with the given options. The mount source cannot be specified for tmpfs.
     - `npipe` Mounts a named pipe from the host into the container. Must exist prior to creating the container.
     - `cluster` a Swarm cluster volume
-
+    
     *
     * @return string
     */
@@ -129,13 +137,14 @@ class Mount
     }
     /**
     * The mount type. Available types:
-
+    
     - `bind` Mounts a file or directory from the host into the container. Must exist prior to creating the container.
     - `volume` Creates a volume with the given name and options (or uses a pre-existing volume with the same name and options). These are **not** removed when the container is removed.
+    - `image` Mounts an image.
     - `tmpfs` Create a tmpfs with the given options. The mount source cannot be specified for tmpfs.
     - `npipe` Mounts a named pipe from the host into the container. Must exist prior to creating the container.
     - `cluster` a Swarm cluster volume
-
+    
     *
     * @param string $type
     *
@@ -233,6 +242,28 @@ class Mount
     {
         $this->initialized['volumeOptions'] = true;
         $this->volumeOptions = $volumeOptions;
+        return $this;
+    }
+    /**
+     * Optional configuration for the `image` type.
+     *
+     * @return MountImageOptions
+     */
+    public function getImageOptions(): MountImageOptions
+    {
+        return $this->imageOptions;
+    }
+    /**
+     * Optional configuration for the `image` type.
+     *
+     * @param MountImageOptions $imageOptions
+     *
+     * @return self
+     */
+    public function setImageOptions(MountImageOptions $imageOptions): self
+    {
+        $this->initialized['imageOptions'] = true;
+        $this->imageOptions = $imageOptions;
         return $this;
     }
     /**

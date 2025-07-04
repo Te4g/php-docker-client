@@ -7,25 +7,25 @@ class PluginConfigRootfs
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $type;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $diffIds;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -34,7 +34,7 @@ class PluginConfigRootfs
         return $this->type;
     }
     /**
-     *
+     * 
      *
      * @param string $type
      *
@@ -47,18 +47,18 @@ class PluginConfigRootfs
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getDiffIds(): array
     {
         return $this->diffIds;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $diffIds
+     * @param list<string> $diffIds
      *
      * @return self
      */

@@ -7,7 +7,7 @@ class Platform
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class Platform
     /**
     * Architecture represents the hardware architecture (for example,
     `x86_64`).
-
+    
     *
     * @var string
     */
@@ -29,7 +29,7 @@ class Platform
     /**
     * Architecture represents the hardware architecture (for example,
     `x86_64`).
-
+    
     *
     * @return string
     */
@@ -40,7 +40,7 @@ class Platform
     /**
     * Architecture represents the hardware architecture (for example,
     `x86_64`).
-
+    
     *
     * @param string $architecture
     *

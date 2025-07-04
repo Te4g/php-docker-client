@@ -7,7 +7,7 @@ class EventMessage
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -27,7 +27,7 @@ class EventMessage
     /**
     * Actor describes something that generates events, like a container, network,
     or a volume.
-
+    
     *
     * @var EventActor
     */
@@ -35,7 +35,7 @@ class EventMessage
     /**
     * Scope of the event. Engine events are `local` scope. Cluster (Swarm)
     events are `swarm` scope.
-
+    
     *
     * @var string
     */
@@ -99,7 +99,7 @@ class EventMessage
     /**
     * Actor describes something that generates events, like a container, network,
     or a volume.
-
+    
     *
     * @return EventActor
     */
@@ -110,7 +110,7 @@ class EventMessage
     /**
     * Actor describes something that generates events, like a container, network,
     or a volume.
-
+    
     *
     * @param EventActor $actor
     *
@@ -125,7 +125,7 @@ class EventMessage
     /**
     * Scope of the event. Engine events are `local` scope. Cluster (Swarm)
     events are `swarm` scope.
-
+    
     *
     * @return string
     */
@@ -136,7 +136,7 @@ class EventMessage
     /**
     * Scope of the event. Engine events are `local` scope. Cluster (Swarm)
     events are `swarm` scope.
-
+    
     *
     * @param string $scope
     *

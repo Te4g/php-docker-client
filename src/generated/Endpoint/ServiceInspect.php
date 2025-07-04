@@ -4,44 +4,44 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ServiceInspect extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $id;
     /**
-     *
+     * 
      *
      * @param string $id ID or name of service.
      * @param array $queryParameters {
      *     @var bool $insertDefaults Fill empty fields with default values.
      * }
      */
-    public function __construct(string $id, array $queryParameters = array())
+    public function __construct(string $id, array $queryParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'GET';
     }
     public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/services/{id}');
+        return str_replace(['{id}'], [$this->id], '/services/{id}');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('insertDefaults'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('insertDefaults' => false));
-        $optionsResolver->addAllowedTypes('insertDefaults', array('bool'));
+        $optionsResolver->setDefined(['insertDefaults']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['insertDefaults' => false]);
+        $optionsResolver->addAllowedTypes('insertDefaults', ['bool']);
         return $optionsResolver;
     }
     /**
@@ -58,20 +58,20 @@ class ServiceInspect extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoi
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\Service', 'json');
+            return $serializer->deserialize($body, 'Vendor\Library\Generated\Model\Service', 'json');
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ServiceInspectNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ServiceInspectNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ServiceInspectInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ServiceInspectInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (503 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ServiceInspectServiceUnavailableException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ServiceInspectServiceUnavailableException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

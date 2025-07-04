@@ -7,25 +7,25 @@ class TaskSpecLogDriver
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $name;
     /**
-     *
+     * 
      *
      * @var array<string, string>
      */
     protected $options;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -34,7 +34,7 @@ class TaskSpecLogDriver
         return $this->name;
     }
     /**
-     *
+     * 
      *
      * @param string $name
      *
@@ -47,7 +47,7 @@ class TaskSpecLogDriver
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return array<string, string>
      */
@@ -56,7 +56,7 @@ class TaskSpecLogDriver
         return $this->options;
     }
     /**
-     *
+     * 
      *
      * @param array<string, string> $options
      *

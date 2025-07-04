@@ -4,25 +4,20 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ImageGet extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $name;
     /**
     * Get a tarball containing all images and metadata for a repository.
-
+    
     If `name` is a specific name and tag (e.g. `ubuntu:latest`), then only that image (and its parents) are returned. If `name` is an image ID, similarly only that image (and its parents) are returned, but with the exclusion of the `repositories` file in the tarball, as there were no image names referenced.
-
+    
     ### Image tarball format
-
-    An image tarball contains one directory per image layer (named using its long ID), each containing these files:
-
-    - `VERSION`: currently `1.0` - the file format version
-    - `json`: detailed layer information, similar to `docker inspect layer_id`
-    - `layer.tar`: A tarfile containing the filesystem changes in this layer
-
-    The `layer.tar` file contains `aufs` style `.wh..wh.aufs` files and directories for storing attribute changes and deletions.
-
+    
+    An image tarball contains [Content as defined in the OCI Image Layout Specification](https://github.com/opencontainers/image-spec/blob/v1.1.1/image-layout.md#content).
+    
+    Additionally, includes the manifest.json file associated with a backwards compatible docker save format.
+    
     If the tarball defines a repository, the tarball should also include a `repositories` file at the root that contains a list of repository and tag names mapped to layer IDs.
-
+    
     ```json
     {
      "hello-world": {
@@ -30,29 +25,49 @@ class ImageGet extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint imp
      }
     }
     ```
-
+    
     *
     * @param string $name Image name or ID
+    * @param array $queryParameters {
+    *     @var string $platform JSON encoded OCI platform describing a platform which will be used
+    to select a platform-specific image to be saved if the image is
+    multi-platform.
+    If not provided, the full multi-platform image will be saved.
+    
+    Example: `{"os": "linux", "architecture": "arm", "variant": "v5"}`
+    
+    * }
     */
-    public function __construct(string $name)
+    public function __construct(string $name, array $queryParameters = [])
     {
         $this->name = $name;
+        $this->queryParameters = $queryParameters;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'GET';
     }
     public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/images/{name}/get');
+        return str_replace(['{name}'], [$this->name], '/images/{name}/get');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
+    }
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(['platform']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('platform', ['string']);
+        return $optionsResolver;
     }
     /**
      * {@inheritdoc}
@@ -69,11 +84,11 @@ class ImageGet extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint imp
             return json_decode($body);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ImageGetInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ImageGetInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

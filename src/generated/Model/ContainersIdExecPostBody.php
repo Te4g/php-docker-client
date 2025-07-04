@@ -7,7 +7,7 @@ class ContainersIdExecPostBody
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -33,14 +33,14 @@ class ContainersIdExecPostBody
     /**
      * Initial console size, as an `[height, width]` array.
      *
-     * @var int[]|null
+     * @var list<int>|null
      */
     protected $consoleSize;
     /**
     * Override the key sequence for detaching a container. Format is
     a single character `[a-Z]` or `ctrl-<value>` where `<value>`
     is one of: `a-z`, `@`, `^`, `[`, `,` or `_`.
-
+    
     *
     * @var string
     */
@@ -54,13 +54,13 @@ class ContainersIdExecPostBody
     /**
      * A list of environment variables in the form `["VAR=value", ...]`.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $env;
     /**
      * Command to run, as a string or array of strings.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $cmd;
     /**
@@ -73,7 +73,7 @@ class ContainersIdExecPostBody
     * The user, and optionally, group to run the exec process inside
     the container. Format is one of: `user`, `user:group`, `uid`,
     or `uid:gid`.
-
+    
     *
     * @var string
     */
@@ -153,7 +153,7 @@ class ContainersIdExecPostBody
     /**
      * Initial console size, as an `[height, width]` array.
      *
-     * @return int[]|null
+     * @return list<int>|null
      */
     public function getConsoleSize(): ?array
     {
@@ -162,7 +162,7 @@ class ContainersIdExecPostBody
     /**
      * Initial console size, as an `[height, width]` array.
      *
-     * @param int[]|null $consoleSize
+     * @param list<int>|null $consoleSize
      *
      * @return self
      */
@@ -176,7 +176,7 @@ class ContainersIdExecPostBody
     * Override the key sequence for detaching a container. Format is
     a single character `[a-Z]` or `ctrl-<value>` where `<value>`
     is one of: `a-z`, `@`, `^`, `[`, `,` or `_`.
-
+    
     *
     * @return string
     */
@@ -188,7 +188,7 @@ class ContainersIdExecPostBody
     * Override the key sequence for detaching a container. Format is
     a single character `[a-Z]` or `ctrl-<value>` where `<value>`
     is one of: `a-z`, `@`, `^`, `[`, `,` or `_`.
-
+    
     *
     * @param string $detachKeys
     *
@@ -225,7 +225,7 @@ class ContainersIdExecPostBody
     /**
      * A list of environment variables in the form `["VAR=value", ...]`.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getEnv(): array
     {
@@ -234,7 +234,7 @@ class ContainersIdExecPostBody
     /**
      * A list of environment variables in the form `["VAR=value", ...]`.
      *
-     * @param string[] $env
+     * @param list<string> $env
      *
      * @return self
      */
@@ -247,7 +247,7 @@ class ContainersIdExecPostBody
     /**
      * Command to run, as a string or array of strings.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getCmd(): array
     {
@@ -256,7 +256,7 @@ class ContainersIdExecPostBody
     /**
      * Command to run, as a string or array of strings.
      *
-     * @param string[] $cmd
+     * @param list<string> $cmd
      *
      * @return self
      */
@@ -292,7 +292,7 @@ class ContainersIdExecPostBody
     * The user, and optionally, group to run the exec process inside
     the container. Format is one of: `user`, `user:group`, `uid`,
     or `uid:gid`.
-
+    
     *
     * @return string
     */
@@ -304,7 +304,7 @@ class ContainersIdExecPostBody
     * The user, and optionally, group to run the exec process inside
     the container. Format is one of: `user`, `user:group`, `uid`,
     or `uid:gid`.
-
+    
     *
     * @param string $user
     *

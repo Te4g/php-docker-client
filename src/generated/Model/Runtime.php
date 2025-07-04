@@ -7,17 +7,17 @@ class Runtime
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
     * Name and, optional, path, of the OCI executable binary.
-
+    
     If the path is omitted, the daemon searches the host's `$PATH` for the
     binary and uses the first result.
-
+    
     *
     * @var string
     */
@@ -25,15 +25,35 @@ class Runtime
     /**
      * List of command-line arguments to pass to the runtime when invoked.
      *
-     * @var string[]|null
+     * @var list<string>|null
      */
     protected $runtimeArgs;
     /**
+    * Information specific to the runtime.
+    
+    While this API specification does not define data provided by runtimes,
+    the following well-known properties may be provided by runtimes:
+    
+    `org.opencontainers.runtime-spec.features`: features structure as defined
+    in the [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec/blob/main/features.md),
+    in a JSON string representation.
+    
+    <p><br /></p>
+    
+    > **Note**: The information returned in this field, including the
+    > formatting of values and labels, should not be considered stable,
+    > and may change without notice.
+    
+    *
+    * @var array<string, string>|null
+    */
+    protected $status;
+    /**
     * Name and, optional, path, of the OCI executable binary.
-
+    
     If the path is omitted, the daemon searches the host's `$PATH` for the
     binary and uses the first result.
-
+    
     *
     * @return string
     */
@@ -43,10 +63,10 @@ class Runtime
     }
     /**
     * Name and, optional, path, of the OCI executable binary.
-
+    
     If the path is omitted, the daemon searches the host's `$PATH` for the
     binary and uses the first result.
-
+    
     *
     * @param string $path
     *
@@ -61,7 +81,7 @@ class Runtime
     /**
      * List of command-line arguments to pass to the runtime when invoked.
      *
-     * @return string[]|null
+     * @return list<string>|null
      */
     public function getRuntimeArgs(): ?array
     {
@@ -70,7 +90,7 @@ class Runtime
     /**
      * List of command-line arguments to pass to the runtime when invoked.
      *
-     * @param string[]|null $runtimeArgs
+     * @param list<string>|null $runtimeArgs
      *
      * @return self
      */
@@ -78,6 +98,56 @@ class Runtime
     {
         $this->initialized['runtimeArgs'] = true;
         $this->runtimeArgs = $runtimeArgs;
+        return $this;
+    }
+    /**
+    * Information specific to the runtime.
+    
+    While this API specification does not define data provided by runtimes,
+    the following well-known properties may be provided by runtimes:
+    
+    `org.opencontainers.runtime-spec.features`: features structure as defined
+    in the [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec/blob/main/features.md),
+    in a JSON string representation.
+    
+    <p><br /></p>
+    
+    > **Note**: The information returned in this field, including the
+    > formatting of values and labels, should not be considered stable,
+    > and may change without notice.
+    
+    *
+    * @return array<string, string>|null
+    */
+    public function getStatus(): ?iterable
+    {
+        return $this->status;
+    }
+    /**
+    * Information specific to the runtime.
+    
+    While this API specification does not define data provided by runtimes,
+    the following well-known properties may be provided by runtimes:
+    
+    `org.opencontainers.runtime-spec.features`: features structure as defined
+    in the [OCI Runtime Specification](https://github.com/opencontainers/runtime-spec/blob/main/features.md),
+    in a JSON string representation.
+    
+    <p><br /></p>
+    
+    > **Note**: The information returned in this field, including the
+    > formatting of values and labels, should not be considered stable,
+    > and may change without notice.
+    
+    *
+    * @param array<string, string>|null $status
+    *
+    * @return self
+    */
+    public function setStatus(?iterable $status): self
+    {
+        $this->initialized['status'] = true;
+        $this->status = $status;
         return $this;
     }
 }

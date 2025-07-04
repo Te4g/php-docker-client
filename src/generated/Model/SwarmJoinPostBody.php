@@ -7,7 +7,7 @@ class SwarmJoinPostBody
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -16,7 +16,7 @@ class SwarmJoinPostBody
     * Listen address used for inter-manager communication if the node
     gets promoted to manager, as well as determining the networking
     interface used for the VXLAN Tunnel Endpoint (VTEP).
-
+    
     *
     * @var string
     */
@@ -28,7 +28,7 @@ class SwarmJoinPostBody
     like `eth0:4567`. If the port number is omitted, the port
     number from the listen address is used. If `AdvertiseAddr` is
     not specified, it will be automatically detected when possible.
-
+    
     *
     * @var string
     */
@@ -38,13 +38,13 @@ class SwarmJoinPostBody
     `<ip|interface>`), for example,  `192.168.1.1`, or an interface,
     like `eth0`. If `DataPathAddr` is unspecified, the same address
     as `AdvertiseAddr` is used.
-
+    
     The `DataPathAddr` specifies the address that global scope
     network drivers will publish towards other nodes in order to
     reach the containers running on this node. Using this parameter
     it is possible to separate the container data traffic from the
     management traffic of the cluster.
-
+    
     *
     * @var string
     */
@@ -52,7 +52,7 @@ class SwarmJoinPostBody
     /**
      * Addresses of manager nodes already participating in the swarm.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $remoteAddrs;
     /**
@@ -65,7 +65,7 @@ class SwarmJoinPostBody
     * Listen address used for inter-manager communication if the node
     gets promoted to manager, as well as determining the networking
     interface used for the VXLAN Tunnel Endpoint (VTEP).
-
+    
     *
     * @return string
     */
@@ -77,7 +77,7 @@ class SwarmJoinPostBody
     * Listen address used for inter-manager communication if the node
     gets promoted to manager, as well as determining the networking
     interface used for the VXLAN Tunnel Endpoint (VTEP).
-
+    
     *
     * @param string $listenAddr
     *
@@ -96,7 +96,7 @@ class SwarmJoinPostBody
     like `eth0:4567`. If the port number is omitted, the port
     number from the listen address is used. If `AdvertiseAddr` is
     not specified, it will be automatically detected when possible.
-
+    
     *
     * @return string
     */
@@ -111,7 +111,7 @@ class SwarmJoinPostBody
     like `eth0:4567`. If the port number is omitted, the port
     number from the listen address is used. If `AdvertiseAddr` is
     not specified, it will be automatically detected when possible.
-
+    
     *
     * @param string $advertiseAddr
     *
@@ -128,13 +128,13 @@ class SwarmJoinPostBody
     `<ip|interface>`), for example,  `192.168.1.1`, or an interface,
     like `eth0`. If `DataPathAddr` is unspecified, the same address
     as `AdvertiseAddr` is used.
-
+    
     The `DataPathAddr` specifies the address that global scope
     network drivers will publish towards other nodes in order to
     reach the containers running on this node. Using this parameter
     it is possible to separate the container data traffic from the
     management traffic of the cluster.
-
+    
     *
     * @return string
     */
@@ -147,13 +147,13 @@ class SwarmJoinPostBody
     `<ip|interface>`), for example,  `192.168.1.1`, or an interface,
     like `eth0`. If `DataPathAddr` is unspecified, the same address
     as `AdvertiseAddr` is used.
-
+    
     The `DataPathAddr` specifies the address that global scope
     network drivers will publish towards other nodes in order to
     reach the containers running on this node. Using this parameter
     it is possible to separate the container data traffic from the
     management traffic of the cluster.
-
+    
     *
     * @param string $dataPathAddr
     *
@@ -168,7 +168,7 @@ class SwarmJoinPostBody
     /**
      * Addresses of manager nodes already participating in the swarm.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getRemoteAddrs(): array
     {
@@ -177,7 +177,7 @@ class SwarmJoinPostBody
     /**
      * Addresses of manager nodes already participating in the swarm.
      *
-     * @param string[] $remoteAddrs
+     * @param list<string> $remoteAddrs
      *
      * @return self
      */

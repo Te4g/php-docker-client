@@ -9,7 +9,6 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 use Psr\Http\Message\StreamInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-
 abstract class Client
 {
     public const FETCH_RESPONSE = 'response';
@@ -69,7 +68,7 @@ abstract class Client
             }
         }
         foreach ($endpoint->getHeaders($bodyHeaders) as $name => $value) {
-            $request = $request->withHeader($name, $value);
+            $request = $request->withHeader($name, !is_bool($value) ? $value : ($value ? 'true' : 'false'));
         }
         if (count($endpoint->getAuthenticationScopes()) > 0) {
             $scopes = [];

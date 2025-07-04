@@ -7,31 +7,31 @@ class EndpointIPAMConfig
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $iPv4Address;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $iPv6Address;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $linkLocalIPs;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -40,7 +40,7 @@ class EndpointIPAMConfig
         return $this->iPv4Address;
     }
     /**
-     *
+     * 
      *
      * @param string $iPv4Address
      *
@@ -53,7 +53,7 @@ class EndpointIPAMConfig
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -62,7 +62,7 @@ class EndpointIPAMConfig
         return $this->iPv6Address;
     }
     /**
-     *
+     * 
      *
      * @param string $iPv6Address
      *
@@ -75,18 +75,18 @@ class EndpointIPAMConfig
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getLinkLocalIPs(): array
     {
         return $this->linkLocalIPs;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $linkLocalIPs
+     * @param list<string> $linkLocalIPs
      *
      * @return self
      */

@@ -7,7 +7,7 @@ class TLSInfo
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class TLSInfo
     /**
     * The root CA certificate(s) that are used to validate leaf TLS
     certificates.
-
+    
     *
     * @var string
     */
@@ -35,7 +35,7 @@ class TLSInfo
     /**
     * The root CA certificate(s) that are used to validate leaf TLS
     certificates.
-
+    
     *
     * @return string
     */
@@ -46,7 +46,7 @@ class TLSInfo
     /**
     * The root CA certificate(s) that are used to validate leaf TLS
     certificates.
-
+    
     *
     * @param string $trustRoot
     *

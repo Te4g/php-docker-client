@@ -7,7 +7,7 @@ class BuildCache
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -20,9 +20,9 @@ class BuildCache
     protected $iD;
     /**
     * ID of the parent build cache record.
-
+    
     > **Deprecated**: This field is deprecated, and omitted if empty.
-
+    
     *
     * @var string|null
     */
@@ -30,7 +30,7 @@ class BuildCache
     /**
      * List of parent build cache record IDs.
      *
-     * @var string[]|null
+     * @var list<string>|null
      */
     protected $parents;
     /**
@@ -66,7 +66,7 @@ class BuildCache
     /**
     * Date and time at which the build cache was created in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @var string
     */
@@ -74,13 +74,13 @@ class BuildCache
     /**
     * Date and time at which the build cache was last used in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @var string|null
     */
     protected $lastUsedAt;
     /**
-     *
+     * 
      *
      * @var int
      */
@@ -109,9 +109,9 @@ class BuildCache
     }
     /**
     * ID of the parent build cache record.
-
+    
     > **Deprecated**: This field is deprecated, and omitted if empty.
-
+    
     *
     * @return string|null
     */
@@ -121,9 +121,9 @@ class BuildCache
     }
     /**
     * ID of the parent build cache record.
-
+    
     > **Deprecated**: This field is deprecated, and omitted if empty.
-
+    
     *
     * @param string|null $parent
     *
@@ -138,7 +138,7 @@ class BuildCache
     /**
      * List of parent build cache record IDs.
      *
-     * @return string[]|null
+     * @return list<string>|null
      */
     public function getParents(): ?array
     {
@@ -147,7 +147,7 @@ class BuildCache
     /**
      * List of parent build cache record IDs.
      *
-     * @param string[]|null $parents
+     * @param list<string>|null $parents
      *
      * @return self
      */
@@ -270,7 +270,7 @@ class BuildCache
     /**
     * Date and time at which the build cache was created in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @return string
     */
@@ -281,7 +281,7 @@ class BuildCache
     /**
     * Date and time at which the build cache was created in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @param string $createdAt
     *
@@ -296,7 +296,7 @@ class BuildCache
     /**
     * Date and time at which the build cache was last used in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @return string|null
     */
@@ -307,7 +307,7 @@ class BuildCache
     /**
     * Date and time at which the build cache was last used in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @param string|null $lastUsedAt
     *
@@ -320,7 +320,7 @@ class BuildCache
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return int
      */
@@ -329,7 +329,7 @@ class BuildCache
         return $this->usageCount;
     }
     /**
-     *
+     * 
      *
      * @param int $usageCount
      *

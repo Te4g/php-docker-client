@@ -7,19 +7,19 @@ class Health
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
     * Status is one of `none`, `starting`, `healthy` or `unhealthy`
-
+    
     - "none"      Indicates there is no healthcheck
     - "starting"  Starting indicates that the container is not yet ready
     - "healthy"   Healthy indicates that the container is running correctly
     - "unhealthy" Unhealthy indicates that the container has a problem
-
+    
     *
     * @var string
     */
@@ -33,17 +33,17 @@ class Health
     /**
      * Log contains the last few results (oldest first)
      *
-     * @var HealthcheckResult[]
+     * @var list<HealthcheckResult>
      */
     protected $log;
     /**
     * Status is one of `none`, `starting`, `healthy` or `unhealthy`
-
+    
     - "none"      Indicates there is no healthcheck
     - "starting"  Starting indicates that the container is not yet ready
     - "healthy"   Healthy indicates that the container is running correctly
     - "unhealthy" Unhealthy indicates that the container has a problem
-
+    
     *
     * @return string
     */
@@ -53,12 +53,12 @@ class Health
     }
     /**
     * Status is one of `none`, `starting`, `healthy` or `unhealthy`
-
+    
     - "none"      Indicates there is no healthcheck
     - "starting"  Starting indicates that the container is not yet ready
     - "healthy"   Healthy indicates that the container is running correctly
     - "unhealthy" Unhealthy indicates that the container has a problem
-
+    
     *
     * @param string $status
     *
@@ -95,7 +95,7 @@ class Health
     /**
      * Log contains the last few results (oldest first)
      *
-     * @return HealthcheckResult[]
+     * @return list<HealthcheckResult>
      */
     public function getLog(): array
     {
@@ -104,7 +104,7 @@ class Health
     /**
      * Log contains the last few results (oldest first)
      *
-     * @param HealthcheckResult[] $log
+     * @param list<HealthcheckResult> $log
      *
      * @return self
      */

@@ -4,16 +4,15 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ContainerPause extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $id;
     /**
     * Use the freezer cgroup to suspend all processes in a container.
-
+    
     Traditionally, when suspending a process the `SIGSTOP` signal is used,
     which is observable by the process being suspended. With the freezer
     cgroup the process is unaware, and unable to capture, that it is being
     suspended, and subsequently resumed.
-
+    
     *
     * @param string $id ID or name of the container
     */
@@ -21,21 +20,22 @@ class ContainerPause extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoi
     {
         $this->id = $id;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'POST';
     }
     public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/containers/{id}/pause');
+        return str_replace(['{id}'], [$this->id], '/containers/{id}/pause');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -53,14 +53,14 @@ class ContainerPause extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoi
             return null;
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerPauseNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerPauseNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerPauseInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerPauseInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

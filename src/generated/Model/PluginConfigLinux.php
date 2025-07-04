@@ -7,42 +7,42 @@ class PluginConfigLinux
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $capabilities;
     /**
-     *
+     * 
      *
      * @var bool
      */
     protected $allowAllDevices;
     /**
+     * 
      *
-     *
-     * @var PluginDevice[]
+     * @var list<PluginDevice>
      */
     protected $devices;
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getCapabilities(): array
     {
         return $this->capabilities;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $capabilities
+     * @param list<string> $capabilities
      *
      * @return self
      */
@@ -53,7 +53,7 @@ class PluginConfigLinux
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return bool
      */
@@ -62,7 +62,7 @@ class PluginConfigLinux
         return $this->allowAllDevices;
     }
     /**
-     *
+     * 
      *
      * @param bool $allowAllDevices
      *
@@ -75,18 +75,18 @@ class PluginConfigLinux
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return PluginDevice[]
+     * @return list<PluginDevice>
      */
     public function getDevices(): array
     {
         return $this->devices;
     }
     /**
+     * 
      *
-     *
-     * @param PluginDevice[] $devices
+     * @param list<PluginDevice> $devices
      *
      * @return self
      */

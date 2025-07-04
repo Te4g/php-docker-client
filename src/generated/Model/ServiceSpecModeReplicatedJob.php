@@ -7,7 +7,7 @@ class ServiceSpecModeReplicatedJob
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -21,7 +21,7 @@ class ServiceSpecModeReplicatedJob
     /**
     * The total number of replicas desired to reach the Completed
     state. If unset, will default to the value of `MaxConcurrent`
-
+    
     *
     * @var int
     */
@@ -51,7 +51,7 @@ class ServiceSpecModeReplicatedJob
     /**
     * The total number of replicas desired to reach the Completed
     state. If unset, will default to the value of `MaxConcurrent`
-
+    
     *
     * @return int
     */
@@ -62,7 +62,7 @@ class ServiceSpecModeReplicatedJob
     /**
     * The total number of replicas desired to reach the Completed
     state. If unset, will default to the value of `MaxConcurrent`
-
+    
     *
     * @param int $totalCompletions
     *

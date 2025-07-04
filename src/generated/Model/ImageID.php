@@ -7,19 +7,19 @@ class ImageID
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $iD;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -28,7 +28,7 @@ class ImageID
         return $this->iD;
     }
     /**
-     *
+     * 
      *
      * @param string $iD
      *

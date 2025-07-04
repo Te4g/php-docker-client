@@ -7,7 +7,7 @@ class Port
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -31,7 +31,7 @@ class Port
      */
     protected $publicPort;
     /**
-     *
+     * 
      *
      * @var string
      */
@@ -103,7 +103,7 @@ class Port
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -112,7 +112,7 @@ class Port
         return $this->type;
     }
     /**
-     *
+     * 
      *
      * @param string $type
      *

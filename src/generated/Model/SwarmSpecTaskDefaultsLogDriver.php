@@ -7,7 +7,7 @@ class SwarmSpecTaskDefaultsLogDriver
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -19,9 +19,9 @@ class SwarmSpecTaskDefaultsLogDriver
      */
     protected $name;
     /**
-    * Driver-specific options for the selectd log driver, specified
+    * Driver-specific options for the selected log driver, specified
     as key/value pairs.
-
+    
     *
     * @var array<string, string>
     */
@@ -49,9 +49,9 @@ class SwarmSpecTaskDefaultsLogDriver
         return $this;
     }
     /**
-    * Driver-specific options for the selectd log driver, specified
+    * Driver-specific options for the selected log driver, specified
     as key/value pairs.
-
+    
     *
     * @return array<string, string>
     */
@@ -60,9 +60,9 @@ class SwarmSpecTaskDefaultsLogDriver
         return $this->options;
     }
     /**
-    * Driver-specific options for the selectd log driver, specified
+    * Driver-specific options for the selected log driver, specified
     as key/value pairs.
-
+    
     *
     * @param array<string, string> $options
     *

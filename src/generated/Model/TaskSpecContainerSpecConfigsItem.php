@@ -7,18 +7,18 @@ class TaskSpecContainerSpecConfigsItem
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
     * File represents a specific target that is backed by a file.
-
+    
     <p><br /><p>
-
+    
     > **Note**: `Configs.File` and `Configs.Runtime` are mutually exclusive
-
+    
     *
     * @var TaskSpecContainerSpecConfigsItemFile
     */
@@ -26,12 +26,12 @@ class TaskSpecContainerSpecConfigsItem
     /**
     * Runtime represents a target that is not mounted into the
     container but is used by the task
-
+    
     <p><br /><p>
-
+    
     > **Note**: `Configs.File` and `Configs.Runtime` are mutually
     > exclusive
-
+    
     *
     * @var mixed
     */
@@ -39,7 +39,7 @@ class TaskSpecContainerSpecConfigsItem
     /**
     * ConfigID represents the ID of the specific config that we're
     referencing.
-
+    
     *
     * @var string
     */
@@ -48,18 +48,18 @@ class TaskSpecContainerSpecConfigsItem
     * ConfigName is the name of the config that this references,
     but this is just provided for lookup/display purposes. The
     config in the reference will be identified by its ID.
-
+    
     *
     * @var string
     */
     protected $configName;
     /**
     * File represents a specific target that is backed by a file.
-
+    
     <p><br /><p>
-
+    
     > **Note**: `Configs.File` and `Configs.Runtime` are mutually exclusive
-
+    
     *
     * @return TaskSpecContainerSpecConfigsItemFile
     */
@@ -69,11 +69,11 @@ class TaskSpecContainerSpecConfigsItem
     }
     /**
     * File represents a specific target that is backed by a file.
-
+    
     <p><br /><p>
-
+    
     > **Note**: `Configs.File` and `Configs.Runtime` are mutually exclusive
-
+    
     *
     * @param TaskSpecContainerSpecConfigsItemFile $file
     *
@@ -88,12 +88,12 @@ class TaskSpecContainerSpecConfigsItem
     /**
     * Runtime represents a target that is not mounted into the
     container but is used by the task
-
+    
     <p><br /><p>
-
+    
     > **Note**: `Configs.File` and `Configs.Runtime` are mutually
     > exclusive
-
+    
     *
     * @return mixed
     */
@@ -104,12 +104,12 @@ class TaskSpecContainerSpecConfigsItem
     /**
     * Runtime represents a target that is not mounted into the
     container but is used by the task
-
+    
     <p><br /><p>
-
+    
     > **Note**: `Configs.File` and `Configs.Runtime` are mutually
     > exclusive
-
+    
     *
     * @param mixed $runtime
     *
@@ -124,7 +124,7 @@ class TaskSpecContainerSpecConfigsItem
     /**
     * ConfigID represents the ID of the specific config that we're
     referencing.
-
+    
     *
     * @return string
     */
@@ -135,7 +135,7 @@ class TaskSpecContainerSpecConfigsItem
     /**
     * ConfigID represents the ID of the specific config that we're
     referencing.
-
+    
     *
     * @param string $configID
     *
@@ -151,7 +151,7 @@ class TaskSpecContainerSpecConfigsItem
     * ConfigName is the name of the config that this references,
     but this is just provided for lookup/display purposes. The
     config in the reference will be identified by its ID.
-
+    
     *
     * @return string
     */
@@ -163,7 +163,7 @@ class TaskSpecContainerSpecConfigsItem
     * ConfigName is the name of the config that this references,
     but this is just provided for lookup/display purposes. The
     config in the reference will be identified by its ID.
-
+    
     *
     * @param string $configName
     *

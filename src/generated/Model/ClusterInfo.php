@@ -7,7 +7,7 @@ class ClusterInfo
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -22,14 +22,14 @@ class ClusterInfo
     * The version number of the object such as node, service, etc. This is needed
     to avoid conflicting writes. The client must send the version number along
     with the modified specification when updating these objects.
-
+    
     This approach ensures safe concurrency and determinism in that the change
     on the object may not be applied if the version number has changed from the
     last read. In other words, if two update requests specify the same base
     version, only one of the requests can succeed. As a result, two separate
     update requests that happen at the same time will not unintentionally
     overwrite each other.
-
+    
     *
     * @var ObjectVersion
     */
@@ -37,7 +37,7 @@ class ClusterInfo
     /**
     * Date and time at which the swarm was initialised in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @var string
     */
@@ -45,7 +45,7 @@ class ClusterInfo
     /**
     * Date and time at which the swarm was last updated in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @var string
     */
@@ -59,7 +59,7 @@ class ClusterInfo
     /**
     * Information about the issuer of leaf TLS certificates and the trusted root
     CA certificate.
-
+    
     *
     * @var TLSInfo
     */
@@ -74,7 +74,7 @@ class ClusterInfo
     * DataPathPort specifies the data path port number for data traffic.
     Acceptable port range is 1024 to 49151.
     If no port is set or is set to 0, the default port (4789) is used.
-
+    
     *
     * @var int
     */
@@ -82,15 +82,15 @@ class ClusterInfo
     /**
     * Default Address Pool specifies default subnet pools for global scope
     networks.
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $defaultAddrPool;
     /**
     * SubnetSize specifies the subnet size of the networks created from the
     default subnet pool.
-
+    
     *
     * @var int
     */
@@ -121,14 +121,14 @@ class ClusterInfo
     * The version number of the object such as node, service, etc. This is needed
     to avoid conflicting writes. The client must send the version number along
     with the modified specification when updating these objects.
-
+    
     This approach ensures safe concurrency and determinism in that the change
     on the object may not be applied if the version number has changed from the
     last read. In other words, if two update requests specify the same base
     version, only one of the requests can succeed. As a result, two separate
     update requests that happen at the same time will not unintentionally
     overwrite each other.
-
+    
     *
     * @return ObjectVersion
     */
@@ -140,14 +140,14 @@ class ClusterInfo
     * The version number of the object such as node, service, etc. This is needed
     to avoid conflicting writes. The client must send the version number along
     with the modified specification when updating these objects.
-
+    
     This approach ensures safe concurrency and determinism in that the change
     on the object may not be applied if the version number has changed from the
     last read. In other words, if two update requests specify the same base
     version, only one of the requests can succeed. As a result, two separate
     update requests that happen at the same time will not unintentionally
     overwrite each other.
-
+    
     *
     * @param ObjectVersion $version
     *
@@ -162,7 +162,7 @@ class ClusterInfo
     /**
     * Date and time at which the swarm was initialised in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @return string
     */
@@ -173,7 +173,7 @@ class ClusterInfo
     /**
     * Date and time at which the swarm was initialised in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @param string $createdAt
     *
@@ -188,7 +188,7 @@ class ClusterInfo
     /**
     * Date and time at which the swarm was last updated in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @return string
     */
@@ -199,7 +199,7 @@ class ClusterInfo
     /**
     * Date and time at which the swarm was last updated in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @param string $updatedAt
     *
@@ -236,7 +236,7 @@ class ClusterInfo
     /**
     * Information about the issuer of leaf TLS certificates and the trusted root
     CA certificate.
-
+    
     *
     * @return TLSInfo
     */
@@ -247,7 +247,7 @@ class ClusterInfo
     /**
     * Information about the issuer of leaf TLS certificates and the trusted root
     CA certificate.
-
+    
     *
     * @param TLSInfo $tLSInfo
     *
@@ -285,7 +285,7 @@ class ClusterInfo
     * DataPathPort specifies the data path port number for data traffic.
     Acceptable port range is 1024 to 49151.
     If no port is set or is set to 0, the default port (4789) is used.
-
+    
     *
     * @return int
     */
@@ -297,7 +297,7 @@ class ClusterInfo
     * DataPathPort specifies the data path port number for data traffic.
     Acceptable port range is 1024 to 49151.
     If no port is set or is set to 0, the default port (4789) is used.
-
+    
     *
     * @param int $dataPathPort
     *
@@ -312,9 +312,9 @@ class ClusterInfo
     /**
     * Default Address Pool specifies default subnet pools for global scope
     networks.
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getDefaultAddrPool(): array
     {
@@ -323,9 +323,9 @@ class ClusterInfo
     /**
     * Default Address Pool specifies default subnet pools for global scope
     networks.
-
+    
     *
-    * @param string[] $defaultAddrPool
+    * @param list<string> $defaultAddrPool
     *
     * @return self
     */
@@ -338,7 +338,7 @@ class ClusterInfo
     /**
     * SubnetSize specifies the subnet size of the networks created from the
     default subnet pool.
-
+    
     *
     * @return int
     */
@@ -349,7 +349,7 @@ class ClusterInfo
     /**
     * SubnetSize specifies the subnet size of the networks created from the
     default subnet pool.
-
+    
     *
     * @param int $subnetSize
     *

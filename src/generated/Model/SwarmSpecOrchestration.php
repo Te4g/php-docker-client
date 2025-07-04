@@ -7,7 +7,7 @@ class SwarmSpecOrchestration
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class SwarmSpecOrchestration
     /**
     * The number of historic tasks to keep per instance or node. If
     negative, never remove completed or failed tasks.
-
+    
     *
     * @var int
     */
@@ -23,7 +23,7 @@ class SwarmSpecOrchestration
     /**
     * The number of historic tasks to keep per instance or node. If
     negative, never remove completed or failed tasks.
-
+    
     *
     * @return int
     */
@@ -34,7 +34,7 @@ class SwarmSpecOrchestration
     /**
     * The number of historic tasks to keep per instance or node. If
     negative, never remove completed or failed tasks.
-
+    
     *
     * @param int $taskHistoryRetentionLimit
     *

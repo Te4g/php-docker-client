@@ -7,31 +7,31 @@ class EngineDescription
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $engineVersion;
     /**
-     *
+     * 
      *
      * @var array<string, string>
      */
     protected $labels;
     /**
+     * 
      *
-     *
-     * @var EngineDescriptionPluginsItem[]
+     * @var list<EngineDescriptionPluginsItem>
      */
     protected $plugins;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -40,7 +40,7 @@ class EngineDescription
         return $this->engineVersion;
     }
     /**
-     *
+     * 
      *
      * @param string $engineVersion
      *
@@ -53,7 +53,7 @@ class EngineDescription
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return array<string, string>
      */
@@ -62,7 +62,7 @@ class EngineDescription
         return $this->labels;
     }
     /**
-     *
+     * 
      *
      * @param array<string, string> $labels
      *
@@ -75,18 +75,18 @@ class EngineDescription
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return EngineDescriptionPluginsItem[]
+     * @return list<EngineDescriptionPluginsItem>
      */
     public function getPlugins(): array
     {
         return $this->plugins;
     }
     /**
+     * 
      *
-     *
-     * @param EngineDescriptionPluginsItem[] $plugins
+     * @param list<EngineDescriptionPluginsItem> $plugins
      *
      * @return self
      */

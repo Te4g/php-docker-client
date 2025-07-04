@@ -7,7 +7,7 @@ class RestartPolicy
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -18,7 +18,7 @@ class RestartPolicy
     - `always` Always restart
     - `unless-stopped` Restart always except when the user has manually stopped the container
     - `on-failure` Restart only when the container exit code is non-zero
-
+    
     *
     * @var string
     */
@@ -35,7 +35,7 @@ class RestartPolicy
     - `always` Always restart
     - `unless-stopped` Restart always except when the user has manually stopped the container
     - `on-failure` Restart only when the container exit code is non-zero
-
+    
     *
     * @return string
     */
@@ -49,7 +49,7 @@ class RestartPolicy
     - `always` Always restart
     - `unless-stopped` Restart always except when the user has manually stopped the container
     - `on-failure` Restart only when the container exit code is non-zero
-
+    
     *
     * @param string $name
     *

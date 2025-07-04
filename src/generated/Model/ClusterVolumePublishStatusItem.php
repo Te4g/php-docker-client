@@ -7,7 +7,7 @@ class ClusterVolumePublishStatusItem
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -24,7 +24,7 @@ class ClusterVolumePublishStatusItem
     * `published` The volume is published successfully to the node.
     * `pending-node-unpublish` The volume should be unpublished from the node, and the manager is awaiting confirmation from the worker that it has done so.
     * `pending-controller-unpublish` The volume is successfully unpublished from the node, but has not yet been successfully unpublished on the controller.
-
+    
     *
     * @var string
     */
@@ -32,7 +32,7 @@ class ClusterVolumePublishStatusItem
     /**
     * A map of strings to strings returned by the CSI controller
     plugin when a volume is published.
-
+    
     *
     * @var array<string, string>
     */
@@ -65,7 +65,7 @@ class ClusterVolumePublishStatusItem
     * `published` The volume is published successfully to the node.
     * `pending-node-unpublish` The volume should be unpublished from the node, and the manager is awaiting confirmation from the worker that it has done so.
     * `pending-controller-unpublish` The volume is successfully unpublished from the node, but has not yet been successfully unpublished on the controller.
-
+    
     *
     * @return string
     */
@@ -79,7 +79,7 @@ class ClusterVolumePublishStatusItem
     * `published` The volume is published successfully to the node.
     * `pending-node-unpublish` The volume should be unpublished from the node, and the manager is awaiting confirmation from the worker that it has done so.
     * `pending-controller-unpublish` The volume is successfully unpublished from the node, but has not yet been successfully unpublished on the controller.
-
+    
     *
     * @param string $state
     *
@@ -94,7 +94,7 @@ class ClusterVolumePublishStatusItem
     /**
     * A map of strings to strings returned by the CSI controller
     plugin when a volume is published.
-
+    
     *
     * @return array<string, string>
     */
@@ -105,7 +105,7 @@ class ClusterVolumePublishStatusItem
     /**
     * A map of strings to strings returned by the CSI controller
     plugin when a volume is published.
-
+    
     *
     * @param array<string, string> $publishContext
     *

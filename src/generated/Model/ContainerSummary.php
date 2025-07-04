@@ -7,35 +7,57 @@ class ContainerSummary
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * The ID of this container
+     * The ID of this container as a 128-bit (64-character) hexadecimal string (32 bytes).
      *
      * @var string
      */
     protected $id;
     /**
-     * The names that this container has been given
-     *
-     * @var string[]
-     */
+    * The names associated with this container. Most containers have a single
+    name, but when using legacy "links", the container can have multiple
+    names.
+    
+    For historic reasons, names are prefixed with a forward-slash (`/`).
+    *
+    * @var list<string>
+    */
     protected $names;
     /**
-     * The name of the image used when creating this container
-     *
-     * @var string
-     */
+    * The name or ID of the image used to create the container.
+    
+    This field shows the image reference as was specified when creating the container,
+    which can be in its canonical form (e.g., `docker.io/library/ubuntu:latest`
+    or `docker.io/library/ubuntu@sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782`),
+    short form (e.g., `ubuntu:latest`)), or the ID(-prefix) of the image (e.g., `72297848456d`).
+    
+    The content of this field can be updated at runtime if the image used to
+    create the container is untagged, in which case the field is updated to
+    contain the the image ID (digest) it was resolved to in its canonical,
+    non-truncated form (e.g., `sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782`).
+    *
+    * @var string
+    */
     protected $image;
     /**
-     * The ID of the image that this container was created from
+     * The ID (digest) of the image that this container was created from.
      *
      * @var string
      */
     protected $imageID;
+    /**
+    * A descriptor struct containing digest, media type, and size, as defined in
+    the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
+    
+    *
+    * @var OCIDescriptor
+    */
+    protected $imageManifestDescriptor;
     /**
      * Command to run when starting the container
      *
@@ -43,28 +65,36 @@ class ContainerSummary
      */
     protected $command;
     /**
-     * When the container was created
-     *
-     * @var int
-     */
+    * Date and time at which the container was created as a Unix timestamp
+    (number of seconds since EPOCH).
+    *
+    * @var int
+    */
     protected $created;
     /**
-     * The ports exposed by this container
+     * Port-mappings for the container.
      *
-     * @var Port[]
+     * @var list<Port>
      */
     protected $ports;
     /**
-     * The size of files that have been created or changed by this container
-     *
-     * @var int
-     */
+    * The size of files that have been created or changed by this container.
+    
+    This field is omitted by default, and only set when size is requested
+    in the API request.
+    *
+    * @var int|null
+    */
     protected $sizeRw;
     /**
-     * The total size of all the files in this container
-     *
-     * @var int
-     */
+    * The total size of all files in the read-only layers from the image
+    that the container uses. These layers can be shared between containers.
+    
+    This field is omitted by default, and only set when size is requested
+    in the API request.
+    *
+    * @var int|null
+    */
     protected $sizeRootFs;
     /**
      * User-defined key/value metadata.
@@ -73,7 +103,7 @@ class ContainerSummary
      */
     protected $labels;
     /**
-     * The state of this container (e.g. `Exited`)
+     * The state of this container.
      *
      * @var string
      */
@@ -85,25 +115,27 @@ class ContainerSummary
      */
     protected $status;
     /**
-     *
-     *
-     * @var ContainerSummaryHostConfig
-     */
+    * Summary of host-specific runtime information of the container. This
+    is a reduced set of information in the container's "HostConfig" as
+    available in the container "inspect" response.
+    *
+    * @var ContainerSummaryHostConfig
+    */
     protected $hostConfig;
     /**
-     * A summary of the container's network settings
+     * Summary of the container's network settings
      *
      * @var ContainerSummaryNetworkSettings
      */
     protected $networkSettings;
     /**
+     * List of mounts used by the container.
      *
-     *
-     * @var MountPoint[]
+     * @var list<MountPoint>
      */
     protected $mounts;
     /**
-     * The ID of this container
+     * The ID of this container as a 128-bit (64-character) hexadecimal string (32 bytes).
      *
      * @return string
      */
@@ -112,7 +144,7 @@ class ContainerSummary
         return $this->id;
     }
     /**
-     * The ID of this container
+     * The ID of this container as a 128-bit (64-character) hexadecimal string (32 bytes).
      *
      * @param string $id
      *
@@ -125,21 +157,29 @@ class ContainerSummary
         return $this;
     }
     /**
-     * The names that this container has been given
-     *
-     * @return string[]
-     */
+    * The names associated with this container. Most containers have a single
+    name, but when using legacy "links", the container can have multiple
+    names.
+    
+    For historic reasons, names are prefixed with a forward-slash (`/`).
+    *
+    * @return list<string>
+    */
     public function getNames(): array
     {
         return $this->names;
     }
     /**
-     * The names that this container has been given
-     *
-     * @param string[] $names
-     *
-     * @return self
-     */
+    * The names associated with this container. Most containers have a single
+    name, but when using legacy "links", the container can have multiple
+    names.
+    
+    For historic reasons, names are prefixed with a forward-slash (`/`).
+    *
+    * @param list<string> $names
+    *
+    * @return self
+    */
     public function setNames(array $names): self
     {
         $this->initialized['names'] = true;
@@ -147,21 +187,41 @@ class ContainerSummary
         return $this;
     }
     /**
-     * The name of the image used when creating this container
-     *
-     * @return string
-     */
+    * The name or ID of the image used to create the container.
+    
+    This field shows the image reference as was specified when creating the container,
+    which can be in its canonical form (e.g., `docker.io/library/ubuntu:latest`
+    or `docker.io/library/ubuntu@sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782`),
+    short form (e.g., `ubuntu:latest`)), or the ID(-prefix) of the image (e.g., `72297848456d`).
+    
+    The content of this field can be updated at runtime if the image used to
+    create the container is untagged, in which case the field is updated to
+    contain the the image ID (digest) it was resolved to in its canonical,
+    non-truncated form (e.g., `sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782`).
+    *
+    * @return string
+    */
     public function getImage(): string
     {
         return $this->image;
     }
     /**
-     * The name of the image used when creating this container
-     *
-     * @param string $image
-     *
-     * @return self
-     */
+    * The name or ID of the image used to create the container.
+    
+    This field shows the image reference as was specified when creating the container,
+    which can be in its canonical form (e.g., `docker.io/library/ubuntu:latest`
+    or `docker.io/library/ubuntu@sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782`),
+    short form (e.g., `ubuntu:latest`)), or the ID(-prefix) of the image (e.g., `72297848456d`).
+    
+    The content of this field can be updated at runtime if the image used to
+    create the container is untagged, in which case the field is updated to
+    contain the the image ID (digest) it was resolved to in its canonical,
+    non-truncated form (e.g., `sha256:72297848456d5d37d1262630108ab308d3e9ec7ed1c3286a32fe09856619a782`).
+    *
+    * @param string $image
+    *
+    * @return self
+    */
     public function setImage(string $image): self
     {
         $this->initialized['image'] = true;
@@ -169,7 +229,7 @@ class ContainerSummary
         return $this;
     }
     /**
-     * The ID of the image that this container was created from
+     * The ID (digest) of the image that this container was created from.
      *
      * @return string
      */
@@ -178,7 +238,7 @@ class ContainerSummary
         return $this->imageID;
     }
     /**
-     * The ID of the image that this container was created from
+     * The ID (digest) of the image that this container was created from.
      *
      * @param string $imageID
      *
@@ -188,6 +248,32 @@ class ContainerSummary
     {
         $this->initialized['imageID'] = true;
         $this->imageID = $imageID;
+        return $this;
+    }
+    /**
+    * A descriptor struct containing digest, media type, and size, as defined in
+    the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
+    
+    *
+    * @return OCIDescriptor
+    */
+    public function getImageManifestDescriptor(): OCIDescriptor
+    {
+        return $this->imageManifestDescriptor;
+    }
+    /**
+    * A descriptor struct containing digest, media type, and size, as defined in
+    the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
+    
+    *
+    * @param OCIDescriptor $imageManifestDescriptor
+    *
+    * @return self
+    */
+    public function setImageManifestDescriptor(OCIDescriptor $imageManifestDescriptor): self
+    {
+        $this->initialized['imageManifestDescriptor'] = true;
+        $this->imageManifestDescriptor = $imageManifestDescriptor;
         return $this;
     }
     /**
@@ -213,21 +299,23 @@ class ContainerSummary
         return $this;
     }
     /**
-     * When the container was created
-     *
-     * @return int
-     */
+    * Date and time at which the container was created as a Unix timestamp
+    (number of seconds since EPOCH).
+    *
+    * @return int
+    */
     public function getCreated(): int
     {
         return $this->created;
     }
     /**
-     * When the container was created
-     *
-     * @param int $created
-     *
-     * @return self
-     */
+    * Date and time at which the container was created as a Unix timestamp
+    (number of seconds since EPOCH).
+    *
+    * @param int $created
+    *
+    * @return self
+    */
     public function setCreated(int $created): self
     {
         $this->initialized['created'] = true;
@@ -235,18 +323,18 @@ class ContainerSummary
         return $this;
     }
     /**
-     * The ports exposed by this container
+     * Port-mappings for the container.
      *
-     * @return Port[]
+     * @return list<Port>
      */
     public function getPorts(): array
     {
         return $this->ports;
     }
     /**
-     * The ports exposed by this container
+     * Port-mappings for the container.
      *
-     * @param Port[] $ports
+     * @param list<Port> $ports
      *
      * @return self
      */
@@ -257,44 +345,58 @@ class ContainerSummary
         return $this;
     }
     /**
-     * The size of files that have been created or changed by this container
-     *
-     * @return int
-     */
-    public function getSizeRw(): int
+    * The size of files that have been created or changed by this container.
+    
+    This field is omitted by default, and only set when size is requested
+    in the API request.
+    *
+    * @return int|null
+    */
+    public function getSizeRw(): ?int
     {
         return $this->sizeRw;
     }
     /**
-     * The size of files that have been created or changed by this container
-     *
-     * @param int $sizeRw
-     *
-     * @return self
-     */
-    public function setSizeRw(int $sizeRw): self
+    * The size of files that have been created or changed by this container.
+    
+    This field is omitted by default, and only set when size is requested
+    in the API request.
+    *
+    * @param int|null $sizeRw
+    *
+    * @return self
+    */
+    public function setSizeRw(?int $sizeRw): self
     {
         $this->initialized['sizeRw'] = true;
         $this->sizeRw = $sizeRw;
         return $this;
     }
     /**
-     * The total size of all the files in this container
-     *
-     * @return int
-     */
-    public function getSizeRootFs(): int
+    * The total size of all files in the read-only layers from the image
+    that the container uses. These layers can be shared between containers.
+    
+    This field is omitted by default, and only set when size is requested
+    in the API request.
+    *
+    * @return int|null
+    */
+    public function getSizeRootFs(): ?int
     {
         return $this->sizeRootFs;
     }
     /**
-     * The total size of all the files in this container
-     *
-     * @param int $sizeRootFs
-     *
-     * @return self
-     */
-    public function setSizeRootFs(int $sizeRootFs): self
+    * The total size of all files in the read-only layers from the image
+    that the container uses. These layers can be shared between containers.
+    
+    This field is omitted by default, and only set when size is requested
+    in the API request.
+    *
+    * @param int|null $sizeRootFs
+    *
+    * @return self
+    */
+    public function setSizeRootFs(?int $sizeRootFs): self
     {
         $this->initialized['sizeRootFs'] = true;
         $this->sizeRootFs = $sizeRootFs;
@@ -323,7 +425,7 @@ class ContainerSummary
         return $this;
     }
     /**
-     * The state of this container (e.g. `Exited`)
+     * The state of this container.
      *
      * @return string
      */
@@ -332,7 +434,7 @@ class ContainerSummary
         return $this->state;
     }
     /**
-     * The state of this container (e.g. `Exited`)
+     * The state of this container.
      *
      * @param string $state
      *
@@ -367,21 +469,25 @@ class ContainerSummary
         return $this;
     }
     /**
-     *
-     *
-     * @return ContainerSummaryHostConfig
-     */
+    * Summary of host-specific runtime information of the container. This
+    is a reduced set of information in the container's "HostConfig" as
+    available in the container "inspect" response.
+    *
+    * @return ContainerSummaryHostConfig
+    */
     public function getHostConfig(): ContainerSummaryHostConfig
     {
         return $this->hostConfig;
     }
     /**
-     *
-     *
-     * @param ContainerSummaryHostConfig $hostConfig
-     *
-     * @return self
-     */
+    * Summary of host-specific runtime information of the container. This
+    is a reduced set of information in the container's "HostConfig" as
+    available in the container "inspect" response.
+    *
+    * @param ContainerSummaryHostConfig $hostConfig
+    *
+    * @return self
+    */
     public function setHostConfig(ContainerSummaryHostConfig $hostConfig): self
     {
         $this->initialized['hostConfig'] = true;
@@ -389,7 +495,7 @@ class ContainerSummary
         return $this;
     }
     /**
-     * A summary of the container's network settings
+     * Summary of the container's network settings
      *
      * @return ContainerSummaryNetworkSettings
      */
@@ -398,7 +504,7 @@ class ContainerSummary
         return $this->networkSettings;
     }
     /**
-     * A summary of the container's network settings
+     * Summary of the container's network settings
      *
      * @param ContainerSummaryNetworkSettings $networkSettings
      *
@@ -411,18 +517,18 @@ class ContainerSummary
         return $this;
     }
     /**
+     * List of mounts used by the container.
      *
-     *
-     * @return MountPoint[]
+     * @return list<MountPoint>
      */
     public function getMounts(): array
     {
         return $this->mounts;
     }
     /**
+     * List of mounts used by the container.
      *
-     *
-     * @param MountPoint[] $mounts
+     * @param list<MountPoint> $mounts
      *
      * @return self
      */

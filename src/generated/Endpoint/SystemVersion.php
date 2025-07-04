@@ -15,11 +15,11 @@ class SystemVersion extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoin
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -33,14 +33,14 @@ class SystemVersion extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoin
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\SystemVersion', 'json');
+            return $serializer->deserialize($body, 'Vendor\Library\Generated\Model\SystemVersion', 'json');
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\SystemVersionInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\SystemVersionInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

@@ -7,19 +7,19 @@ class PluginConfigInterface
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * 
      *
-     *
-     * @var PluginInterfaceType[]
+     * @var list<PluginInterfaceType>
      */
     protected $types;
     /**
-     *
+     * 
      *
      * @var string
      */
@@ -31,18 +31,18 @@ class PluginConfigInterface
      */
     protected $protocolScheme;
     /**
+     * 
      *
-     *
-     * @return PluginInterfaceType[]
+     * @return list<PluginInterfaceType>
      */
     public function getTypes(): array
     {
         return $this->types;
     }
     /**
+     * 
      *
-     *
-     * @param PluginInterfaceType[] $types
+     * @param list<PluginInterfaceType> $types
      *
      * @return self
      */
@@ -53,7 +53,7 @@ class PluginConfigInterface
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -62,7 +62,7 @@ class PluginConfigInterface
         return $this->socket;
     }
     /**
-     *
+     * 
      *
      * @param string $socket
      *

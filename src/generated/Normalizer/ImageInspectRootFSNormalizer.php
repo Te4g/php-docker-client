@@ -12,66 +12,125 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
-class ImageInspectRootFSNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-    use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()): bool
+use Symfony\Component\HttpKernel\Kernel;
+if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
+    class ImageInspectRootFSNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return $type === 'Vendor\\Library\\Generated\\Model\\ImageInspectRootFS';
-    }
-    public function supportsNormalization($data, $format = null, array $context = array()): bool
-    {
-        return is_object($data) && get_class($data) === 'Vendor\\Library\\Generated\\Model\\ImageInspectRootFS';
-    }
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = array())
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\ImageInspectRootFS::class;
         }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\ImageInspectRootFS::class;
         }
-        $object = new \Vendor\Library\Generated\Model\ImageInspectRootFS();
-        if (null === $data || false === \is_array($data)) {
+        public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \Vendor\Library\Generated\Model\ImageInspectRootFS();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('Type', $data)) {
+                $object->setType($data['Type']);
+            }
+            if (\array_key_exists('Layers', $data)) {
+                $values = [];
+                foreach ($data['Layers'] as $value) {
+                    $values[] = $value;
+                }
+                $object->setLayers($values);
+            }
             return $object;
         }
-        if (\array_key_exists('Type', $data)) {
-            $object->setType($data['Type']);
-        }
-        if (\array_key_exists('Layers', $data)) {
-            $values = array();
-            foreach ($data['Layers'] as $value) {
-                $values[] = $value;
+        public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
+            $data['Type'] = $object->getType();
+            if ($object->isInitialized('layers') && null !== $object->getLayers()) {
+                $values = [];
+                foreach ($object->getLayers() as $value) {
+                    $values[] = $value;
+                }
+                $data['Layers'] = $values;
             }
-            $object->setLayers($values);
+            return $data;
         }
-        return $object;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\ImageInspectRootFS::class => false];
+        }
     }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = array())
+} else {
+    class ImageInspectRootFSNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        $data = array();
-        $data['Type'] = $object->getType();
-        if ($object->isInitialized('layers') && null !== $object->getLayers()) {
-            $values = array();
-            foreach ($object->getLayers() as $value) {
-                $values[] = $value;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization($data, $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\ImageInspectRootFS::class;
+        }
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\ImageInspectRootFS::class;
+        }
+        /**
+         * @return mixed
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
             }
-            $data['Layers'] = $values;
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \Vendor\Library\Generated\Model\ImageInspectRootFS();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('Type', $data)) {
+                $object->setType($data['Type']);
+            }
+            if (\array_key_exists('Layers', $data)) {
+                $values = [];
+                foreach ($data['Layers'] as $value) {
+                    $values[] = $value;
+                }
+                $object->setLayers($values);
+            }
+            return $object;
         }
-        return $data;
-    }
-    public function getSupportedTypes(?string $format = null): array
-    {
-        return array('Vendor\\Library\\Generated\\Model\\ImageInspectRootFS' => false);
+        /**
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            $data['Type'] = $object->getType();
+            if ($object->isInitialized('layers') && null !== $object->getLayers()) {
+                $values = [];
+                foreach ($object->getLayers() as $value) {
+                    $values[] = $value;
+                }
+                $data['Layers'] = $values;
+            }
+            return $data;
+        }
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\ImageInspectRootFS::class => false];
+        }
     }
 }

@@ -7,7 +7,7 @@ class TaskSpecContainerSpec
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -27,19 +27,19 @@ class TaskSpecContainerSpec
     /**
      * The command to be run in the image.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $command;
     /**
      * Arguments to the command.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $args;
     /**
     * The hostname to use for the container, as a valid
     [RFC 1123](https://tools.ietf.org/html/rfc1123) hostname.
-
+    
     *
     * @var string
     */
@@ -47,7 +47,7 @@ class TaskSpecContainerSpec
     /**
      * A list of environment variables in the form `VAR=value`.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $env;
     /**
@@ -65,7 +65,7 @@ class TaskSpecContainerSpec
     /**
      * A list of additional groups that the container process will run as.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $groups;
     /**
@@ -95,9 +95,9 @@ class TaskSpecContainerSpec
     /**
     * Specification for mounts to be added to containers created as part
     of the service.
-
+    
     *
-    * @var Mount[]
+    * @var list<Mount>
     */
     protected $mounts;
     /**
@@ -109,7 +109,7 @@ class TaskSpecContainerSpec
     /**
     * Amount of time to wait for the container to terminate before
     forcefully killing it.
-
+    
     *
     * @var int
     */
@@ -125,17 +125,17 @@ class TaskSpecContainerSpec
     file. The format of extra hosts is specified in the
     [hosts(5)](http://man7.org/linux/man-pages/man5/hosts.5.html)
     man page:
-
+    
        IP_address canonical_hostname [aliases...]
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $hosts;
     /**
     * Specification for DNS related configurations in resolver configuration
     file (`resolv.conf`).
-
+    
     *
     * @var TaskSpecContainerSpecDNSConfig
     */
@@ -143,23 +143,31 @@ class TaskSpecContainerSpec
     /**
     * Secrets contains references to zero or more secrets that will be
     exposed to the service.
-
+    
     *
-    * @var TaskSpecContainerSpecSecretsItem[]
+    * @var list<TaskSpecContainerSpecSecretsItem>
     */
     protected $secrets;
     /**
+    * An integer value containing the score given to the container in
+    order to tune OOM killer preferences.
+    
+    *
+    * @var int
+    */
+    protected $oomScoreAdj;
+    /**
     * Configs contains references to zero or more configs that will be
     exposed to the service.
-
+    
     *
-    * @var TaskSpecContainerSpecConfigsItem[]
+    * @var list<TaskSpecContainerSpecConfigsItem>
     */
     protected $configs;
     /**
     * Isolation technology of the containers running the service.
     (Windows only)
-
+    
     *
     * @var string
     */
@@ -168,7 +176,7 @@ class TaskSpecContainerSpec
     * Run an init inside the container that forwards signals and reaps
     processes. This field is omitted if empty, and the default (as
     configured on the daemon) is used.
-
+    
     *
     * @var bool|null
     */
@@ -181,7 +189,7 @@ class TaskSpecContainerSpec
     suitability for a clustered environment, and it's up to the user
     to determine whether a given sysctl will work properly in a
     Service.
-
+    
     *
     * @var array<string, string>
     */
@@ -189,23 +197,23 @@ class TaskSpecContainerSpec
     /**
     * A list of kernel capabilities to add to the default set
     for the container.
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $capabilityAdd;
     /**
     * A list of kernel capabilities to drop from the default set
     for the container.
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $capabilityDrop;
     /**
      * A list of resource limits to set in the container. For example: `{"Name": "nofile", "Soft": 1024, "Hard": 2048}`"
      *
-     * @var TaskSpecContainerSpecUlimitsItem[]
+     * @var list<TaskSpecContainerSpecUlimitsItem>
      */
     protected $ulimits;
     /**
@@ -255,7 +263,7 @@ class TaskSpecContainerSpec
     /**
      * The command to be run in the image.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getCommand(): array
     {
@@ -264,7 +272,7 @@ class TaskSpecContainerSpec
     /**
      * The command to be run in the image.
      *
-     * @param string[] $command
+     * @param list<string> $command
      *
      * @return self
      */
@@ -277,7 +285,7 @@ class TaskSpecContainerSpec
     /**
      * Arguments to the command.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getArgs(): array
     {
@@ -286,7 +294,7 @@ class TaskSpecContainerSpec
     /**
      * Arguments to the command.
      *
-     * @param string[] $args
+     * @param list<string> $args
      *
      * @return self
      */
@@ -299,7 +307,7 @@ class TaskSpecContainerSpec
     /**
     * The hostname to use for the container, as a valid
     [RFC 1123](https://tools.ietf.org/html/rfc1123) hostname.
-
+    
     *
     * @return string
     */
@@ -310,7 +318,7 @@ class TaskSpecContainerSpec
     /**
     * The hostname to use for the container, as a valid
     [RFC 1123](https://tools.ietf.org/html/rfc1123) hostname.
-
+    
     *
     * @param string $hostname
     *
@@ -325,7 +333,7 @@ class TaskSpecContainerSpec
     /**
      * A list of environment variables in the form `VAR=value`.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getEnv(): array
     {
@@ -334,7 +342,7 @@ class TaskSpecContainerSpec
     /**
      * A list of environment variables in the form `VAR=value`.
      *
-     * @param string[] $env
+     * @param list<string> $env
      *
      * @return self
      */
@@ -391,7 +399,7 @@ class TaskSpecContainerSpec
     /**
      * A list of additional groups that the container process will run as.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getGroups(): array
     {
@@ -400,7 +408,7 @@ class TaskSpecContainerSpec
     /**
      * A list of additional groups that the container process will run as.
      *
-     * @param string[] $groups
+     * @param list<string> $groups
      *
      * @return self
      */
@@ -501,9 +509,9 @@ class TaskSpecContainerSpec
     /**
     * Specification for mounts to be added to containers created as part
     of the service.
-
+    
     *
-    * @return Mount[]
+    * @return list<Mount>
     */
     public function getMounts(): array
     {
@@ -512,9 +520,9 @@ class TaskSpecContainerSpec
     /**
     * Specification for mounts to be added to containers created as part
     of the service.
-
+    
     *
-    * @param Mount[] $mounts
+    * @param list<Mount> $mounts
     *
     * @return self
     */
@@ -549,7 +557,7 @@ class TaskSpecContainerSpec
     /**
     * Amount of time to wait for the container to terminate before
     forcefully killing it.
-
+    
     *
     * @return int
     */
@@ -560,7 +568,7 @@ class TaskSpecContainerSpec
     /**
     * Amount of time to wait for the container to terminate before
     forcefully killing it.
-
+    
     *
     * @param int $stopGracePeriod
     *
@@ -599,11 +607,11 @@ class TaskSpecContainerSpec
     file. The format of extra hosts is specified in the
     [hosts(5)](http://man7.org/linux/man-pages/man5/hosts.5.html)
     man page:
-
+    
        IP_address canonical_hostname [aliases...]
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getHosts(): array
     {
@@ -614,11 +622,11 @@ class TaskSpecContainerSpec
     file. The format of extra hosts is specified in the
     [hosts(5)](http://man7.org/linux/man-pages/man5/hosts.5.html)
     man page:
-
+    
        IP_address canonical_hostname [aliases...]
-
+    
     *
-    * @param string[] $hosts
+    * @param list<string> $hosts
     *
     * @return self
     */
@@ -631,7 +639,7 @@ class TaskSpecContainerSpec
     /**
     * Specification for DNS related configurations in resolver configuration
     file (`resolv.conf`).
-
+    
     *
     * @return TaskSpecContainerSpecDNSConfig
     */
@@ -642,7 +650,7 @@ class TaskSpecContainerSpec
     /**
     * Specification for DNS related configurations in resolver configuration
     file (`resolv.conf`).
-
+    
     *
     * @param TaskSpecContainerSpecDNSConfig $dNSConfig
     *
@@ -657,9 +665,9 @@ class TaskSpecContainerSpec
     /**
     * Secrets contains references to zero or more secrets that will be
     exposed to the service.
-
+    
     *
-    * @return TaskSpecContainerSpecSecretsItem[]
+    * @return list<TaskSpecContainerSpecSecretsItem>
     */
     public function getSecrets(): array
     {
@@ -668,9 +676,9 @@ class TaskSpecContainerSpec
     /**
     * Secrets contains references to zero or more secrets that will be
     exposed to the service.
-
+    
     *
-    * @param TaskSpecContainerSpecSecretsItem[] $secrets
+    * @param list<TaskSpecContainerSpecSecretsItem> $secrets
     *
     * @return self
     */
@@ -681,11 +689,37 @@ class TaskSpecContainerSpec
         return $this;
     }
     /**
+    * An integer value containing the score given to the container in
+    order to tune OOM killer preferences.
+    
+    *
+    * @return int
+    */
+    public function getOomScoreAdj(): int
+    {
+        return $this->oomScoreAdj;
+    }
+    /**
+    * An integer value containing the score given to the container in
+    order to tune OOM killer preferences.
+    
+    *
+    * @param int $oomScoreAdj
+    *
+    * @return self
+    */
+    public function setOomScoreAdj(int $oomScoreAdj): self
+    {
+        $this->initialized['oomScoreAdj'] = true;
+        $this->oomScoreAdj = $oomScoreAdj;
+        return $this;
+    }
+    /**
     * Configs contains references to zero or more configs that will be
     exposed to the service.
-
+    
     *
-    * @return TaskSpecContainerSpecConfigsItem[]
+    * @return list<TaskSpecContainerSpecConfigsItem>
     */
     public function getConfigs(): array
     {
@@ -694,9 +728,9 @@ class TaskSpecContainerSpec
     /**
     * Configs contains references to zero or more configs that will be
     exposed to the service.
-
+    
     *
-    * @param TaskSpecContainerSpecConfigsItem[] $configs
+    * @param list<TaskSpecContainerSpecConfigsItem> $configs
     *
     * @return self
     */
@@ -709,7 +743,7 @@ class TaskSpecContainerSpec
     /**
     * Isolation technology of the containers running the service.
     (Windows only)
-
+    
     *
     * @return string
     */
@@ -720,7 +754,7 @@ class TaskSpecContainerSpec
     /**
     * Isolation technology of the containers running the service.
     (Windows only)
-
+    
     *
     * @param string $isolation
     *
@@ -736,7 +770,7 @@ class TaskSpecContainerSpec
     * Run an init inside the container that forwards signals and reaps
     processes. This field is omitted if empty, and the default (as
     configured on the daemon) is used.
-
+    
     *
     * @return bool|null
     */
@@ -748,7 +782,7 @@ class TaskSpecContainerSpec
     * Run an init inside the container that forwards signals and reaps
     processes. This field is omitted if empty, and the default (as
     configured on the daemon) is used.
-
+    
     *
     * @param bool|null $init
     *
@@ -768,7 +802,7 @@ class TaskSpecContainerSpec
     suitability for a clustered environment, and it's up to the user
     to determine whether a given sysctl will work properly in a
     Service.
-
+    
     *
     * @return array<string, string>
     */
@@ -784,7 +818,7 @@ class TaskSpecContainerSpec
     suitability for a clustered environment, and it's up to the user
     to determine whether a given sysctl will work properly in a
     Service.
-
+    
     *
     * @param array<string, string> $sysctls
     *
@@ -799,9 +833,9 @@ class TaskSpecContainerSpec
     /**
     * A list of kernel capabilities to add to the default set
     for the container.
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getCapabilityAdd(): array
     {
@@ -810,9 +844,9 @@ class TaskSpecContainerSpec
     /**
     * A list of kernel capabilities to add to the default set
     for the container.
-
+    
     *
-    * @param string[] $capabilityAdd
+    * @param list<string> $capabilityAdd
     *
     * @return self
     */
@@ -825,9 +859,9 @@ class TaskSpecContainerSpec
     /**
     * A list of kernel capabilities to drop from the default set
     for the container.
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getCapabilityDrop(): array
     {
@@ -836,9 +870,9 @@ class TaskSpecContainerSpec
     /**
     * A list of kernel capabilities to drop from the default set
     for the container.
-
+    
     *
-    * @param string[] $capabilityDrop
+    * @param list<string> $capabilityDrop
     *
     * @return self
     */
@@ -851,7 +885,7 @@ class TaskSpecContainerSpec
     /**
      * A list of resource limits to set in the container. For example: `{"Name": "nofile", "Soft": 1024, "Hard": 2048}`"
      *
-     * @return TaskSpecContainerSpecUlimitsItem[]
+     * @return list<TaskSpecContainerSpecUlimitsItem>
      */
     public function getUlimits(): array
     {
@@ -860,7 +894,7 @@ class TaskSpecContainerSpec
     /**
      * A list of resource limits to set in the container. For example: `{"Name": "nofile", "Soft": 1024, "Hard": 2048}`"
      *
-     * @param TaskSpecContainerSpecUlimitsItem[] $ulimits
+     * @param list<TaskSpecContainerSpecUlimitsItem> $ulimits
      *
      * @return self
      */

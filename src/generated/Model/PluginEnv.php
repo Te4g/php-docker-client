@@ -7,37 +7,37 @@ class PluginEnv
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $name;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $description;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $settable;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $value;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -46,7 +46,7 @@ class PluginEnv
         return $this->name;
     }
     /**
-     *
+     * 
      *
      * @param string $name
      *
@@ -59,7 +59,7 @@ class PluginEnv
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -68,7 +68,7 @@ class PluginEnv
         return $this->description;
     }
     /**
-     *
+     * 
      *
      * @param string $description
      *
@@ -81,18 +81,18 @@ class PluginEnv
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getSettable(): array
     {
         return $this->settable;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $settable
+     * @param list<string> $settable
      *
      * @return self
      */
@@ -103,7 +103,7 @@ class PluginEnv
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -112,7 +112,7 @@ class PluginEnv
         return $this->value;
     }
     /**
-     *
+     * 
      *
      * @param string $value
      *

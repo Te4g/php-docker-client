@@ -7,7 +7,7 @@ class SystemVersionComponentsItem
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -29,9 +29,9 @@ class SystemVersionComponentsItem
     component. These values are intended for informational purposes
     only, and their content is not defined, and not part of the API
     specification.
-
+    
     These messages can be printed by the client as information to the user.
-
+    
     *
     * @var mixed|null
     */
@@ -85,9 +85,9 @@ class SystemVersionComponentsItem
     component. These values are intended for informational purposes
     only, and their content is not defined, and not part of the API
     specification.
-
+    
     These messages can be printed by the client as information to the user.
-
+    
     *
     * @return mixed
     */
@@ -100,9 +100,9 @@ class SystemVersionComponentsItem
     component. These values are intended for informational purposes
     only, and their content is not defined, and not part of the API
     specification.
-
+    
     These messages can be printed by the client as information to the user.
-
+    
     *
     * @param mixed $details
     *

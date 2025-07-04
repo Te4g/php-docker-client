@@ -7,31 +7,31 @@ class PluginInterfaceType
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $prefix;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $capability;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $version;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -40,7 +40,7 @@ class PluginInterfaceType
         return $this->prefix;
     }
     /**
-     *
+     * 
      *
      * @param string $prefix
      *
@@ -53,7 +53,7 @@ class PluginInterfaceType
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -62,7 +62,7 @@ class PluginInterfaceType
         return $this->capability;
     }
     /**
-     *
+     * 
      *
      * @param string $capability
      *
@@ -75,7 +75,7 @@ class PluginInterfaceType
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -84,7 +84,7 @@ class PluginInterfaceType
         return $this->version;
     }
     /**
-     *
+     * 
      *
      * @param string $version
      *

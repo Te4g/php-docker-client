@@ -4,7 +4,6 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ContainerUnpause extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $id;
     /**
      * Resume a container which has been paused.
@@ -15,21 +14,22 @@ class ContainerUnpause extends \Vendor\Library\Generated\Runtime\Client\BaseEndp
     {
         $this->id = $id;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'POST';
     }
     public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/containers/{id}/unpause');
+        return str_replace(['{id}'], [$this->id], '/containers/{id}/unpause');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -47,14 +47,14 @@ class ContainerUnpause extends \Vendor\Library\Generated\Runtime\Client\BaseEndp
             return null;
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerUnpauseNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerUnpauseNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerUnpauseInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerUnpauseInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

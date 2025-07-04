@@ -7,31 +7,31 @@ class PluginPrivilege
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $name;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $description;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $value;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -40,7 +40,7 @@ class PluginPrivilege
         return $this->name;
     }
     /**
-     *
+     * 
      *
      * @param string $name
      *
@@ -53,7 +53,7 @@ class PluginPrivilege
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -62,7 +62,7 @@ class PluginPrivilege
         return $this->description;
     }
     /**
-     *
+     * 
      *
      * @param string $description
      *
@@ -75,18 +75,18 @@ class PluginPrivilege
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getValue(): array
     {
         return $this->value;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $value
+     * @param list<string> $value
      *
      * @return self
      */

@@ -4,7 +4,6 @@ namespace Vendor\Library\Generated\Runtime\Client;
 
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Serializer\SerializerInterface;
-
 trait EndpointTrait
 {
     abstract protected function transformResponseBody(ResponseInterface $response, SerializerInterface $serializer, ?string $contentType = null);

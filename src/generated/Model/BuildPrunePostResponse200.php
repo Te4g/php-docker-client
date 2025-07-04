@@ -7,15 +7,15 @@ class BuildPrunePostResponse200
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $cachesDeleted;
     /**
@@ -25,18 +25,18 @@ class BuildPrunePostResponse200
      */
     protected $spaceReclaimed;
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getCachesDeleted(): array
     {
         return $this->cachesDeleted;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $cachesDeleted
+     * @param list<string> $cachesDeleted
      *
      * @return self
      */

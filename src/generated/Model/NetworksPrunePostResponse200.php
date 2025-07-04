@@ -7,7 +7,7 @@ class NetworksPrunePostResponse200
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,13 +15,13 @@ class NetworksPrunePostResponse200
     /**
      * Networks that were deleted
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $networksDeleted;
     /**
      * Networks that were deleted
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getNetworksDeleted(): array
     {
@@ -30,7 +30,7 @@ class NetworksPrunePostResponse200
     /**
      * Networks that were deleted
      *
-     * @param string[] $networksDeleted
+     * @param list<string> $networksDeleted
      *
      * @return self
      */

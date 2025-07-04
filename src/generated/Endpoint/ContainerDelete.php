@@ -4,10 +4,9 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ContainerDelete extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $id;
     /**
-     *
+     * 
      *
      * @param string $id ID or name of the container
      * @param array $queryParameters {
@@ -16,36 +15,37 @@ class ContainerDelete extends \Vendor\Library\Generated\Runtime\Client\BaseEndpo
      *     @var bool $link Remove the specified link associated with the container.
      * }
      */
-    public function __construct(string $id, array $queryParameters = array())
+    public function __construct(string $id, array $queryParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'DELETE';
     }
     public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/containers/{id}');
+        return str_replace(['{id}'], [$this->id], '/containers/{id}');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('v', 'force', 'link'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('v' => false, 'force' => false, 'link' => false));
-        $optionsResolver->addAllowedTypes('v', array('bool'));
-        $optionsResolver->addAllowedTypes('force', array('bool'));
-        $optionsResolver->addAllowedTypes('link', array('bool'));
+        $optionsResolver->setDefined(['v', 'force', 'link']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['v' => false, 'force' => false, 'link' => false]);
+        $optionsResolver->addAllowedTypes('v', ['bool']);
+        $optionsResolver->addAllowedTypes('force', ['bool']);
+        $optionsResolver->addAllowedTypes('link', ['bool']);
         return $optionsResolver;
     }
     /**
@@ -66,20 +66,20 @@ class ContainerDelete extends \Vendor\Library\Generated\Runtime\Client\BaseEndpo
             return null;
         }
         if (400 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerDeleteBadRequestException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerDeleteBadRequestException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerDeleteNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerDeleteNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerDeleteConflictException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerDeleteConflictException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerDeleteInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerDeleteInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

@@ -7,7 +7,7 @@ class VolumeCreateOptions
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -27,7 +27,7 @@ class VolumeCreateOptions
     /**
     * A mapping of driver options and values. These options are
     passed directly to the driver and are driver specific.
-
+    
     *
     * @var array<string, string>
     */
@@ -91,7 +91,7 @@ class VolumeCreateOptions
     /**
     * A mapping of driver options and values. These options are
     passed directly to the driver and are driver specific.
-
+    
     *
     * @return array<string, string>
     */
@@ -102,7 +102,7 @@ class VolumeCreateOptions
     /**
     * A mapping of driver options and values. These options are
     passed directly to the driver and are driver specific.
-
+    
     *
     * @param array<string, string> $driverOpts
     *

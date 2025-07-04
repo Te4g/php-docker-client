@@ -7,25 +7,25 @@ class ImageInspectRootFS
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $type;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $layers;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -34,7 +34,7 @@ class ImageInspectRootFS
         return $this->type;
     }
     /**
-     *
+     * 
      *
      * @param string $type
      *
@@ -47,18 +47,18 @@ class ImageInspectRootFS
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getLayers(): array
     {
         return $this->layers;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $layers
+     * @param list<string> $layers
      *
      * @return self
      */

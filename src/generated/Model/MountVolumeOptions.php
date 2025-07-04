@@ -7,7 +7,7 @@ class MountVolumeOptions
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -30,6 +30,12 @@ class MountVolumeOptions
      * @var MountVolumeOptionsDriverConfig
      */
     protected $driverConfig;
+    /**
+     * Source path inside the volume. Must be relative without any back traversals.
+     *
+     * @var string
+     */
+    protected $subpath;
     /**
      * Populate volume with data from the target.
      *
@@ -94,6 +100,28 @@ class MountVolumeOptions
     {
         $this->initialized['driverConfig'] = true;
         $this->driverConfig = $driverConfig;
+        return $this;
+    }
+    /**
+     * Source path inside the volume. Must be relative without any back traversals.
+     *
+     * @return string
+     */
+    public function getSubpath(): string
+    {
+        return $this->subpath;
+    }
+    /**
+     * Source path inside the volume. Must be relative without any back traversals.
+     *
+     * @param string $subpath
+     *
+     * @return self
+     */
+    public function setSubpath(string $subpath): self
+    {
+        $this->initialized['subpath'] = true;
+        $this->subpath = $subpath;
         return $this;
     }
 }

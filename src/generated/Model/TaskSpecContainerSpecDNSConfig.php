@@ -7,7 +7,7 @@ class TaskSpecContainerSpecDNSConfig
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,27 +15,27 @@ class TaskSpecContainerSpecDNSConfig
     /**
      * The IP addresses of the name servers.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $nameservers;
     /**
      * A search list for host-name lookup.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $search;
     /**
     * A list of internal resolver variables to be modified (e.g.,
     `debug`, `ndots:3`, etc.).
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $options;
     /**
      * The IP addresses of the name servers.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getNameservers(): array
     {
@@ -44,7 +44,7 @@ class TaskSpecContainerSpecDNSConfig
     /**
      * The IP addresses of the name servers.
      *
-     * @param string[] $nameservers
+     * @param list<string> $nameservers
      *
      * @return self
      */
@@ -57,7 +57,7 @@ class TaskSpecContainerSpecDNSConfig
     /**
      * A search list for host-name lookup.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getSearch(): array
     {
@@ -66,7 +66,7 @@ class TaskSpecContainerSpecDNSConfig
     /**
      * A search list for host-name lookup.
      *
-     * @param string[] $search
+     * @param list<string> $search
      *
      * @return self
      */
@@ -79,9 +79,9 @@ class TaskSpecContainerSpecDNSConfig
     /**
     * A list of internal resolver variables to be modified (e.g.,
     `debug`, `ndots:3`, etc.).
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getOptions(): array
     {
@@ -90,9 +90,9 @@ class TaskSpecContainerSpecDNSConfig
     /**
     * A list of internal resolver variables to be modified (e.g.,
     `debug`, `ndots:3`, etc.).
-
+    
     *
-    * @param string[] $options
+    * @param list<string> $options
     *
     * @return self
     */

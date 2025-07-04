@@ -7,7 +7,7 @@ class SwarmInitPostBody
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -19,7 +19,7 @@ class SwarmInitPostBody
     combination in the form `192.168.1.1:4567`, or an interface
     followed by a port number, like `eth0:4567`. If the port number
     is omitted, the default swarm listening port is used.
-
+    
     *
     * @var string
     */
@@ -31,7 +31,7 @@ class SwarmInitPostBody
     like `eth0:4567`. If the port number is omitted, the port
     number from the listen address is used. If `AdvertiseAddr` is
     not specified, it will be automatically detected when possible.
-
+    
     *
     * @var string
     */
@@ -41,13 +41,13 @@ class SwarmInitPostBody
     `<ip|interface>`), for example,  `192.168.1.1`, or an interface,
     like `eth0`. If `DataPathAddr` is unspecified, the same address
     as `AdvertiseAddr` is used.
-
+    
     The `DataPathAddr` specifies the address that global scope
     network drivers will publish towards other  nodes in order to
     reach the containers running on this node. Using this parameter
     it is possible to separate the container data traffic from the
     management traffic of the cluster.
-
+    
     *
     * @var string
     */
@@ -56,7 +56,7 @@ class SwarmInitPostBody
     * DataPathPort specifies the data path port number for data traffic.
     Acceptable port range is 1024 to 49151.
     if no port is set or is set to 0, default port 4789 will be used.
-
+    
     *
     * @var int
     */
@@ -64,9 +64,9 @@ class SwarmInitPostBody
     /**
     * Default Address Pool specifies default subnet pools for global
     scope networks.
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $defaultAddrPool;
     /**
@@ -78,7 +78,7 @@ class SwarmInitPostBody
     /**
     * SubnetSize specifies the subnet size of the networks created
     from the default subnet pool.
-
+    
     *
     * @var int
     */
@@ -96,7 +96,7 @@ class SwarmInitPostBody
     combination in the form `192.168.1.1:4567`, or an interface
     followed by a port number, like `eth0:4567`. If the port number
     is omitted, the default swarm listening port is used.
-
+    
     *
     * @return string
     */
@@ -111,7 +111,7 @@ class SwarmInitPostBody
     combination in the form `192.168.1.1:4567`, or an interface
     followed by a port number, like `eth0:4567`. If the port number
     is omitted, the default swarm listening port is used.
-
+    
     *
     * @param string $listenAddr
     *
@@ -130,7 +130,7 @@ class SwarmInitPostBody
     like `eth0:4567`. If the port number is omitted, the port
     number from the listen address is used. If `AdvertiseAddr` is
     not specified, it will be automatically detected when possible.
-
+    
     *
     * @return string
     */
@@ -145,7 +145,7 @@ class SwarmInitPostBody
     like `eth0:4567`. If the port number is omitted, the port
     number from the listen address is used. If `AdvertiseAddr` is
     not specified, it will be automatically detected when possible.
-
+    
     *
     * @param string $advertiseAddr
     *
@@ -162,13 +162,13 @@ class SwarmInitPostBody
     `<ip|interface>`), for example,  `192.168.1.1`, or an interface,
     like `eth0`. If `DataPathAddr` is unspecified, the same address
     as `AdvertiseAddr` is used.
-
+    
     The `DataPathAddr` specifies the address that global scope
     network drivers will publish towards other  nodes in order to
     reach the containers running on this node. Using this parameter
     it is possible to separate the container data traffic from the
     management traffic of the cluster.
-
+    
     *
     * @return string
     */
@@ -181,13 +181,13 @@ class SwarmInitPostBody
     `<ip|interface>`), for example,  `192.168.1.1`, or an interface,
     like `eth0`. If `DataPathAddr` is unspecified, the same address
     as `AdvertiseAddr` is used.
-
+    
     The `DataPathAddr` specifies the address that global scope
     network drivers will publish towards other  nodes in order to
     reach the containers running on this node. Using this parameter
     it is possible to separate the container data traffic from the
     management traffic of the cluster.
-
+    
     *
     * @param string $dataPathAddr
     *
@@ -203,7 +203,7 @@ class SwarmInitPostBody
     * DataPathPort specifies the data path port number for data traffic.
     Acceptable port range is 1024 to 49151.
     if no port is set or is set to 0, default port 4789 will be used.
-
+    
     *
     * @return int
     */
@@ -215,7 +215,7 @@ class SwarmInitPostBody
     * DataPathPort specifies the data path port number for data traffic.
     Acceptable port range is 1024 to 49151.
     if no port is set or is set to 0, default port 4789 will be used.
-
+    
     *
     * @param int $dataPathPort
     *
@@ -230,9 +230,9 @@ class SwarmInitPostBody
     /**
     * Default Address Pool specifies default subnet pools for global
     scope networks.
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getDefaultAddrPool(): array
     {
@@ -241,9 +241,9 @@ class SwarmInitPostBody
     /**
     * Default Address Pool specifies default subnet pools for global
     scope networks.
-
+    
     *
-    * @param string[] $defaultAddrPool
+    * @param list<string> $defaultAddrPool
     *
     * @return self
     */
@@ -278,7 +278,7 @@ class SwarmInitPostBody
     /**
     * SubnetSize specifies the subnet size of the networks created
     from the default subnet pool.
-
+    
     *
     * @return int
     */
@@ -289,7 +289,7 @@ class SwarmInitPostBody
     /**
     * SubnetSize specifies the subnet size of the networks created
     from the default subnet pool.
-
+    
     *
     * @param int $subnetSize
     *

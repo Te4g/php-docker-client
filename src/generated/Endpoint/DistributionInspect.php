@@ -4,7 +4,6 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class DistributionInspect extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $name;
     /**
      * Return image digest and platform information by contacting the registry.
@@ -15,21 +14,22 @@ class DistributionInspect extends \Vendor\Library\Generated\Runtime\Client\BaseE
     {
         $this->name = $name;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'GET';
     }
     public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/distribution/{name}/json');
+        return str_replace(['{name}'], [$this->name], '/distribution/{name}/json');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -44,17 +44,17 @@ class DistributionInspect extends \Vendor\Library\Generated\Runtime\Client\BaseE
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\DistributionInspect', 'json');
+            return $serializer->deserialize($body, 'Vendor\Library\Generated\Model\DistributionInspect', 'json');
         }
         if (401 === $status) {
-            throw new \Vendor\Library\Generated\Exception\DistributionInspectUnauthorizedException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\DistributionInspectUnauthorizedException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\DistributionInspectInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\DistributionInspectInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

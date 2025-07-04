@@ -7,7 +7,7 @@ class IndexInfo
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -21,23 +21,23 @@ class IndexInfo
     /**
      * List of mirrors, expressed as URIs.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $mirrors;
     /**
     * Indicates if the registry is part of the list of insecure
     registries.
-
+    
     If `false`, the registry is insecure. Insecure registries accept
     un-encrypted (HTTP) and/or untrusted (HTTPS with certificates from
     unknown CAs) communication.
-
+    
     > **Warning**: Insecure registries can be useful when running a local
     > registry. However, because its use creates security vulnerabilities
     > it should ONLY be enabled for testing purposes. For increased
     > security, users should add their CA to their system's list of
     > trusted CAs instead of enabling this option.
-
+    
     *
     * @var bool
     */
@@ -73,7 +73,7 @@ class IndexInfo
     /**
      * List of mirrors, expressed as URIs.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getMirrors(): array
     {
@@ -82,7 +82,7 @@ class IndexInfo
     /**
      * List of mirrors, expressed as URIs.
      *
-     * @param string[] $mirrors
+     * @param list<string> $mirrors
      *
      * @return self
      */
@@ -95,17 +95,17 @@ class IndexInfo
     /**
     * Indicates if the registry is part of the list of insecure
     registries.
-
+    
     If `false`, the registry is insecure. Insecure registries accept
     un-encrypted (HTTP) and/or untrusted (HTTPS with certificates from
     unknown CAs) communication.
-
+    
     > **Warning**: Insecure registries can be useful when running a local
     > registry. However, because its use creates security vulnerabilities
     > it should ONLY be enabled for testing purposes. For increased
     > security, users should add their CA to their system's list of
     > trusted CAs instead of enabling this option.
-
+    
     *
     * @return bool
     */
@@ -116,17 +116,17 @@ class IndexInfo
     /**
     * Indicates if the registry is part of the list of insecure
     registries.
-
+    
     If `false`, the registry is insecure. Insecure registries accept
     un-encrypted (HTTP) and/or untrusted (HTTPS with certificates from
     unknown CAs) communication.
-
+    
     > **Warning**: Insecure registries can be useful when running a local
     > registry. However, because its use creates security vulnerabilities
     > it should ONLY be enabled for testing purposes. For increased
     > security, users should add their CA to their system's list of
     > trusted CAs instead of enabling this option.
-
+    
     *
     * @param bool $secure
     *

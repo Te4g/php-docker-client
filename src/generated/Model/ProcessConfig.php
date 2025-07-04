@@ -7,43 +7,43 @@ class ProcessConfig
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var bool
      */
     protected $privileged;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $user;
     /**
-     *
+     * 
      *
      * @var bool
      */
     protected $tty;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $entrypoint;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $arguments;
     /**
-     *
+     * 
      *
      * @return bool
      */
@@ -52,7 +52,7 @@ class ProcessConfig
         return $this->privileged;
     }
     /**
-     *
+     * 
      *
      * @param bool $privileged
      *
@@ -65,7 +65,7 @@ class ProcessConfig
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -74,7 +74,7 @@ class ProcessConfig
         return $this->user;
     }
     /**
-     *
+     * 
      *
      * @param string $user
      *
@@ -87,7 +87,7 @@ class ProcessConfig
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return bool
      */
@@ -96,7 +96,7 @@ class ProcessConfig
         return $this->tty;
     }
     /**
-     *
+     * 
      *
      * @param bool $tty
      *
@@ -109,7 +109,7 @@ class ProcessConfig
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -118,7 +118,7 @@ class ProcessConfig
         return $this->entrypoint;
     }
     /**
-     *
+     * 
      *
      * @param string $entrypoint
      *
@@ -131,18 +131,18 @@ class ProcessConfig
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getArguments(): array
     {
         return $this->arguments;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $arguments
+     * @param list<string> $arguments
      *
      * @return self
      */

@@ -15,11 +15,11 @@ class SwarmUnlockkey extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoi
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -34,17 +34,17 @@ class SwarmUnlockkey extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoi
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\SwarmUnlockkeyGetResponse200', 'json');
+            return $serializer->deserialize($body, 'Vendor\Library\Generated\Model\SwarmUnlockkeyGetResponse200', 'json');
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\SwarmUnlockkeyInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\SwarmUnlockkeyInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (503 === $status) {
-            throw new \Vendor\Library\Generated\Exception\SwarmUnlockkeyServiceUnavailableException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\SwarmUnlockkeyServiceUnavailableException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

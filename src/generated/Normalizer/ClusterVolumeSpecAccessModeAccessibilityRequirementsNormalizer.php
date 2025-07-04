@@ -12,92 +12,177 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
-class ClusterVolumeSpecAccessModeAccessibilityRequirementsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-    use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()): bool
+use Symfony\Component\HttpKernel\Kernel;
+if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
+    class ClusterVolumeSpecAccessModeAccessibilityRequirementsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return $type === 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessModeAccessibilityRequirements';
-    }
-    public function supportsNormalization($data, $format = null, array $context = array()): bool
-    {
-        return is_object($data) && get_class($data) === 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessModeAccessibilityRequirements';
-    }
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = array())
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class;
         }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class;
         }
-        $object = new \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements();
-        if (null === $data || false === \is_array($data)) {
+        public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('Requisite', $data)) {
+                $values = [];
+                foreach ($data['Requisite'] as $value) {
+                    $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value as $key => $value_1) {
+                        $values_1[$key] = $value_1;
+                    }
+                    $values[] = $values_1;
+                }
+                $object->setRequisite($values);
+            }
+            if (\array_key_exists('Preferred', $data)) {
+                $values_2 = [];
+                foreach ($data['Preferred'] as $value_2) {
+                    $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value_2 as $key_1 => $value_3) {
+                        $values_3[$key_1] = $value_3;
+                    }
+                    $values_2[] = $values_3;
+                }
+                $object->setPreferred($values_2);
+            }
             return $object;
         }
-        if (\array_key_exists('Requisite', $data)) {
-            $values = array();
-            foreach ($data['Requisite'] as $value) {
-                $values_1 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
-                foreach ($value as $key => $value_1) {
-                    $values_1[$key] = $value_1;
+        public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('requisite') && null !== $object->getRequisite()) {
+                $values = [];
+                foreach ($object->getRequisite() as $value) {
+                    $values_1 = [];
+                    foreach ($value as $key => $value_1) {
+                        $values_1[$key] = $value_1;
+                    }
+                    $values[] = $values_1;
                 }
-                $values[] = $values_1;
+                $data['Requisite'] = $values;
             }
-            $object->setRequisite($values);
-        }
-        if (\array_key_exists('Preferred', $data)) {
-            $values_2 = array();
-            foreach ($data['Preferred'] as $value_2) {
-                $values_3 = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
-                foreach ($value_2 as $key_1 => $value_3) {
-                    $values_3[$key_1] = $value_3;
+            if ($object->isInitialized('preferred') && null !== $object->getPreferred()) {
+                $values_2 = [];
+                foreach ($object->getPreferred() as $value_2) {
+                    $values_3 = [];
+                    foreach ($value_2 as $key_1 => $value_3) {
+                        $values_3[$key_1] = $value_3;
+                    }
+                    $values_2[] = $values_3;
                 }
-                $values_2[] = $values_3;
+                $data['Preferred'] = $values_2;
             }
-            $object->setPreferred($values_2);
+            return $data;
         }
-        return $object;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class => false];
+        }
     }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = array())
+} else {
+    class ClusterVolumeSpecAccessModeAccessibilityRequirementsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        $data = array();
-        if ($object->isInitialized('requisite') && null !== $object->getRequisite()) {
-            $values = array();
-            foreach ($object->getRequisite() as $value) {
-                $values_1 = array();
-                foreach ($value as $key => $value_1) {
-                    $values_1[$key] = $value_1;
-                }
-                $values[] = $values_1;
-            }
-            $data['Requisite'] = $values;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization($data, $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class;
         }
-        if ($object->isInitialized('preferred') && null !== $object->getPreferred()) {
-            $values_2 = array();
-            foreach ($object->getPreferred() as $value_2) {
-                $values_3 = array();
-                foreach ($value_2 as $key_1 => $value_3) {
-                    $values_3[$key_1] = $value_3;
-                }
-                $values_2[] = $values_3;
-            }
-            $data['Preferred'] = $values_2;
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class;
         }
-        return $data;
-    }
-    public function getSupportedTypes(?string $format = null): array
-    {
-        return array('Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessModeAccessibilityRequirements' => false);
+        /**
+         * @return mixed
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('Requisite', $data)) {
+                $values = [];
+                foreach ($data['Requisite'] as $value) {
+                    $values_1 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value as $key => $value_1) {
+                        $values_1[$key] = $value_1;
+                    }
+                    $values[] = $values_1;
+                }
+                $object->setRequisite($values);
+            }
+            if (\array_key_exists('Preferred', $data)) {
+                $values_2 = [];
+                foreach ($data['Preferred'] as $value_2) {
+                    $values_3 = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                    foreach ($value_2 as $key_1 => $value_3) {
+                        $values_3[$key_1] = $value_3;
+                    }
+                    $values_2[] = $values_3;
+                }
+                $object->setPreferred($values_2);
+            }
+            return $object;
+        }
+        /**
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('requisite') && null !== $object->getRequisite()) {
+                $values = [];
+                foreach ($object->getRequisite() as $value) {
+                    $values_1 = [];
+                    foreach ($value as $key => $value_1) {
+                        $values_1[$key] = $value_1;
+                    }
+                    $values[] = $values_1;
+                }
+                $data['Requisite'] = $values;
+            }
+            if ($object->isInitialized('preferred') && null !== $object->getPreferred()) {
+                $values_2 = [];
+                foreach ($object->getPreferred() as $value_2) {
+                    $values_3 = [];
+                    foreach ($value_2 as $key_1 => $value_3) {
+                        $values_3[$key_1] = $value_3;
+                    }
+                    $values_2[] = $values_3;
+                }
+                $data['Preferred'] = $values_2;
+            }
+            return $data;
+        }
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class => false];
+        }
     }
 }

@@ -7,7 +7,7 @@ class ExecIdStartPostBody
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -27,7 +27,7 @@ class ExecIdStartPostBody
     /**
      * Initial console size, as an `[height, width]` array.
      *
-     * @var int[]|null
+     * @var list<int>|null
      */
     protected $consoleSize;
     /**
@@ -77,7 +77,7 @@ class ExecIdStartPostBody
     /**
      * Initial console size, as an `[height, width]` array.
      *
-     * @return int[]|null
+     * @return list<int>|null
      */
     public function getConsoleSize(): ?array
     {
@@ -86,7 +86,7 @@ class ExecIdStartPostBody
     /**
      * Initial console size, as an `[height, width]` array.
      *
-     * @param int[]|null $consoleSize
+     * @param list<int>|null $consoleSize
      *
      * @return self
      */

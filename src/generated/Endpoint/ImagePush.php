@@ -4,68 +4,90 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ImagePush extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $name;
     /**
     * Push an image to a registry.
-
+    
     If you wish to push an image on to a private registry, that image must
     already have a tag which references the registry. For example,
     `registry.example.com/myimage:latest`.
-
+    
     The push is cancelled if the HTTP connection is closed.
-
+    
     *
-    * @param string $name Image name or ID.
+    * @param string $name Name of the image to push. For example, `registry.example.com/myimage`.
+    The image must be present in the local image store with the same name.
+    
+    The name should be provided without tag; if a tag is provided, it
+    is ignored. For example, `registry.example.com/myimage:latest` is
+    considered equivalent to `registry.example.com/myimage`.
+    
+    Use the `tag` parameter to specify the tag to push.
+    
     * @param array $queryParameters {
-    *     @var string $tag The tag to associate with the image on the registry.
+    *     @var string $tag Tag of the image to push. For example, `latest`. If no tag is provided,
+    all tags of the given image that are present in the local image store
+    are pushed.
+    
+    *     @var string $platform JSON-encoded OCI platform to select the platform-variant to push.
+    If not provided, all available variants will attempt to be pushed.
+    
+    If the daemon provides a multi-platform image store, this selects
+    the platform-variant to push to the registry. If the image is
+    a single-platform image, or if the multi-platform image does not
+    provide a variant matching the given platform, an error is returned.
+    
+    Example: `{"os": "linux", "architecture": "arm", "variant": "v5"}`
+    
     * }
     * @param array $headerParameters {
     *     @var string $X-Registry-Auth A base64url-encoded auth configuration.
-
+    
     Refer to the [authentication section](#section/Authentication) for
     details.
-
+    
     * }
     */
-    public function __construct(string $name, array $queryParameters = array(), array $headerParameters = array())
+    public function __construct(string $name, array $queryParameters = [], array $headerParameters = [])
     {
         $this->name = $name;
         $this->queryParameters = $queryParameters;
         $this->headerParameters = $headerParameters;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'POST';
     }
     public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/images/{name}/push');
+        return str_replace(['{name}'], [$this->name], '/images/{name}/push');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('tag'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('tag', array('string'));
+        $optionsResolver->setDefined(['tag', 'platform']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('tag', ['string']);
+        $optionsResolver->addAllowedTypes('platform', ['string']);
         return $optionsResolver;
     }
     protected function getHeadersOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getHeadersOptionsResolver();
-        $optionsResolver->setDefined(array('X-Registry-Auth'));
-        $optionsResolver->setRequired(array('X-Registry-Auth'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('X-Registry-Auth', array('string'));
+        $optionsResolver->setDefined(['X-Registry-Auth']);
+        $optionsResolver->setRequired(['X-Registry-Auth']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('X-Registry-Auth', ['string']);
         return $optionsResolver;
     }
     /**
@@ -84,14 +106,14 @@ class ImagePush extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint im
             return null;
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ImagePushNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ImagePushNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ImagePushInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ImagePushInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

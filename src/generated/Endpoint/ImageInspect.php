@@ -4,32 +4,45 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ImageInspect extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $name;
     /**
      * Return low-level information about an image.
      *
      * @param string $name Image name or id
+     * @param array $queryParameters {
+     *     @var bool $manifests Include Manifests in the image summary.
+     * }
      */
-    public function __construct(string $name)
+    public function __construct(string $name, array $queryParameters = [])
     {
         $this->name = $name;
+        $this->queryParameters = $queryParameters;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'GET';
     }
     public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/images/{name}/json');
+        return str_replace(['{name}'], [$this->name], '/images/{name}/json');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
+    }
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(['manifests']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['manifests' => false]);
+        $optionsResolver->addAllowedTypes('manifests', ['bool']);
+        return $optionsResolver;
     }
     /**
      * {@inheritdoc}
@@ -44,17 +57,17 @@ class ImageInspect extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ImageInspect', 'json');
+            return $serializer->deserialize($body, 'Vendor\Library\Generated\Model\ImageInspect', 'json');
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ImageInspectNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ImageInspectNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ImageInspectInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ImageInspectInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

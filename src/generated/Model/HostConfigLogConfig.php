@@ -7,39 +7,42 @@ class HostConfigLogConfig
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
-     *
-     * @var string
-     */
+    * Name of the logging driver used for the container or "none"
+    if logging is disabled.
+    *
+    * @var string
+    */
     protected $type;
     /**
-     *
+     * Driver-specific configuration options for the logging driver.
      *
      * @var array<string, string>
      */
     protected $config;
     /**
-     *
-     *
-     * @return string
-     */
+    * Name of the logging driver used for the container or "none"
+    if logging is disabled.
+    *
+    * @return string
+    */
     public function getType(): string
     {
         return $this->type;
     }
     /**
-     *
-     *
-     * @param string $type
-     *
-     * @return self
-     */
+    * Name of the logging driver used for the container or "none"
+    if logging is disabled.
+    *
+    * @param string $type
+    *
+    * @return self
+    */
     public function setType(string $type): self
     {
         $this->initialized['type'] = true;
@@ -47,7 +50,7 @@ class HostConfigLogConfig
         return $this;
     }
     /**
-     *
+     * Driver-specific configuration options for the logging driver.
      *
      * @return array<string, string>
      */
@@ -56,7 +59,7 @@ class HostConfigLogConfig
         return $this->config;
     }
     /**
-     *
+     * Driver-specific configuration options for the logging driver.
      *
      * @param array<string, string> $config
      *

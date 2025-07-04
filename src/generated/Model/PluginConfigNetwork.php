@@ -7,19 +7,19 @@ class PluginConfigNetwork
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $type;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -28,7 +28,7 @@ class PluginConfigNetwork
         return $this->type;
     }
     /**
-     *
+     * 
      *
      * @param string $type
      *

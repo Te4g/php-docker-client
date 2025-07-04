@@ -7,57 +7,80 @@ class ImageInspect
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
     * ID is the content-addressable ID of an image.
-
+    
     This identifier is a content-addressable digest calculated from the
     image's configuration (which includes the digests of layers used by
     the image).
-
+    
     Note that this digest differs from the `RepoDigests` below, which
     holds digests of image manifests that reference the image.
-
+    
     *
     * @var string
     */
     protected $id;
     /**
+    * A descriptor struct containing digest, media type, and size, as defined in
+    the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
+    
+    *
+    * @var OCIDescriptor
+    */
+    protected $descriptor;
+    /**
+    * Manifests is a list of image manifests available in this image. It
+    provides a more detailed view of the platform-specific image manifests or
+    other image-attached data like build attestations.
+    
+    Only available if the daemon provides a multi-platform image store
+    and the `manifests` option is set in the inspect request.
+    
+    WARNING: This is experimental and may change at any time without any backward
+    compatibility.
+    
+    *
+    * @var list<ImageManifestSummary>|null
+    */
+    protected $manifests;
+    /**
     * List of image names/tags in the local image cache that reference this
     image.
-
+    
     Multiple image tags can refer to the same image, and this list may be
     empty if no tags reference the image, in which case the image is
     "untagged", in which case it can still be referenced by its ID.
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $repoTags;
     /**
     * List of content-addressable digests of locally available image manifests
     that the image is referenced from. Multiple manifests can refer to the
     same image.
-
+    
     These digests are usually only available if the image was either pulled
     from a registry, or if the image was pushed to a registry, which is when
     the manifest is generated and its digest calculated.
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $repoDigests;
     /**
     * ID of the parent image.
-
+    
     Depending on how the image was created, this field may be empty and
     is only set for images that were built/created locally. This field
     is empty if the image was pulled from an image registry.
-
+    
     *
     * @var string
     */
@@ -71,39 +94,19 @@ class ImageInspect
     /**
     * Date and time at which the image was created, formatted in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
+    This information is only available if present in the image,
+    and omitted otherwise.
+    
     *
-    * @var string
+    * @var string|null
     */
     protected $created;
     /**
-    * The ID of the container that was used to create the image.
-
-    Depending on how the image was created, this field may be empty.
-
-    *
-    * @var string
-    */
-    protected $container;
-    /**
-    * Configuration for a container that is portable between hosts.
-
-    When used as `ContainerConfig` field in an image, `ContainerConfig` is an
-    optional field containing the configuration of the container that was last
-    committed when creating the image.
-
-    Previous versions of Docker builder used this field to store build cache,
-    and it is not in active use anymore.
-
-    *
-    * @var ContainerConfig
-    */
-    protected $containerConfig;
-    /**
     * The version of Docker that was used to build the image.
-
+    
     Depending on how the image was created, this field may be empty.
-
+    
     *
     * @var string
     */
@@ -111,23 +114,17 @@ class ImageInspect
     /**
     * Name of the author that was specified when committing the image, or as
     specified through MAINTAINER (deprecated) in the Dockerfile.
-
+    
     *
     * @var string
     */
     protected $author;
     /**
-    * Configuration for a container that is portable between hosts.
-
-    When used as `ContainerConfig` field in an image, `ContainerConfig` is an
-    optional field containing the configuration of the container that was last
-    committed when creating the image.
-
-    Previous versions of Docker builder used this field to store build cache,
-    and it is not in active use anymore.
-
+    * Configuration of the image. These fields are used as defaults
+    when starting a container from the image.
+    
     *
-    * @var ContainerConfig
+    * @var ImageConfig
     */
     protected $config;
     /**
@@ -151,7 +148,7 @@ class ImageInspect
     /**
     * Operating System version the image is built to run on (especially
     for Windows).
-
+    
     *
     * @var string|null
     */
@@ -164,15 +161,9 @@ class ImageInspect
     protected $size;
     /**
     * Total size of the image including all layers it is composed of.
-
-    In versions of Docker before v1.10, this field was calculated from
-    the image itself and all of its parent images. Images are now stored
-    self-contained, and no longer use a parent-chain, making this field
-    an equivalent of the Size field.
-
-    > **Deprecated**: this field is kept for backward compatibility, but
-    > will be removed in API v1.44.
-
+    
+    Deprecated: this field is omitted in API v1.44, but kept for backward compatibility. Use Size instead.
+    
     *
     * @var int
     */
@@ -180,9 +171,9 @@ class ImageInspect
     /**
     * Information about the storage driver used to store the container's and
     image's filesystem.
-
+    
     *
-    * @var GraphDriverData
+    * @var DriverData
     */
     protected $graphDriver;
     /**
@@ -194,21 +185,21 @@ class ImageInspect
     /**
     * Additional metadata of the image in the local cache. This information
     is local to the daemon, and not part of the image itself.
-
+    
     *
     * @var ImageInspectMetadata
     */
     protected $metadata;
     /**
     * ID is the content-addressable ID of an image.
-
+    
     This identifier is a content-addressable digest calculated from the
     image's configuration (which includes the digests of layers used by
     the image).
-
+    
     Note that this digest differs from the `RepoDigests` below, which
     holds digests of image manifests that reference the image.
-
+    
     *
     * @return string
     */
@@ -218,14 +209,14 @@ class ImageInspect
     }
     /**
     * ID is the content-addressable ID of an image.
-
+    
     This identifier is a content-addressable digest calculated from the
     image's configuration (which includes the digests of layers used by
     the image).
-
+    
     Note that this digest differs from the `RepoDigests` below, which
     holds digests of image manifests that reference the image.
-
+    
     *
     * @param string $id
     *
@@ -238,15 +229,81 @@ class ImageInspect
         return $this;
     }
     /**
+    * A descriptor struct containing digest, media type, and size, as defined in
+    the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
+    
+    *
+    * @return OCIDescriptor
+    */
+    public function getDescriptor(): OCIDescriptor
+    {
+        return $this->descriptor;
+    }
+    /**
+    * A descriptor struct containing digest, media type, and size, as defined in
+    the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
+    
+    *
+    * @param OCIDescriptor $descriptor
+    *
+    * @return self
+    */
+    public function setDescriptor(OCIDescriptor $descriptor): self
+    {
+        $this->initialized['descriptor'] = true;
+        $this->descriptor = $descriptor;
+        return $this;
+    }
+    /**
+    * Manifests is a list of image manifests available in this image. It
+    provides a more detailed view of the platform-specific image manifests or
+    other image-attached data like build attestations.
+    
+    Only available if the daemon provides a multi-platform image store
+    and the `manifests` option is set in the inspect request.
+    
+    WARNING: This is experimental and may change at any time without any backward
+    compatibility.
+    
+    *
+    * @return list<ImageManifestSummary>|null
+    */
+    public function getManifests(): ?array
+    {
+        return $this->manifests;
+    }
+    /**
+    * Manifests is a list of image manifests available in this image. It
+    provides a more detailed view of the platform-specific image manifests or
+    other image-attached data like build attestations.
+    
+    Only available if the daemon provides a multi-platform image store
+    and the `manifests` option is set in the inspect request.
+    
+    WARNING: This is experimental and may change at any time without any backward
+    compatibility.
+    
+    *
+    * @param list<ImageManifestSummary>|null $manifests
+    *
+    * @return self
+    */
+    public function setManifests(?array $manifests): self
+    {
+        $this->initialized['manifests'] = true;
+        $this->manifests = $manifests;
+        return $this;
+    }
+    /**
     * List of image names/tags in the local image cache that reference this
     image.
-
+    
     Multiple image tags can refer to the same image, and this list may be
     empty if no tags reference the image, in which case the image is
     "untagged", in which case it can still be referenced by its ID.
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getRepoTags(): array
     {
@@ -255,13 +312,13 @@ class ImageInspect
     /**
     * List of image names/tags in the local image cache that reference this
     image.
-
+    
     Multiple image tags can refer to the same image, and this list may be
     empty if no tags reference the image, in which case the image is
     "untagged", in which case it can still be referenced by its ID.
-
+    
     *
-    * @param string[] $repoTags
+    * @param list<string> $repoTags
     *
     * @return self
     */
@@ -275,13 +332,13 @@ class ImageInspect
     * List of content-addressable digests of locally available image manifests
     that the image is referenced from. Multiple manifests can refer to the
     same image.
-
+    
     These digests are usually only available if the image was either pulled
     from a registry, or if the image was pushed to a registry, which is when
     the manifest is generated and its digest calculated.
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getRepoDigests(): array
     {
@@ -291,13 +348,13 @@ class ImageInspect
     * List of content-addressable digests of locally available image manifests
     that the image is referenced from. Multiple manifests can refer to the
     same image.
-
+    
     These digests are usually only available if the image was either pulled
     from a registry, or if the image was pushed to a registry, which is when
     the manifest is generated and its digest calculated.
-
+    
     *
-    * @param string[] $repoDigests
+    * @param list<string> $repoDigests
     *
     * @return self
     */
@@ -309,11 +366,11 @@ class ImageInspect
     }
     /**
     * ID of the parent image.
-
+    
     Depending on how the image was created, this field may be empty and
     is only set for images that were built/created locally. This field
     is empty if the image was pulled from an image registry.
-
+    
     *
     * @return string
     */
@@ -323,11 +380,11 @@ class ImageInspect
     }
     /**
     * ID of the parent image.
-
+    
     Depending on how the image was created, this field may be empty and
     is only set for images that were built/created locally. This field
     is empty if the image was pulled from an image registry.
-
+    
     *
     * @param string $parent
     *
@@ -364,100 +421,40 @@ class ImageInspect
     /**
     * Date and time at which the image was created, formatted in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
+    This information is only available if present in the image,
+    and omitted otherwise.
+    
     *
-    * @return string
+    * @return string|null
     */
-    public function getCreated(): string
+    public function getCreated(): ?string
     {
         return $this->created;
     }
     /**
     * Date and time at which the image was created, formatted in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
+    This information is only available if present in the image,
+    and omitted otherwise.
+    
     *
-    * @param string $created
+    * @param string|null $created
     *
     * @return self
     */
-    public function setCreated(string $created): self
+    public function setCreated(?string $created): self
     {
         $this->initialized['created'] = true;
         $this->created = $created;
         return $this;
     }
     /**
-    * The ID of the container that was used to create the image.
-
-    Depending on how the image was created, this field may be empty.
-
-    *
-    * @return string
-    */
-    public function getContainer(): string
-    {
-        return $this->container;
-    }
-    /**
-    * The ID of the container that was used to create the image.
-
-    Depending on how the image was created, this field may be empty.
-
-    *
-    * @param string $container
-    *
-    * @return self
-    */
-    public function setContainer(string $container): self
-    {
-        $this->initialized['container'] = true;
-        $this->container = $container;
-        return $this;
-    }
-    /**
-    * Configuration for a container that is portable between hosts.
-
-    When used as `ContainerConfig` field in an image, `ContainerConfig` is an
-    optional field containing the configuration of the container that was last
-    committed when creating the image.
-
-    Previous versions of Docker builder used this field to store build cache,
-    and it is not in active use anymore.
-
-    *
-    * @return ContainerConfig
-    */
-    public function getContainerConfig(): ContainerConfig
-    {
-        return $this->containerConfig;
-    }
-    /**
-    * Configuration for a container that is portable between hosts.
-
-    When used as `ContainerConfig` field in an image, `ContainerConfig` is an
-    optional field containing the configuration of the container that was last
-    committed when creating the image.
-
-    Previous versions of Docker builder used this field to store build cache,
-    and it is not in active use anymore.
-
-    *
-    * @param ContainerConfig $containerConfig
-    *
-    * @return self
-    */
-    public function setContainerConfig(ContainerConfig $containerConfig): self
-    {
-        $this->initialized['containerConfig'] = true;
-        $this->containerConfig = $containerConfig;
-        return $this;
-    }
-    /**
     * The version of Docker that was used to build the image.
-
+    
     Depending on how the image was created, this field may be empty.
-
+    
     *
     * @return string
     */
@@ -467,9 +464,9 @@ class ImageInspect
     }
     /**
     * The version of Docker that was used to build the image.
-
+    
     Depending on how the image was created, this field may be empty.
-
+    
     *
     * @param string $dockerVersion
     *
@@ -484,7 +481,7 @@ class ImageInspect
     /**
     * Name of the author that was specified when committing the image, or as
     specified through MAINTAINER (deprecated) in the Dockerfile.
-
+    
     *
     * @return string
     */
@@ -495,7 +492,7 @@ class ImageInspect
     /**
     * Name of the author that was specified when committing the image, or as
     specified through MAINTAINER (deprecated) in the Dockerfile.
-
+    
     *
     * @param string $author
     *
@@ -508,38 +505,26 @@ class ImageInspect
         return $this;
     }
     /**
-    * Configuration for a container that is portable between hosts.
-
-    When used as `ContainerConfig` field in an image, `ContainerConfig` is an
-    optional field containing the configuration of the container that was last
-    committed when creating the image.
-
-    Previous versions of Docker builder used this field to store build cache,
-    and it is not in active use anymore.
-
+    * Configuration of the image. These fields are used as defaults
+    when starting a container from the image.
+    
     *
-    * @return ContainerConfig
+    * @return ImageConfig
     */
-    public function getConfig(): ContainerConfig
+    public function getConfig(): ImageConfig
     {
         return $this->config;
     }
     /**
-    * Configuration for a container that is portable between hosts.
-
-    When used as `ContainerConfig` field in an image, `ContainerConfig` is an
-    optional field containing the configuration of the container that was last
-    committed when creating the image.
-
-    Previous versions of Docker builder used this field to store build cache,
-    and it is not in active use anymore.
-
+    * Configuration of the image. These fields are used as defaults
+    when starting a container from the image.
+    
     *
-    * @param ContainerConfig $config
+    * @param ImageConfig $config
     *
     * @return self
     */
-    public function setConfig(ContainerConfig $config): self
+    public function setConfig(ImageConfig $config): self
     {
         $this->initialized['config'] = true;
         $this->config = $config;
@@ -614,7 +599,7 @@ class ImageInspect
     /**
     * Operating System version the image is built to run on (especially
     for Windows).
-
+    
     *
     * @return string|null
     */
@@ -625,7 +610,7 @@ class ImageInspect
     /**
     * Operating System version the image is built to run on (especially
     for Windows).
-
+    
     *
     * @param string|null $osVersion
     *
@@ -661,15 +646,9 @@ class ImageInspect
     }
     /**
     * Total size of the image including all layers it is composed of.
-
-    In versions of Docker before v1.10, this field was calculated from
-    the image itself and all of its parent images. Images are now stored
-    self-contained, and no longer use a parent-chain, making this field
-    an equivalent of the Size field.
-
-    > **Deprecated**: this field is kept for backward compatibility, but
-    > will be removed in API v1.44.
-
+    
+    Deprecated: this field is omitted in API v1.44, but kept for backward compatibility. Use Size instead.
+    
     *
     * @return int
     */
@@ -679,15 +658,9 @@ class ImageInspect
     }
     /**
     * Total size of the image including all layers it is composed of.
-
-    In versions of Docker before v1.10, this field was calculated from
-    the image itself and all of its parent images. Images are now stored
-    self-contained, and no longer use a parent-chain, making this field
-    an equivalent of the Size field.
-
-    > **Deprecated**: this field is kept for backward compatibility, but
-    > will be removed in API v1.44.
-
+    
+    Deprecated: this field is omitted in API v1.44, but kept for backward compatibility. Use Size instead.
+    
     *
     * @param int $virtualSize
     *
@@ -702,24 +675,24 @@ class ImageInspect
     /**
     * Information about the storage driver used to store the container's and
     image's filesystem.
-
+    
     *
-    * @return GraphDriverData
+    * @return DriverData
     */
-    public function getGraphDriver(): GraphDriverData
+    public function getGraphDriver(): DriverData
     {
         return $this->graphDriver;
     }
     /**
     * Information about the storage driver used to store the container's and
     image's filesystem.
-
+    
     *
-    * @param GraphDriverData $graphDriver
+    * @param DriverData $graphDriver
     *
     * @return self
     */
-    public function setGraphDriver(GraphDriverData $graphDriver): self
+    public function setGraphDriver(DriverData $graphDriver): self
     {
         $this->initialized['graphDriver'] = true;
         $this->graphDriver = $graphDriver;
@@ -750,7 +723,7 @@ class ImageInspect
     /**
     * Additional metadata of the image in the local cache. This information
     is local to the daemon, and not part of the image itself.
-
+    
     *
     * @return ImageInspectMetadata
     */
@@ -761,7 +734,7 @@ class ImageInspect
     /**
     * Additional metadata of the image in the local cache. This information
     is local to the daemon, and not part of the image itself.
-
+    
     *
     * @param ImageInspectMetadata $metadata
     *

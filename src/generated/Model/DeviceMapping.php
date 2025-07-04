@@ -7,31 +7,31 @@ class DeviceMapping
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $pathOnHost;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $pathInContainer;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $cgroupPermissions;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -40,7 +40,7 @@ class DeviceMapping
         return $this->pathOnHost;
     }
     /**
-     *
+     * 
      *
      * @param string $pathOnHost
      *
@@ -53,7 +53,7 @@ class DeviceMapping
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -62,7 +62,7 @@ class DeviceMapping
         return $this->pathInContainer;
     }
     /**
-     *
+     * 
      *
      * @param string $pathInContainer
      *
@@ -75,7 +75,7 @@ class DeviceMapping
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -84,7 +84,7 @@ class DeviceMapping
         return $this->cgroupPermissions;
     }
     /**
-     *
+     * 
      *
      * @param string $cgroupPermissions
      *

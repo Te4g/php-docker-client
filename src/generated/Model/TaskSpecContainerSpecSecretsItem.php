@@ -7,7 +7,7 @@ class TaskSpecContainerSpecSecretsItem
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -21,7 +21,7 @@ class TaskSpecContainerSpecSecretsItem
     /**
     * SecretID represents the ID of the specific secret that we're
     referencing.
-
+    
     *
     * @var string
     */
@@ -30,7 +30,7 @@ class TaskSpecContainerSpecSecretsItem
     * SecretName is the name of the secret that this references,
     but this is just provided for lookup/display purposes. The
     secret in the reference will be identified by its ID.
-
+    
     *
     * @var string
     */
@@ -60,7 +60,7 @@ class TaskSpecContainerSpecSecretsItem
     /**
     * SecretID represents the ID of the specific secret that we're
     referencing.
-
+    
     *
     * @return string
     */
@@ -71,7 +71,7 @@ class TaskSpecContainerSpecSecretsItem
     /**
     * SecretID represents the ID of the specific secret that we're
     referencing.
-
+    
     *
     * @param string $secretID
     *
@@ -87,7 +87,7 @@ class TaskSpecContainerSpecSecretsItem
     * SecretName is the name of the secret that this references,
     but this is just provided for lookup/display purposes. The
     secret in the reference will be identified by its ID.
-
+    
     *
     * @return string
     */
@@ -99,7 +99,7 @@ class TaskSpecContainerSpecSecretsItem
     * SecretName is the name of the secret that this references,
     but this is just provided for lookup/display purposes. The
     secret in the reference will be identified by its ID.
-
+    
     *
     * @param string $secretName
     *

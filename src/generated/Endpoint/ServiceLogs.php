@@ -4,15 +4,14 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ServiceLogs extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $id;
     /**
     * Get `stdout` and `stderr` logs from a service. See also
     [`/containers/{id}/logs`](#operation/ContainerLogs).
-
+    
     **Note**: This endpoint works only for services with the `local`,
     `json-file` or `journald` logging drivers.
-
+    
     *
     * @param string $id ID or name of the service
     * @param array $queryParameters {
@@ -24,43 +23,44 @@ class ServiceLogs extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint 
     *     @var bool $timestamps Add timestamps to every log line
     *     @var string $tail Only return this number of log lines from the end of the logs.
     Specify as an integer or `all` to output all log lines.
-
+    
     * }
     */
-    public function __construct(string $id, array $queryParameters = array())
+    public function __construct(string $id, array $queryParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'GET';
     }
     public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/services/{id}/logs');
+        return str_replace(['{id}'], [$this->id], '/services/{id}/logs');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('details', 'follow', 'stdout', 'stderr', 'since', 'timestamps', 'tail'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array('details' => false, 'follow' => false, 'stdout' => false, 'stderr' => false, 'since' => 0, 'timestamps' => false, 'tail' => 'all'));
-        $optionsResolver->addAllowedTypes('details', array('bool'));
-        $optionsResolver->addAllowedTypes('follow', array('bool'));
-        $optionsResolver->addAllowedTypes('stdout', array('bool'));
-        $optionsResolver->addAllowedTypes('stderr', array('bool'));
-        $optionsResolver->addAllowedTypes('since', array('int'));
-        $optionsResolver->addAllowedTypes('timestamps', array('bool'));
-        $optionsResolver->addAllowedTypes('tail', array('string'));
+        $optionsResolver->setDefined(['details', 'follow', 'stdout', 'stderr', 'since', 'timestamps', 'tail']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults(['details' => false, 'follow' => false, 'stdout' => false, 'stderr' => false, 'since' => 0, 'timestamps' => false, 'tail' => 'all']);
+        $optionsResolver->addAllowedTypes('details', ['bool']);
+        $optionsResolver->addAllowedTypes('follow', ['bool']);
+        $optionsResolver->addAllowedTypes('stdout', ['bool']);
+        $optionsResolver->addAllowedTypes('stderr', ['bool']);
+        $optionsResolver->addAllowedTypes('since', ['int']);
+        $optionsResolver->addAllowedTypes('timestamps', ['bool']);
+        $optionsResolver->addAllowedTypes('tail', ['string']);
         return $optionsResolver;
     }
     /**
@@ -80,17 +80,17 @@ class ServiceLogs extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint 
             return json_decode($body);
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ServiceLogsNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ServiceLogsNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ServiceLogsInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ServiceLogsInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (503 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ServiceLogsServiceUnavailableException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ServiceLogsServiceUnavailableException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

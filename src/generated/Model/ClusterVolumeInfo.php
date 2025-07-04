@@ -7,7 +7,7 @@ class ClusterVolumeInfo
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class ClusterVolumeInfo
     /**
     * The capacity of the volume in bytes. A value of 0 indicates that
     the capacity is unknown.
-
+    
     *
     * @var int
     */
@@ -23,7 +23,7 @@ class ClusterVolumeInfo
     /**
     * A map of strings to strings returned from the storage plugin when
     the volume is created.
-
+    
     *
     * @var array<string, string>
     */
@@ -34,7 +34,7 @@ class ClusterVolumeInfo
     is never used by the user when communicating with Docker to refer
     to this volume. If the ID is blank, then the Volume has not been
     successfully created in the plugin yet.
-
+    
     *
     * @var string
     */
@@ -42,13 +42,13 @@ class ClusterVolumeInfo
     /**
      * The topology this volume is actually accessible from.
      *
-     * @var array<string, string>[]
+     * @var list<array<string, string>>
      */
     protected $accessibleTopology;
     /**
     * The capacity of the volume in bytes. A value of 0 indicates that
     the capacity is unknown.
-
+    
     *
     * @return int
     */
@@ -59,7 +59,7 @@ class ClusterVolumeInfo
     /**
     * The capacity of the volume in bytes. A value of 0 indicates that
     the capacity is unknown.
-
+    
     *
     * @param int $capacityBytes
     *
@@ -74,7 +74,7 @@ class ClusterVolumeInfo
     /**
     * A map of strings to strings returned from the storage plugin when
     the volume is created.
-
+    
     *
     * @return array<string, string>
     */
@@ -85,7 +85,7 @@ class ClusterVolumeInfo
     /**
     * A map of strings to strings returned from the storage plugin when
     the volume is created.
-
+    
     *
     * @param array<string, string> $volumeContext
     *
@@ -103,7 +103,7 @@ class ClusterVolumeInfo
     is never used by the user when communicating with Docker to refer
     to this volume. If the ID is blank, then the Volume has not been
     successfully created in the plugin yet.
-
+    
     *
     * @return string
     */
@@ -117,7 +117,7 @@ class ClusterVolumeInfo
     is never used by the user when communicating with Docker to refer
     to this volume. If the ID is blank, then the Volume has not been
     successfully created in the plugin yet.
-
+    
     *
     * @param string $volumeID
     *
@@ -132,7 +132,7 @@ class ClusterVolumeInfo
     /**
      * The topology this volume is actually accessible from.
      *
-     * @return array<string, string>[]
+     * @return list<array<string, string>>
      */
     public function getAccessibleTopology(): array
     {
@@ -141,7 +141,7 @@ class ClusterVolumeInfo
     /**
      * The topology this volume is actually accessible from.
      *
-     * @param array<string, string>[] $accessibleTopology
+     * @param list<array<string, string>> $accessibleTopology
      *
      * @return self
      */

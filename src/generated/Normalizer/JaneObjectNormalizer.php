@@ -10,55 +10,1463 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
-class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-    use ValidatorTrait;
-    protected $normalizers = array('Vendor\\Library\\Generated\\Model\\Port' => 'Vendor\\Library\\Generated\\Normalizer\\PortNormalizer', 'Vendor\\Library\\Generated\\Model\\MountPoint' => 'Vendor\\Library\\Generated\\Normalizer\\MountPointNormalizer', 'Vendor\\Library\\Generated\\Model\\DeviceMapping' => 'Vendor\\Library\\Generated\\Normalizer\\DeviceMappingNormalizer', 'Vendor\\Library\\Generated\\Model\\DeviceRequest' => 'Vendor\\Library\\Generated\\Normalizer\\DeviceRequestNormalizer', 'Vendor\\Library\\Generated\\Model\\ThrottleDevice' => 'Vendor\\Library\\Generated\\Normalizer\\ThrottleDeviceNormalizer', 'Vendor\\Library\\Generated\\Model\\Mount' => 'Vendor\\Library\\Generated\\Normalizer\\MountNormalizer', 'Vendor\\Library\\Generated\\Model\\MountBindOptions' => 'Vendor\\Library\\Generated\\Normalizer\\MountBindOptionsNormalizer', 'Vendor\\Library\\Generated\\Model\\MountVolumeOptions' => 'Vendor\\Library\\Generated\\Normalizer\\MountVolumeOptionsNormalizer', 'Vendor\\Library\\Generated\\Model\\MountVolumeOptionsDriverConfig' => 'Vendor\\Library\\Generated\\Normalizer\\MountVolumeOptionsDriverConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\MountTmpfsOptions' => 'Vendor\\Library\\Generated\\Normalizer\\MountTmpfsOptionsNormalizer', 'Vendor\\Library\\Generated\\Model\\RestartPolicy' => 'Vendor\\Library\\Generated\\Normalizer\\RestartPolicyNormalizer', 'Vendor\\Library\\Generated\\Model\\Resources' => 'Vendor\\Library\\Generated\\Normalizer\\ResourcesNormalizer', 'Vendor\\Library\\Generated\\Model\\ResourcesBlkioWeightDeviceItem' => 'Vendor\\Library\\Generated\\Normalizer\\ResourcesBlkioWeightDeviceItemNormalizer', 'Vendor\\Library\\Generated\\Model\\ResourcesUlimitsItem' => 'Vendor\\Library\\Generated\\Normalizer\\ResourcesUlimitsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\Limit' => 'Vendor\\Library\\Generated\\Normalizer\\LimitNormalizer', 'Vendor\\Library\\Generated\\Model\\ResourceObject' => 'Vendor\\Library\\Generated\\Normalizer\\ResourceObjectNormalizer', 'Vendor\\Library\\Generated\\Model\\GenericResourcesItem' => 'Vendor\\Library\\Generated\\Normalizer\\GenericResourcesItemNormalizer', 'Vendor\\Library\\Generated\\Model\\GenericResourcesItemNamedResourceSpec' => 'Vendor\\Library\\Generated\\Normalizer\\GenericResourcesItemNamedResourceSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\GenericResourcesItemDiscreteResourceSpec' => 'Vendor\\Library\\Generated\\Normalizer\\GenericResourcesItemDiscreteResourceSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\HealthConfig' => 'Vendor\\Library\\Generated\\Normalizer\\HealthConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\Health' => 'Vendor\\Library\\Generated\\Normalizer\\HealthNormalizer', 'Vendor\\Library\\Generated\\Model\\HealthcheckResult' => 'Vendor\\Library\\Generated\\Normalizer\\HealthcheckResultNormalizer', 'Vendor\\Library\\Generated\\Model\\HostConfig' => 'Vendor\\Library\\Generated\\Normalizer\\HostConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\HostConfigLogConfig' => 'Vendor\\Library\\Generated\\Normalizer\\HostConfigLogConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainerConfig' => 'Vendor\\Library\\Generated\\Normalizer\\ContainerConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\NetworkingConfig' => 'Vendor\\Library\\Generated\\Normalizer\\NetworkingConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\NetworkSettings' => 'Vendor\\Library\\Generated\\Normalizer\\NetworkSettingsNormalizer', 'Vendor\\Library\\Generated\\Model\\Address' => 'Vendor\\Library\\Generated\\Normalizer\\AddressNormalizer', 'Vendor\\Library\\Generated\\Model\\PortBinding' => 'Vendor\\Library\\Generated\\Normalizer\\PortBindingNormalizer', 'Vendor\\Library\\Generated\\Model\\GraphDriverData' => 'Vendor\\Library\\Generated\\Normalizer\\GraphDriverDataNormalizer', 'Vendor\\Library\\Generated\\Model\\FilesystemChange' => 'Vendor\\Library\\Generated\\Normalizer\\FilesystemChangeNormalizer', 'Vendor\\Library\\Generated\\Model\\ImageInspect' => 'Vendor\\Library\\Generated\\Normalizer\\ImageInspectNormalizer', 'Vendor\\Library\\Generated\\Model\\ImageInspectRootFS' => 'Vendor\\Library\\Generated\\Normalizer\\ImageInspectRootFSNormalizer', 'Vendor\\Library\\Generated\\Model\\ImageInspectMetadata' => 'Vendor\\Library\\Generated\\Normalizer\\ImageInspectMetadataNormalizer', 'Vendor\\Library\\Generated\\Model\\ImageSummary' => 'Vendor\\Library\\Generated\\Normalizer\\ImageSummaryNormalizer', 'Vendor\\Library\\Generated\\Model\\AuthConfig' => 'Vendor\\Library\\Generated\\Normalizer\\AuthConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\ProcessConfig' => 'Vendor\\Library\\Generated\\Normalizer\\ProcessConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\Volume' => 'Vendor\\Library\\Generated\\Normalizer\\VolumeNormalizer', 'Vendor\\Library\\Generated\\Model\\VolumeUsageData' => 'Vendor\\Library\\Generated\\Normalizer\\VolumeUsageDataNormalizer', 'Vendor\\Library\\Generated\\Model\\VolumeCreateOptions' => 'Vendor\\Library\\Generated\\Normalizer\\VolumeCreateOptionsNormalizer', 'Vendor\\Library\\Generated\\Model\\VolumeListResponse' => 'Vendor\\Library\\Generated\\Normalizer\\VolumeListResponseNormalizer', 'Vendor\\Library\\Generated\\Model\\Network' => 'Vendor\\Library\\Generated\\Normalizer\\NetworkNormalizer', 'Vendor\\Library\\Generated\\Model\\IPAM' => 'Vendor\\Library\\Generated\\Normalizer\\IPAMNormalizer', 'Vendor\\Library\\Generated\\Model\\IPAMConfig' => 'Vendor\\Library\\Generated\\Normalizer\\IPAMConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\NetworkContainer' => 'Vendor\\Library\\Generated\\Normalizer\\NetworkContainerNormalizer', 'Vendor\\Library\\Generated\\Model\\BuildInfo' => 'Vendor\\Library\\Generated\\Normalizer\\BuildInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\BuildCache' => 'Vendor\\Library\\Generated\\Normalizer\\BuildCacheNormalizer', 'Vendor\\Library\\Generated\\Model\\ImageID' => 'Vendor\\Library\\Generated\\Normalizer\\ImageIDNormalizer', 'Vendor\\Library\\Generated\\Model\\CreateImageInfo' => 'Vendor\\Library\\Generated\\Normalizer\\CreateImageInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\PushImageInfo' => 'Vendor\\Library\\Generated\\Normalizer\\PushImageInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\ErrorDetail' => 'Vendor\\Library\\Generated\\Normalizer\\ErrorDetailNormalizer', 'Vendor\\Library\\Generated\\Model\\ProgressDetail' => 'Vendor\\Library\\Generated\\Normalizer\\ProgressDetailNormalizer', 'Vendor\\Library\\Generated\\Model\\ErrorResponse' => 'Vendor\\Library\\Generated\\Normalizer\\ErrorResponseNormalizer', 'Vendor\\Library\\Generated\\Model\\IdResponse' => 'Vendor\\Library\\Generated\\Normalizer\\IdResponseNormalizer', 'Vendor\\Library\\Generated\\Model\\EndpointSettings' => 'Vendor\\Library\\Generated\\Normalizer\\EndpointSettingsNormalizer', 'Vendor\\Library\\Generated\\Model\\EndpointIPAMConfig' => 'Vendor\\Library\\Generated\\Normalizer\\EndpointIPAMConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginMount' => 'Vendor\\Library\\Generated\\Normalizer\\PluginMountNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginDevice' => 'Vendor\\Library\\Generated\\Normalizer\\PluginDeviceNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginEnv' => 'Vendor\\Library\\Generated\\Normalizer\\PluginEnvNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginInterfaceType' => 'Vendor\\Library\\Generated\\Normalizer\\PluginInterfaceTypeNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginPrivilege' => 'Vendor\\Library\\Generated\\Normalizer\\PluginPrivilegeNormalizer', 'Vendor\\Library\\Generated\\Model\\Plugin' => 'Vendor\\Library\\Generated\\Normalizer\\PluginNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginSettings' => 'Vendor\\Library\\Generated\\Normalizer\\PluginSettingsNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginConfig' => 'Vendor\\Library\\Generated\\Normalizer\\PluginConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginConfigInterface' => 'Vendor\\Library\\Generated\\Normalizer\\PluginConfigInterfaceNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginConfigUser' => 'Vendor\\Library\\Generated\\Normalizer\\PluginConfigUserNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginConfigNetwork' => 'Vendor\\Library\\Generated\\Normalizer\\PluginConfigNetworkNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginConfigLinux' => 'Vendor\\Library\\Generated\\Normalizer\\PluginConfigLinuxNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginConfigArgs' => 'Vendor\\Library\\Generated\\Normalizer\\PluginConfigArgsNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginConfigRootfs' => 'Vendor\\Library\\Generated\\Normalizer\\PluginConfigRootfsNormalizer', 'Vendor\\Library\\Generated\\Model\\ObjectVersion' => 'Vendor\\Library\\Generated\\Normalizer\\ObjectVersionNormalizer', 'Vendor\\Library\\Generated\\Model\\NodeSpec' => 'Vendor\\Library\\Generated\\Normalizer\\NodeSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\Node' => 'Vendor\\Library\\Generated\\Normalizer\\NodeNormalizer', 'Vendor\\Library\\Generated\\Model\\NodeDescription' => 'Vendor\\Library\\Generated\\Normalizer\\NodeDescriptionNormalizer', 'Vendor\\Library\\Generated\\Model\\Platform' => 'Vendor\\Library\\Generated\\Normalizer\\PlatformNormalizer', 'Vendor\\Library\\Generated\\Model\\EngineDescription' => 'Vendor\\Library\\Generated\\Normalizer\\EngineDescriptionNormalizer', 'Vendor\\Library\\Generated\\Model\\EngineDescriptionPluginsItem' => 'Vendor\\Library\\Generated\\Normalizer\\EngineDescriptionPluginsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\TLSInfo' => 'Vendor\\Library\\Generated\\Normalizer\\TLSInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\NodeStatus' => 'Vendor\\Library\\Generated\\Normalizer\\NodeStatusNormalizer', 'Vendor\\Library\\Generated\\Model\\ManagerStatus' => 'Vendor\\Library\\Generated\\Normalizer\\ManagerStatusNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmSpec' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmSpecOrchestration' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmSpecOrchestrationNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmSpecRaft' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmSpecRaftNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmSpecDispatcher' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmSpecDispatcherNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmSpecCAConfig' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmSpecCAConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmSpecCAConfigExternalCAsItem' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmSpecCAConfigExternalCAsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmSpecEncryptionConfig' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmSpecEncryptionConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmSpecTaskDefaults' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmSpecTaskDefaultsNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmSpecTaskDefaultsLogDriver' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmSpecTaskDefaultsLogDriverNormalizer', 'Vendor\\Library\\Generated\\Model\\ClusterInfo' => 'Vendor\\Library\\Generated\\Normalizer\\ClusterInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\JoinTokens' => 'Vendor\\Library\\Generated\\Normalizer\\JoinTokensNormalizer', 'Vendor\\Library\\Generated\\Model\\Swarm' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpec' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecPluginSpec' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecPluginSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpec' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivileges' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecPrivilegesNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivilegesCredentialSpec' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecPrivilegesCredentialSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivilegesSELinuxContext' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecPrivilegesSELinuxContextNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecDNSConfig' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecDNSConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecSecretsItem' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecSecretsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecSecretsItemFile' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecSecretsItemFileNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecConfigsItem' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecConfigsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecConfigsItemFile' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecConfigsItemFileNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecUlimitsItem' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecContainerSpecUlimitsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecNetworkAttachmentSpec' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecNetworkAttachmentSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecResources' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecResourcesNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecRestartPolicy' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecRestartPolicyNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecPlacement' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecPlacementNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecPlacementPreferencesItem' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecPlacementPreferencesItemNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecPlacementPreferencesItemSpread' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecPlacementPreferencesItemSpreadNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskSpecLogDriver' => 'Vendor\\Library\\Generated\\Normalizer\\TaskSpecLogDriverNormalizer', 'Vendor\\Library\\Generated\\Model\\Task' => 'Vendor\\Library\\Generated\\Normalizer\\TaskNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskStatus' => 'Vendor\\Library\\Generated\\Normalizer\\TaskStatusNormalizer', 'Vendor\\Library\\Generated\\Model\\TaskStatusContainerStatus' => 'Vendor\\Library\\Generated\\Normalizer\\TaskStatusContainerStatusNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceSpec' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceSpecMode' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceSpecModeNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceSpecModeReplicated' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceSpecModeReplicatedNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceSpecModeReplicatedJob' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceSpecModeReplicatedJobNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceSpecUpdateConfig' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceSpecUpdateConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceSpecRollbackConfig' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceSpecRollbackConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\EndpointPortConfig' => 'Vendor\\Library\\Generated\\Normalizer\\EndpointPortConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\EndpointSpec' => 'Vendor\\Library\\Generated\\Normalizer\\EndpointSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\Service' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceEndpoint' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceEndpointNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceEndpointVirtualIPsItem' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceEndpointVirtualIPsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceUpdateStatus' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceUpdateStatusNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceServiceStatus' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceServiceStatusNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceJobStatus' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceJobStatusNormalizer', 'Vendor\\Library\\Generated\\Model\\ImageDeleteResponseItem' => 'Vendor\\Library\\Generated\\Normalizer\\ImageDeleteResponseItemNormalizer', 'Vendor\\Library\\Generated\\Model\\ServiceUpdateResponse' => 'Vendor\\Library\\Generated\\Normalizer\\ServiceUpdateResponseNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainerSummary' => 'Vendor\\Library\\Generated\\Normalizer\\ContainerSummaryNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainerSummaryHostConfig' => 'Vendor\\Library\\Generated\\Normalizer\\ContainerSummaryHostConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainerSummaryNetworkSettings' => 'Vendor\\Library\\Generated\\Normalizer\\ContainerSummaryNetworkSettingsNormalizer', 'Vendor\\Library\\Generated\\Model\\Driver' => 'Vendor\\Library\\Generated\\Normalizer\\DriverNormalizer', 'Vendor\\Library\\Generated\\Model\\SecretSpec' => 'Vendor\\Library\\Generated\\Normalizer\\SecretSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\Secret' => 'Vendor\\Library\\Generated\\Normalizer\\SecretNormalizer', 'Vendor\\Library\\Generated\\Model\\ConfigSpec' => 'Vendor\\Library\\Generated\\Normalizer\\ConfigSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\Config' => 'Vendor\\Library\\Generated\\Normalizer\\ConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainerState' => 'Vendor\\Library\\Generated\\Normalizer\\ContainerStateNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainerCreateResponse' => 'Vendor\\Library\\Generated\\Normalizer\\ContainerCreateResponseNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainerWaitResponse' => 'Vendor\\Library\\Generated\\Normalizer\\ContainerWaitResponseNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainerWaitExitError' => 'Vendor\\Library\\Generated\\Normalizer\\ContainerWaitExitErrorNormalizer', 'Vendor\\Library\\Generated\\Model\\SystemVersion' => 'Vendor\\Library\\Generated\\Normalizer\\SystemVersionNormalizer', 'Vendor\\Library\\Generated\\Model\\SystemVersionPlatform' => 'Vendor\\Library\\Generated\\Normalizer\\SystemVersionPlatformNormalizer', 'Vendor\\Library\\Generated\\Model\\SystemVersionComponentsItem' => 'Vendor\\Library\\Generated\\Normalizer\\SystemVersionComponentsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\SystemInfo' => 'Vendor\\Library\\Generated\\Normalizer\\SystemInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\SystemInfoDefaultAddressPoolsItem' => 'Vendor\\Library\\Generated\\Normalizer\\SystemInfoDefaultAddressPoolsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\PluginsInfo' => 'Vendor\\Library\\Generated\\Normalizer\\PluginsInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\RegistryServiceConfig' => 'Vendor\\Library\\Generated\\Normalizer\\RegistryServiceConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\IndexInfo' => 'Vendor\\Library\\Generated\\Normalizer\\IndexInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\Runtime' => 'Vendor\\Library\\Generated\\Normalizer\\RuntimeNormalizer', 'Vendor\\Library\\Generated\\Model\\Commit' => 'Vendor\\Library\\Generated\\Normalizer\\CommitNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmInfo' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\PeerNode' => 'Vendor\\Library\\Generated\\Normalizer\\PeerNodeNormalizer', 'Vendor\\Library\\Generated\\Model\\NetworkAttachmentConfig' => 'Vendor\\Library\\Generated\\Normalizer\\NetworkAttachmentConfigNormalizer', 'Vendor\\Library\\Generated\\Model\\EventActor' => 'Vendor\\Library\\Generated\\Normalizer\\EventActorNormalizer', 'Vendor\\Library\\Generated\\Model\\EventMessage' => 'Vendor\\Library\\Generated\\Normalizer\\EventMessageNormalizer', 'Vendor\\Library\\Generated\\Model\\OCIDescriptor' => 'Vendor\\Library\\Generated\\Normalizer\\OCIDescriptorNormalizer', 'Vendor\\Library\\Generated\\Model\\OCIPlatform' => 'Vendor\\Library\\Generated\\Normalizer\\OCIPlatformNormalizer', 'Vendor\\Library\\Generated\\Model\\DistributionInspect' => 'Vendor\\Library\\Generated\\Normalizer\\DistributionInspectNormalizer', 'Vendor\\Library\\Generated\\Model\\ClusterVolume' => 'Vendor\\Library\\Generated\\Normalizer\\ClusterVolumeNormalizer', 'Vendor\\Library\\Generated\\Model\\ClusterVolumeInfo' => 'Vendor\\Library\\Generated\\Normalizer\\ClusterVolumeInfoNormalizer', 'Vendor\\Library\\Generated\\Model\\ClusterVolumePublishStatusItem' => 'Vendor\\Library\\Generated\\Normalizer\\ClusterVolumePublishStatusItemNormalizer', 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpec' => 'Vendor\\Library\\Generated\\Normalizer\\ClusterVolumeSpecNormalizer', 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessMode' => 'Vendor\\Library\\Generated\\Normalizer\\ClusterVolumeSpecAccessModeNormalizer', 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessModeSecretsItem' => 'Vendor\\Library\\Generated\\Normalizer\\ClusterVolumeSpecAccessModeSecretsItemNormalizer', 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessModeAccessibilityRequirements' => 'Vendor\\Library\\Generated\\Normalizer\\ClusterVolumeSpecAccessModeAccessibilityRequirementsNormalizer', 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessModeCapacityRange' => 'Vendor\\Library\\Generated\\Normalizer\\ClusterVolumeSpecAccessModeCapacityRangeNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainersCreatePostBody' => 'Vendor\\Library\\Generated\\Normalizer\\ContainersCreatePostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainersIdJsonGetResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\ContainersIdJsonGetResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\ContainersIdTopGetResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\ContainersIdTopGetResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\ContainersIdUpdatePostBody' => 'Vendor\\Library\\Generated\\Normalizer\\ContainersIdUpdatePostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\ContainersIdUpdatePostResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\ContainersIdUpdatePostResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\ContainersPrunePostResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\ContainersPrunePostResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\BuildPrunePostResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\BuildPrunePostResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\ImagesNameHistoryGetResponse200Item' => 'Vendor\\Library\\Generated\\Normalizer\\ImagesNameHistoryGetResponse200ItemNormalizer', 'Vendor\\Library\\Generated\\Model\\ImagesSearchGetResponse200Item' => 'Vendor\\Library\\Generated\\Normalizer\\ImagesSearchGetResponse200ItemNormalizer', 'Vendor\\Library\\Generated\\Model\\ImagesPrunePostResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\ImagesPrunePostResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\AuthPostResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\AuthPostResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\SystemDfGetResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\SystemDfGetResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\ContainersIdExecPostBody' => 'Vendor\\Library\\Generated\\Normalizer\\ContainersIdExecPostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\ExecIdStartPostBody' => 'Vendor\\Library\\Generated\\Normalizer\\ExecIdStartPostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\ExecIdJsonGetResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\ExecIdJsonGetResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\VolumesNamePutBody' => 'Vendor\\Library\\Generated\\Normalizer\\VolumesNamePutBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\VolumesPrunePostResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\VolumesPrunePostResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\NetworksCreatePostBody' => 'Vendor\\Library\\Generated\\Normalizer\\NetworksCreatePostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\NetworksCreatePostResponse201' => 'Vendor\\Library\\Generated\\Normalizer\\NetworksCreatePostResponse201Normalizer', 'Vendor\\Library\\Generated\\Model\\NetworksIdConnectPostBody' => 'Vendor\\Library\\Generated\\Normalizer\\NetworksIdConnectPostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\NetworksIdDisconnectPostBody' => 'Vendor\\Library\\Generated\\Normalizer\\NetworksIdDisconnectPostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\NetworksPrunePostResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\NetworksPrunePostResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\SwarmInitPostBody' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmInitPostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmJoinPostBody' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmJoinPostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\SwarmUnlockkeyGetResponse200' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmUnlockkeyGetResponse200Normalizer', 'Vendor\\Library\\Generated\\Model\\SwarmUnlockPostBody' => 'Vendor\\Library\\Generated\\Normalizer\\SwarmUnlockPostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\ServicesCreatePostBody' => 'Vendor\\Library\\Generated\\Normalizer\\ServicesCreatePostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\ServicesCreatePostResponse201' => 'Vendor\\Library\\Generated\\Normalizer\\ServicesCreatePostResponse201Normalizer', 'Vendor\\Library\\Generated\\Model\\ServicesIdUpdatePostBody' => 'Vendor\\Library\\Generated\\Normalizer\\ServicesIdUpdatePostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\SecretsCreatePostBody' => 'Vendor\\Library\\Generated\\Normalizer\\SecretsCreatePostBodyNormalizer', 'Vendor\\Library\\Generated\\Model\\ConfigsCreatePostBody' => 'Vendor\\Library\\Generated\\Normalizer\\ConfigsCreatePostBodyNormalizer', '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => '\\Vendor\\Library\\Generated\\Runtime\\Normalizer\\ReferenceNormalizer');
-    protected $normalizersCache = array();
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()): bool
+use Symfony\Component\HttpKernel\Kernel;
+if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
+    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return array_key_exists($type, $this->normalizers);
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        protected $normalizers = [
+            
+            \Vendor\Library\Generated\Model\Port::class => \Vendor\Library\Generated\Normalizer\PortNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountPoint::class => \Vendor\Library\Generated\Normalizer\MountPointNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DeviceMapping::class => \Vendor\Library\Generated\Normalizer\DeviceMappingNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DeviceRequest::class => \Vendor\Library\Generated\Normalizer\DeviceRequestNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ThrottleDevice::class => \Vendor\Library\Generated\Normalizer\ThrottleDeviceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Mount::class => \Vendor\Library\Generated\Normalizer\MountNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountBindOptions::class => \Vendor\Library\Generated\Normalizer\MountBindOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountVolumeOptions::class => \Vendor\Library\Generated\Normalizer\MountVolumeOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountVolumeOptionsDriverConfig::class => \Vendor\Library\Generated\Normalizer\MountVolumeOptionsDriverConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountImageOptions::class => \Vendor\Library\Generated\Normalizer\MountImageOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountTmpfsOptions::class => \Vendor\Library\Generated\Normalizer\MountTmpfsOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\RestartPolicy::class => \Vendor\Library\Generated\Normalizer\RestartPolicyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Resources::class => \Vendor\Library\Generated\Normalizer\ResourcesNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ResourcesBlkioWeightDeviceItem::class => \Vendor\Library\Generated\Normalizer\ResourcesBlkioWeightDeviceItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ResourcesUlimitsItem::class => \Vendor\Library\Generated\Normalizer\ResourcesUlimitsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Limit::class => \Vendor\Library\Generated\Normalizer\LimitNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ResourceObject::class => \Vendor\Library\Generated\Normalizer\ResourceObjectNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\GenericResourcesItem::class => \Vendor\Library\Generated\Normalizer\GenericResourcesItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\GenericResourcesItemNamedResourceSpec::class => \Vendor\Library\Generated\Normalizer\GenericResourcesItemNamedResourceSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\GenericResourcesItemDiscreteResourceSpec::class => \Vendor\Library\Generated\Normalizer\GenericResourcesItemDiscreteResourceSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\HealthConfig::class => \Vendor\Library\Generated\Normalizer\HealthConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Health::class => \Vendor\Library\Generated\Normalizer\HealthNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\HealthcheckResult::class => \Vendor\Library\Generated\Normalizer\HealthcheckResultNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\HostConfig::class => \Vendor\Library\Generated\Normalizer\HostConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\HostConfigLogConfig::class => \Vendor\Library\Generated\Normalizer\HostConfigLogConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerConfig::class => \Vendor\Library\Generated\Normalizer\ContainerConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageConfig::class => \Vendor\Library\Generated\Normalizer\ImageConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkingConfig::class => \Vendor\Library\Generated\Normalizer\NetworkingConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkSettings::class => \Vendor\Library\Generated\Normalizer\NetworkSettingsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Address::class => \Vendor\Library\Generated\Normalizer\AddressNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PortBinding::class => \Vendor\Library\Generated\Normalizer\PortBindingNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DriverData::class => \Vendor\Library\Generated\Normalizer\DriverDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\FilesystemChange::class => \Vendor\Library\Generated\Normalizer\FilesystemChangeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageInspect::class => \Vendor\Library\Generated\Normalizer\ImageInspectNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageInspectRootFS::class => \Vendor\Library\Generated\Normalizer\ImageInspectRootFSNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageInspectMetadata::class => \Vendor\Library\Generated\Normalizer\ImageInspectMetadataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageSummary::class => \Vendor\Library\Generated\Normalizer\ImageSummaryNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\AuthConfig::class => \Vendor\Library\Generated\Normalizer\AuthConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ProcessConfig::class => \Vendor\Library\Generated\Normalizer\ProcessConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Volume::class => \Vendor\Library\Generated\Normalizer\VolumeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumeUsageData::class => \Vendor\Library\Generated\Normalizer\VolumeUsageDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumeCreateOptions::class => \Vendor\Library\Generated\Normalizer\VolumeCreateOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumeListResponse::class => \Vendor\Library\Generated\Normalizer\VolumeListResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Network::class => \Vendor\Library\Generated\Normalizer\NetworkNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ConfigReference::class => \Vendor\Library\Generated\Normalizer\ConfigReferenceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\IPAM::class => \Vendor\Library\Generated\Normalizer\IPAMNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\IPAMConfig::class => \Vendor\Library\Generated\Normalizer\IPAMConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkContainer::class => \Vendor\Library\Generated\Normalizer\NetworkContainerNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PeerInfo::class => \Vendor\Library\Generated\Normalizer\PeerInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkCreateResponse::class => \Vendor\Library\Generated\Normalizer\NetworkCreateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\BuildInfo::class => \Vendor\Library\Generated\Normalizer\BuildInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\BuildCache::class => \Vendor\Library\Generated\Normalizer\BuildCacheNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageID::class => \Vendor\Library\Generated\Normalizer\ImageIDNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\CreateImageInfo::class => \Vendor\Library\Generated\Normalizer\CreateImageInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PushImageInfo::class => \Vendor\Library\Generated\Normalizer\PushImageInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DeviceInfo::class => \Vendor\Library\Generated\Normalizer\DeviceInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ErrorDetail::class => \Vendor\Library\Generated\Normalizer\ErrorDetailNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ProgressDetail::class => \Vendor\Library\Generated\Normalizer\ProgressDetailNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ErrorResponse::class => \Vendor\Library\Generated\Normalizer\ErrorResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\IDResponse::class => \Vendor\Library\Generated\Normalizer\IDResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EndpointSettings::class => \Vendor\Library\Generated\Normalizer\EndpointSettingsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EndpointIPAMConfig::class => \Vendor\Library\Generated\Normalizer\EndpointIPAMConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginMount::class => \Vendor\Library\Generated\Normalizer\PluginMountNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginDevice::class => \Vendor\Library\Generated\Normalizer\PluginDeviceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginEnv::class => \Vendor\Library\Generated\Normalizer\PluginEnvNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginInterfaceType::class => \Vendor\Library\Generated\Normalizer\PluginInterfaceTypeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginPrivilege::class => \Vendor\Library\Generated\Normalizer\PluginPrivilegeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Plugin::class => \Vendor\Library\Generated\Normalizer\PluginNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginSettings::class => \Vendor\Library\Generated\Normalizer\PluginSettingsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfig::class => \Vendor\Library\Generated\Normalizer\PluginConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigInterface::class => \Vendor\Library\Generated\Normalizer\PluginConfigInterfaceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigUser::class => \Vendor\Library\Generated\Normalizer\PluginConfigUserNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigNetwork::class => \Vendor\Library\Generated\Normalizer\PluginConfigNetworkNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigLinux::class => \Vendor\Library\Generated\Normalizer\PluginConfigLinuxNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigArgs::class => \Vendor\Library\Generated\Normalizer\PluginConfigArgsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigRootfs::class => \Vendor\Library\Generated\Normalizer\PluginConfigRootfsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ObjectVersion::class => \Vendor\Library\Generated\Normalizer\ObjectVersionNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NodeSpec::class => \Vendor\Library\Generated\Normalizer\NodeSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Node::class => \Vendor\Library\Generated\Normalizer\NodeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NodeDescription::class => \Vendor\Library\Generated\Normalizer\NodeDescriptionNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Platform::class => \Vendor\Library\Generated\Normalizer\PlatformNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EngineDescription::class => \Vendor\Library\Generated\Normalizer\EngineDescriptionNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EngineDescriptionPluginsItem::class => \Vendor\Library\Generated\Normalizer\EngineDescriptionPluginsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TLSInfo::class => \Vendor\Library\Generated\Normalizer\TLSInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NodeStatus::class => \Vendor\Library\Generated\Normalizer\NodeStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ManagerStatus::class => \Vendor\Library\Generated\Normalizer\ManagerStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpec::class => \Vendor\Library\Generated\Normalizer\SwarmSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecOrchestration::class => \Vendor\Library\Generated\Normalizer\SwarmSpecOrchestrationNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecRaft::class => \Vendor\Library\Generated\Normalizer\SwarmSpecRaftNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecDispatcher::class => \Vendor\Library\Generated\Normalizer\SwarmSpecDispatcherNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecCAConfig::class => \Vendor\Library\Generated\Normalizer\SwarmSpecCAConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecCAConfigExternalCAsItem::class => \Vendor\Library\Generated\Normalizer\SwarmSpecCAConfigExternalCAsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecEncryptionConfig::class => \Vendor\Library\Generated\Normalizer\SwarmSpecEncryptionConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecTaskDefaults::class => \Vendor\Library\Generated\Normalizer\SwarmSpecTaskDefaultsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecTaskDefaultsLogDriver::class => \Vendor\Library\Generated\Normalizer\SwarmSpecTaskDefaultsLogDriverNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterInfo::class => \Vendor\Library\Generated\Normalizer\ClusterInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\JoinTokens::class => \Vendor\Library\Generated\Normalizer\JoinTokensNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Swarm::class => \Vendor\Library\Generated\Normalizer\SwarmNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecPluginSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecPluginSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesCredentialSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesCredentialSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSELinuxContext::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesSELinuxContextNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSeccomp::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesSeccompNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesAppArmor::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesAppArmorNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecDNSConfig::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecDNSConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecSecretsItem::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecSecretsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecSecretsItemFile::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecSecretsItemFileNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecConfigsItem::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecConfigsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecConfigsItemFile::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecConfigsItemFileNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecUlimitsItem::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecUlimitsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecNetworkAttachmentSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecNetworkAttachmentSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecResources::class => \Vendor\Library\Generated\Normalizer\TaskSpecResourcesNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecRestartPolicy::class => \Vendor\Library\Generated\Normalizer\TaskSpecRestartPolicyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecPlacement::class => \Vendor\Library\Generated\Normalizer\TaskSpecPlacementNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecPlacementPreferencesItem::class => \Vendor\Library\Generated\Normalizer\TaskSpecPlacementPreferencesItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecPlacementPreferencesItemSpread::class => \Vendor\Library\Generated\Normalizer\TaskSpecPlacementPreferencesItemSpreadNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecLogDriver::class => \Vendor\Library\Generated\Normalizer\TaskSpecLogDriverNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerStatus::class => \Vendor\Library\Generated\Normalizer\ContainerStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PortStatus::class => \Vendor\Library\Generated\Normalizer\PortStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskStatus::class => \Vendor\Library\Generated\Normalizer\TaskStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Task::class => \Vendor\Library\Generated\Normalizer\TaskNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpec::class => \Vendor\Library\Generated\Normalizer\ServiceSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecMode::class => \Vendor\Library\Generated\Normalizer\ServiceSpecModeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecModeReplicated::class => \Vendor\Library\Generated\Normalizer\ServiceSpecModeReplicatedNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecModeReplicatedJob::class => \Vendor\Library\Generated\Normalizer\ServiceSpecModeReplicatedJobNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecUpdateConfig::class => \Vendor\Library\Generated\Normalizer\ServiceSpecUpdateConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecRollbackConfig::class => \Vendor\Library\Generated\Normalizer\ServiceSpecRollbackConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EndpointPortConfig::class => \Vendor\Library\Generated\Normalizer\EndpointPortConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EndpointSpec::class => \Vendor\Library\Generated\Normalizer\EndpointSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Service::class => \Vendor\Library\Generated\Normalizer\ServiceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceEndpoint::class => \Vendor\Library\Generated\Normalizer\ServiceEndpointNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceEndpointVirtualIPsItem::class => \Vendor\Library\Generated\Normalizer\ServiceEndpointVirtualIPsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceUpdateStatus::class => \Vendor\Library\Generated\Normalizer\ServiceUpdateStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceServiceStatus::class => \Vendor\Library\Generated\Normalizer\ServiceServiceStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceJobStatus::class => \Vendor\Library\Generated\Normalizer\ServiceJobStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageDeleteResponseItem::class => \Vendor\Library\Generated\Normalizer\ImageDeleteResponseItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceCreateResponse::class => \Vendor\Library\Generated\Normalizer\ServiceCreateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceUpdateResponse::class => \Vendor\Library\Generated\Normalizer\ServiceUpdateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerInspectResponse::class => \Vendor\Library\Generated\Normalizer\ContainerInspectResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerSummary::class => \Vendor\Library\Generated\Normalizer\ContainerSummaryNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerSummaryHostConfig::class => \Vendor\Library\Generated\Normalizer\ContainerSummaryHostConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerSummaryNetworkSettings::class => \Vendor\Library\Generated\Normalizer\ContainerSummaryNetworkSettingsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Driver::class => \Vendor\Library\Generated\Normalizer\DriverNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SecretSpec::class => \Vendor\Library\Generated\Normalizer\SecretSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Secret::class => \Vendor\Library\Generated\Normalizer\SecretNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ConfigSpec::class => \Vendor\Library\Generated\Normalizer\ConfigSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Config::class => \Vendor\Library\Generated\Normalizer\ConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerState::class => \Vendor\Library\Generated\Normalizer\ContainerStateNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerCreateResponse::class => \Vendor\Library\Generated\Normalizer\ContainerCreateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerUpdateResponse::class => \Vendor\Library\Generated\Normalizer\ContainerUpdateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerStatsResponse::class => \Vendor\Library\Generated\Normalizer\ContainerStatsResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerBlkioStats::class => \Vendor\Library\Generated\Normalizer\ContainerBlkioStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerBlkioStatEntry::class => \Vendor\Library\Generated\Normalizer\ContainerBlkioStatEntryNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerCPUStats::class => \Vendor\Library\Generated\Normalizer\ContainerCPUStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerCPUUsage::class => \Vendor\Library\Generated\Normalizer\ContainerCPUUsageNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerPidsStats::class => \Vendor\Library\Generated\Normalizer\ContainerPidsStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerThrottlingData::class => \Vendor\Library\Generated\Normalizer\ContainerThrottlingDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerMemoryStats::class => \Vendor\Library\Generated\Normalizer\ContainerMemoryStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerNetworkStats::class => \Vendor\Library\Generated\Normalizer\ContainerNetworkStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerStorageStats::class => \Vendor\Library\Generated\Normalizer\ContainerStorageStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerTopResponse::class => \Vendor\Library\Generated\Normalizer\ContainerTopResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerWaitResponse::class => \Vendor\Library\Generated\Normalizer\ContainerWaitResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerWaitExitError::class => \Vendor\Library\Generated\Normalizer\ContainerWaitExitErrorNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemVersion::class => \Vendor\Library\Generated\Normalizer\SystemVersionNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemVersionPlatform::class => \Vendor\Library\Generated\Normalizer\SystemVersionPlatformNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemVersionComponentsItem::class => \Vendor\Library\Generated\Normalizer\SystemVersionComponentsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemInfo::class => \Vendor\Library\Generated\Normalizer\SystemInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemInfoDefaultAddressPoolsItem::class => \Vendor\Library\Generated\Normalizer\SystemInfoDefaultAddressPoolsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerdInfo::class => \Vendor\Library\Generated\Normalizer\ContainerdInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerdInfoNamespaces::class => \Vendor\Library\Generated\Normalizer\ContainerdInfoNamespacesNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\FirewallInfo::class => \Vendor\Library\Generated\Normalizer\FirewallInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginsInfo::class => \Vendor\Library\Generated\Normalizer\PluginsInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\RegistryServiceConfig::class => \Vendor\Library\Generated\Normalizer\RegistryServiceConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\IndexInfo::class => \Vendor\Library\Generated\Normalizer\IndexInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Runtime::class => \Vendor\Library\Generated\Normalizer\RuntimeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Commit::class => \Vendor\Library\Generated\Normalizer\CommitNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmInfo::class => \Vendor\Library\Generated\Normalizer\SwarmInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PeerNode::class => \Vendor\Library\Generated\Normalizer\PeerNodeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkAttachmentConfig::class => \Vendor\Library\Generated\Normalizer\NetworkAttachmentConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EventActor::class => \Vendor\Library\Generated\Normalizer\EventActorNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EventMessage::class => \Vendor\Library\Generated\Normalizer\EventMessageNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\OCIDescriptor::class => \Vendor\Library\Generated\Normalizer\OCIDescriptorNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\OCIPlatform::class => \Vendor\Library\Generated\Normalizer\OCIPlatformNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DistributionInspect::class => \Vendor\Library\Generated\Normalizer\DistributionInspectNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolume::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeInfo::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumePublishStatusItem::class => \Vendor\Library\Generated\Normalizer\ClusterVolumePublishStatusItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpec::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessMode::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecAccessModeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeSecretsItem::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecAccessModeSecretsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecAccessModeAccessibilityRequirementsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeCapacityRange::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecAccessModeCapacityRangeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummary::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummaryNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummarySize::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummarySizeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummaryImageData::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummaryImageDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummaryImageDataSize::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummaryImageDataSizeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummaryAttestationData::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummaryAttestationDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainersCreatePostBody::class => \Vendor\Library\Generated\Normalizer\ContainersCreatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainersIdUpdatePostBody::class => \Vendor\Library\Generated\Normalizer\ContainersIdUpdatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainersPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\ContainersPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\BuildPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\BuildPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImagesNameHistoryGetResponse200Item::class => \Vendor\Library\Generated\Normalizer\ImagesNameHistoryGetResponse200ItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImagesSearchGetResponse200Item::class => \Vendor\Library\Generated\Normalizer\ImagesSearchGetResponse200ItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImagesPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\ImagesPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\AuthPostResponse200::class => \Vendor\Library\Generated\Normalizer\AuthPostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemDfGetResponse200::class => \Vendor\Library\Generated\Normalizer\SystemDfGetResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainersIdExecPostBody::class => \Vendor\Library\Generated\Normalizer\ContainersIdExecPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ExecIdStartPostBody::class => \Vendor\Library\Generated\Normalizer\ExecIdStartPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ExecIdJsonGetResponse200::class => \Vendor\Library\Generated\Normalizer\ExecIdJsonGetResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumesNamePutBody::class => \Vendor\Library\Generated\Normalizer\VolumesNamePutBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumesPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\VolumesPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworksCreatePostBody::class => \Vendor\Library\Generated\Normalizer\NetworksCreatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworksIdConnectPostBody::class => \Vendor\Library\Generated\Normalizer\NetworksIdConnectPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworksIdDisconnectPostBody::class => \Vendor\Library\Generated\Normalizer\NetworksIdDisconnectPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworksPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\NetworksPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmInitPostBody::class => \Vendor\Library\Generated\Normalizer\SwarmInitPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmJoinPostBody::class => \Vendor\Library\Generated\Normalizer\SwarmJoinPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmUnlockkeyGetResponse200::class => \Vendor\Library\Generated\Normalizer\SwarmUnlockkeyGetResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmUnlockPostBody::class => \Vendor\Library\Generated\Normalizer\SwarmUnlockPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServicesCreatePostBody::class => \Vendor\Library\Generated\Normalizer\ServicesCreatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServicesIdUpdatePostBody::class => \Vendor\Library\Generated\Normalizer\ServicesIdUpdatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SecretsCreatePostBody::class => \Vendor\Library\Generated\Normalizer\SecretsCreatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ConfigsCreatePostBody::class => \Vendor\Library\Generated\Normalizer\ConfigsCreatePostBodyNormalizer::class,
+            
+            \Jane\Component\JsonSchemaRuntime\Reference::class => \Vendor\Library\Generated\Runtime\Normalizer\ReferenceNormalizer::class,
+        ], $normalizersCache = [];
+        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
+        {
+            return array_key_exists($type, $this->normalizers);
+        }
+        public function supportsNormalization($data, $format = null, array $context = []): bool
+        {
+            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
+        }
+        public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $normalizerClass = $this->normalizers[get_class($object)];
+            $normalizer = $this->getNormalizer($normalizerClass);
+            return $normalizer->normalize($object, $format, $context);
+        }
+        public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
+        {
+            $denormalizerClass = $this->normalizers[$type];
+            $denormalizer = $this->getNormalizer($denormalizerClass);
+            return $denormalizer->denormalize($data, $type, $format, $context);
+        }
+        private function getNormalizer(string $normalizerClass)
+        {
+            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
+        }
+        private function initNormalizer(string $normalizerClass)
+        {
+            $normalizer = new $normalizerClass();
+            $normalizer->setNormalizer($this->normalizer);
+            $normalizer->setDenormalizer($this->denormalizer);
+            $this->normalizersCache[$normalizerClass] = $normalizer;
+            return $normalizer;
+        }
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [
+                
+                \Vendor\Library\Generated\Model\Port::class => false,
+                \Vendor\Library\Generated\Model\MountPoint::class => false,
+                \Vendor\Library\Generated\Model\DeviceMapping::class => false,
+                \Vendor\Library\Generated\Model\DeviceRequest::class => false,
+                \Vendor\Library\Generated\Model\ThrottleDevice::class => false,
+                \Vendor\Library\Generated\Model\Mount::class => false,
+                \Vendor\Library\Generated\Model\MountBindOptions::class => false,
+                \Vendor\Library\Generated\Model\MountVolumeOptions::class => false,
+                \Vendor\Library\Generated\Model\MountVolumeOptionsDriverConfig::class => false,
+                \Vendor\Library\Generated\Model\MountImageOptions::class => false,
+                \Vendor\Library\Generated\Model\MountTmpfsOptions::class => false,
+                \Vendor\Library\Generated\Model\RestartPolicy::class => false,
+                \Vendor\Library\Generated\Model\Resources::class => false,
+                \Vendor\Library\Generated\Model\ResourcesBlkioWeightDeviceItem::class => false,
+                \Vendor\Library\Generated\Model\ResourcesUlimitsItem::class => false,
+                \Vendor\Library\Generated\Model\Limit::class => false,
+                \Vendor\Library\Generated\Model\ResourceObject::class => false,
+                \Vendor\Library\Generated\Model\GenericResourcesItem::class => false,
+                \Vendor\Library\Generated\Model\GenericResourcesItemNamedResourceSpec::class => false,
+                \Vendor\Library\Generated\Model\GenericResourcesItemDiscreteResourceSpec::class => false,
+                \Vendor\Library\Generated\Model\HealthConfig::class => false,
+                \Vendor\Library\Generated\Model\Health::class => false,
+                \Vendor\Library\Generated\Model\HealthcheckResult::class => false,
+                \Vendor\Library\Generated\Model\HostConfig::class => false,
+                \Vendor\Library\Generated\Model\HostConfigLogConfig::class => false,
+                \Vendor\Library\Generated\Model\ContainerConfig::class => false,
+                \Vendor\Library\Generated\Model\ImageConfig::class => false,
+                \Vendor\Library\Generated\Model\NetworkingConfig::class => false,
+                \Vendor\Library\Generated\Model\NetworkSettings::class => false,
+                \Vendor\Library\Generated\Model\Address::class => false,
+                \Vendor\Library\Generated\Model\PortBinding::class => false,
+                \Vendor\Library\Generated\Model\DriverData::class => false,
+                \Vendor\Library\Generated\Model\FilesystemChange::class => false,
+                \Vendor\Library\Generated\Model\ImageInspect::class => false,
+                \Vendor\Library\Generated\Model\ImageInspectRootFS::class => false,
+                \Vendor\Library\Generated\Model\ImageInspectMetadata::class => false,
+                \Vendor\Library\Generated\Model\ImageSummary::class => false,
+                \Vendor\Library\Generated\Model\AuthConfig::class => false,
+                \Vendor\Library\Generated\Model\ProcessConfig::class => false,
+                \Vendor\Library\Generated\Model\Volume::class => false,
+                \Vendor\Library\Generated\Model\VolumeUsageData::class => false,
+                \Vendor\Library\Generated\Model\VolumeCreateOptions::class => false,
+                \Vendor\Library\Generated\Model\VolumeListResponse::class => false,
+                \Vendor\Library\Generated\Model\Network::class => false,
+                \Vendor\Library\Generated\Model\ConfigReference::class => false,
+                \Vendor\Library\Generated\Model\IPAM::class => false,
+                \Vendor\Library\Generated\Model\IPAMConfig::class => false,
+                \Vendor\Library\Generated\Model\NetworkContainer::class => false,
+                \Vendor\Library\Generated\Model\PeerInfo::class => false,
+                \Vendor\Library\Generated\Model\NetworkCreateResponse::class => false,
+                \Vendor\Library\Generated\Model\BuildInfo::class => false,
+                \Vendor\Library\Generated\Model\BuildCache::class => false,
+                \Vendor\Library\Generated\Model\ImageID::class => false,
+                \Vendor\Library\Generated\Model\CreateImageInfo::class => false,
+                \Vendor\Library\Generated\Model\PushImageInfo::class => false,
+                \Vendor\Library\Generated\Model\DeviceInfo::class => false,
+                \Vendor\Library\Generated\Model\ErrorDetail::class => false,
+                \Vendor\Library\Generated\Model\ProgressDetail::class => false,
+                \Vendor\Library\Generated\Model\ErrorResponse::class => false,
+                \Vendor\Library\Generated\Model\IDResponse::class => false,
+                \Vendor\Library\Generated\Model\EndpointSettings::class => false,
+                \Vendor\Library\Generated\Model\EndpointIPAMConfig::class => false,
+                \Vendor\Library\Generated\Model\PluginMount::class => false,
+                \Vendor\Library\Generated\Model\PluginDevice::class => false,
+                \Vendor\Library\Generated\Model\PluginEnv::class => false,
+                \Vendor\Library\Generated\Model\PluginInterfaceType::class => false,
+                \Vendor\Library\Generated\Model\PluginPrivilege::class => false,
+                \Vendor\Library\Generated\Model\Plugin::class => false,
+                \Vendor\Library\Generated\Model\PluginSettings::class => false,
+                \Vendor\Library\Generated\Model\PluginConfig::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigInterface::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigUser::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigNetwork::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigLinux::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigArgs::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigRootfs::class => false,
+                \Vendor\Library\Generated\Model\ObjectVersion::class => false,
+                \Vendor\Library\Generated\Model\NodeSpec::class => false,
+                \Vendor\Library\Generated\Model\Node::class => false,
+                \Vendor\Library\Generated\Model\NodeDescription::class => false,
+                \Vendor\Library\Generated\Model\Platform::class => false,
+                \Vendor\Library\Generated\Model\EngineDescription::class => false,
+                \Vendor\Library\Generated\Model\EngineDescriptionPluginsItem::class => false,
+                \Vendor\Library\Generated\Model\TLSInfo::class => false,
+                \Vendor\Library\Generated\Model\NodeStatus::class => false,
+                \Vendor\Library\Generated\Model\ManagerStatus::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpec::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecOrchestration::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecRaft::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecDispatcher::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecCAConfig::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecCAConfigExternalCAsItem::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecEncryptionConfig::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecTaskDefaults::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecTaskDefaultsLogDriver::class => false,
+                \Vendor\Library\Generated\Model\ClusterInfo::class => false,
+                \Vendor\Library\Generated\Model\JoinTokens::class => false,
+                \Vendor\Library\Generated\Model\Swarm::class => false,
+                \Vendor\Library\Generated\Model\TaskSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecPluginSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesCredentialSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSELinuxContext::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSeccomp::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesAppArmor::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecDNSConfig::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecSecretsItem::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecSecretsItemFile::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecConfigsItem::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecConfigsItemFile::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecUlimitsItem::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecNetworkAttachmentSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecResources::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecRestartPolicy::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecPlacement::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecPlacementPreferencesItem::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecPlacementPreferencesItemSpread::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecLogDriver::class => false,
+                \Vendor\Library\Generated\Model\ContainerStatus::class => false,
+                \Vendor\Library\Generated\Model\PortStatus::class => false,
+                \Vendor\Library\Generated\Model\TaskStatus::class => false,
+                \Vendor\Library\Generated\Model\Task::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpec::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecMode::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecModeReplicated::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecModeReplicatedJob::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecUpdateConfig::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecRollbackConfig::class => false,
+                \Vendor\Library\Generated\Model\EndpointPortConfig::class => false,
+                \Vendor\Library\Generated\Model\EndpointSpec::class => false,
+                \Vendor\Library\Generated\Model\Service::class => false,
+                \Vendor\Library\Generated\Model\ServiceEndpoint::class => false,
+                \Vendor\Library\Generated\Model\ServiceEndpointVirtualIPsItem::class => false,
+                \Vendor\Library\Generated\Model\ServiceUpdateStatus::class => false,
+                \Vendor\Library\Generated\Model\ServiceServiceStatus::class => false,
+                \Vendor\Library\Generated\Model\ServiceJobStatus::class => false,
+                \Vendor\Library\Generated\Model\ImageDeleteResponseItem::class => false,
+                \Vendor\Library\Generated\Model\ServiceCreateResponse::class => false,
+                \Vendor\Library\Generated\Model\ServiceUpdateResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerInspectResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerSummary::class => false,
+                \Vendor\Library\Generated\Model\ContainerSummaryHostConfig::class => false,
+                \Vendor\Library\Generated\Model\ContainerSummaryNetworkSettings::class => false,
+                \Vendor\Library\Generated\Model\Driver::class => false,
+                \Vendor\Library\Generated\Model\SecretSpec::class => false,
+                \Vendor\Library\Generated\Model\Secret::class => false,
+                \Vendor\Library\Generated\Model\ConfigSpec::class => false,
+                \Vendor\Library\Generated\Model\Config::class => false,
+                \Vendor\Library\Generated\Model\ContainerState::class => false,
+                \Vendor\Library\Generated\Model\ContainerCreateResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerUpdateResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerStatsResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerBlkioStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerBlkioStatEntry::class => false,
+                \Vendor\Library\Generated\Model\ContainerCPUStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerCPUUsage::class => false,
+                \Vendor\Library\Generated\Model\ContainerPidsStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerThrottlingData::class => false,
+                \Vendor\Library\Generated\Model\ContainerMemoryStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerNetworkStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerStorageStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerTopResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerWaitResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerWaitExitError::class => false,
+                \Vendor\Library\Generated\Model\SystemVersion::class => false,
+                \Vendor\Library\Generated\Model\SystemVersionPlatform::class => false,
+                \Vendor\Library\Generated\Model\SystemVersionComponentsItem::class => false,
+                \Vendor\Library\Generated\Model\SystemInfo::class => false,
+                \Vendor\Library\Generated\Model\SystemInfoDefaultAddressPoolsItem::class => false,
+                \Vendor\Library\Generated\Model\ContainerdInfo::class => false,
+                \Vendor\Library\Generated\Model\ContainerdInfoNamespaces::class => false,
+                \Vendor\Library\Generated\Model\FirewallInfo::class => false,
+                \Vendor\Library\Generated\Model\PluginsInfo::class => false,
+                \Vendor\Library\Generated\Model\RegistryServiceConfig::class => false,
+                \Vendor\Library\Generated\Model\IndexInfo::class => false,
+                \Vendor\Library\Generated\Model\Runtime::class => false,
+                \Vendor\Library\Generated\Model\Commit::class => false,
+                \Vendor\Library\Generated\Model\SwarmInfo::class => false,
+                \Vendor\Library\Generated\Model\PeerNode::class => false,
+                \Vendor\Library\Generated\Model\NetworkAttachmentConfig::class => false,
+                \Vendor\Library\Generated\Model\EventActor::class => false,
+                \Vendor\Library\Generated\Model\EventMessage::class => false,
+                \Vendor\Library\Generated\Model\OCIDescriptor::class => false,
+                \Vendor\Library\Generated\Model\OCIPlatform::class => false,
+                \Vendor\Library\Generated\Model\DistributionInspect::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolume::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeInfo::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumePublishStatusItem::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpec::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessMode::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeSecretsItem::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeCapacityRange::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummary::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummarySize::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummaryImageData::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummaryImageDataSize::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummaryAttestationData::class => false,
+                \Vendor\Library\Generated\Model\ContainersCreatePostBody::class => false,
+                \Vendor\Library\Generated\Model\ContainersIdUpdatePostBody::class => false,
+                \Vendor\Library\Generated\Model\ContainersPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\BuildPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\ImagesNameHistoryGetResponse200Item::class => false,
+                \Vendor\Library\Generated\Model\ImagesSearchGetResponse200Item::class => false,
+                \Vendor\Library\Generated\Model\ImagesPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\AuthPostResponse200::class => false,
+                \Vendor\Library\Generated\Model\SystemDfGetResponse200::class => false,
+                \Vendor\Library\Generated\Model\ContainersIdExecPostBody::class => false,
+                \Vendor\Library\Generated\Model\ExecIdStartPostBody::class => false,
+                \Vendor\Library\Generated\Model\ExecIdJsonGetResponse200::class => false,
+                \Vendor\Library\Generated\Model\VolumesNamePutBody::class => false,
+                \Vendor\Library\Generated\Model\VolumesPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\NetworksCreatePostBody::class => false,
+                \Vendor\Library\Generated\Model\NetworksIdConnectPostBody::class => false,
+                \Vendor\Library\Generated\Model\NetworksIdDisconnectPostBody::class => false,
+                \Vendor\Library\Generated\Model\NetworksPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\SwarmInitPostBody::class => false,
+                \Vendor\Library\Generated\Model\SwarmJoinPostBody::class => false,
+                \Vendor\Library\Generated\Model\SwarmUnlockkeyGetResponse200::class => false,
+                \Vendor\Library\Generated\Model\SwarmUnlockPostBody::class => false,
+                \Vendor\Library\Generated\Model\ServicesCreatePostBody::class => false,
+                \Vendor\Library\Generated\Model\ServicesIdUpdatePostBody::class => false,
+                \Vendor\Library\Generated\Model\SecretsCreatePostBody::class => false,
+                \Vendor\Library\Generated\Model\ConfigsCreatePostBody::class => false,
+                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
+            ];
+        }
     }
-    public function supportsNormalization($data, $format = null, array $context = array()): bool
+} else {
+    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-    }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = array())
-    {
-        $normalizerClass = $this->normalizers[get_class($object)];
-        $normalizer = $this->getNormalizer($normalizerClass);
-        return $normalizer->normalize($object, $format, $context);
-    }
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = array())
-    {
-        $denormalizerClass = $this->normalizers[$class];
-        $denormalizer = $this->getNormalizer($denormalizerClass);
-        return $denormalizer->denormalize($data, $class, $format, $context);
-    }
-    private function getNormalizer(string $normalizerClass)
-    {
-        return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-    }
-    private function initNormalizer(string $normalizerClass)
-    {
-        $normalizer = new $normalizerClass();
-        $normalizer->setNormalizer($this->normalizer);
-        $normalizer->setDenormalizer($this->denormalizer);
-        $this->normalizersCache[$normalizerClass] = $normalizer;
-        return $normalizer;
-    }
-    public function getSupportedTypes(?string $format = null): array
-    {
-        return array('Vendor\\Library\\Generated\\Model\\Port' => false, 'Vendor\\Library\\Generated\\Model\\MountPoint' => false, 'Vendor\\Library\\Generated\\Model\\DeviceMapping' => false, 'Vendor\\Library\\Generated\\Model\\DeviceRequest' => false, 'Vendor\\Library\\Generated\\Model\\ThrottleDevice' => false, 'Vendor\\Library\\Generated\\Model\\Mount' => false, 'Vendor\\Library\\Generated\\Model\\MountBindOptions' => false, 'Vendor\\Library\\Generated\\Model\\MountVolumeOptions' => false, 'Vendor\\Library\\Generated\\Model\\MountVolumeOptionsDriverConfig' => false, 'Vendor\\Library\\Generated\\Model\\MountTmpfsOptions' => false, 'Vendor\\Library\\Generated\\Model\\RestartPolicy' => false, 'Vendor\\Library\\Generated\\Model\\Resources' => false, 'Vendor\\Library\\Generated\\Model\\ResourcesBlkioWeightDeviceItem' => false, 'Vendor\\Library\\Generated\\Model\\ResourcesUlimitsItem' => false, 'Vendor\\Library\\Generated\\Model\\Limit' => false, 'Vendor\\Library\\Generated\\Model\\ResourceObject' => false, 'Vendor\\Library\\Generated\\Model\\GenericResourcesItem' => false, 'Vendor\\Library\\Generated\\Model\\GenericResourcesItemNamedResourceSpec' => false, 'Vendor\\Library\\Generated\\Model\\GenericResourcesItemDiscreteResourceSpec' => false, 'Vendor\\Library\\Generated\\Model\\HealthConfig' => false, 'Vendor\\Library\\Generated\\Model\\Health' => false, 'Vendor\\Library\\Generated\\Model\\HealthcheckResult' => false, 'Vendor\\Library\\Generated\\Model\\HostConfig' => false, 'Vendor\\Library\\Generated\\Model\\HostConfigLogConfig' => false, 'Vendor\\Library\\Generated\\Model\\ContainerConfig' => false, 'Vendor\\Library\\Generated\\Model\\NetworkingConfig' => false, 'Vendor\\Library\\Generated\\Model\\NetworkSettings' => false, 'Vendor\\Library\\Generated\\Model\\Address' => false, 'Vendor\\Library\\Generated\\Model\\PortBinding' => false, 'Vendor\\Library\\Generated\\Model\\GraphDriverData' => false, 'Vendor\\Library\\Generated\\Model\\FilesystemChange' => false, 'Vendor\\Library\\Generated\\Model\\ImageInspect' => false, 'Vendor\\Library\\Generated\\Model\\ImageInspectRootFS' => false, 'Vendor\\Library\\Generated\\Model\\ImageInspectMetadata' => false, 'Vendor\\Library\\Generated\\Model\\ImageSummary' => false, 'Vendor\\Library\\Generated\\Model\\AuthConfig' => false, 'Vendor\\Library\\Generated\\Model\\ProcessConfig' => false, 'Vendor\\Library\\Generated\\Model\\Volume' => false, 'Vendor\\Library\\Generated\\Model\\VolumeUsageData' => false, 'Vendor\\Library\\Generated\\Model\\VolumeCreateOptions' => false, 'Vendor\\Library\\Generated\\Model\\VolumeListResponse' => false, 'Vendor\\Library\\Generated\\Model\\Network' => false, 'Vendor\\Library\\Generated\\Model\\IPAM' => false, 'Vendor\\Library\\Generated\\Model\\IPAMConfig' => false, 'Vendor\\Library\\Generated\\Model\\NetworkContainer' => false, 'Vendor\\Library\\Generated\\Model\\BuildInfo' => false, 'Vendor\\Library\\Generated\\Model\\BuildCache' => false, 'Vendor\\Library\\Generated\\Model\\ImageID' => false, 'Vendor\\Library\\Generated\\Model\\CreateImageInfo' => false, 'Vendor\\Library\\Generated\\Model\\PushImageInfo' => false, 'Vendor\\Library\\Generated\\Model\\ErrorDetail' => false, 'Vendor\\Library\\Generated\\Model\\ProgressDetail' => false, 'Vendor\\Library\\Generated\\Model\\ErrorResponse' => false, 'Vendor\\Library\\Generated\\Model\\IdResponse' => false, 'Vendor\\Library\\Generated\\Model\\EndpointSettings' => false, 'Vendor\\Library\\Generated\\Model\\EndpointIPAMConfig' => false, 'Vendor\\Library\\Generated\\Model\\PluginMount' => false, 'Vendor\\Library\\Generated\\Model\\PluginDevice' => false, 'Vendor\\Library\\Generated\\Model\\PluginEnv' => false, 'Vendor\\Library\\Generated\\Model\\PluginInterfaceType' => false, 'Vendor\\Library\\Generated\\Model\\PluginPrivilege' => false, 'Vendor\\Library\\Generated\\Model\\Plugin' => false, 'Vendor\\Library\\Generated\\Model\\PluginSettings' => false, 'Vendor\\Library\\Generated\\Model\\PluginConfig' => false, 'Vendor\\Library\\Generated\\Model\\PluginConfigInterface' => false, 'Vendor\\Library\\Generated\\Model\\PluginConfigUser' => false, 'Vendor\\Library\\Generated\\Model\\PluginConfigNetwork' => false, 'Vendor\\Library\\Generated\\Model\\PluginConfigLinux' => false, 'Vendor\\Library\\Generated\\Model\\PluginConfigArgs' => false, 'Vendor\\Library\\Generated\\Model\\PluginConfigRootfs' => false, 'Vendor\\Library\\Generated\\Model\\ObjectVersion' => false, 'Vendor\\Library\\Generated\\Model\\NodeSpec' => false, 'Vendor\\Library\\Generated\\Model\\Node' => false, 'Vendor\\Library\\Generated\\Model\\NodeDescription' => false, 'Vendor\\Library\\Generated\\Model\\Platform' => false, 'Vendor\\Library\\Generated\\Model\\EngineDescription' => false, 'Vendor\\Library\\Generated\\Model\\EngineDescriptionPluginsItem' => false, 'Vendor\\Library\\Generated\\Model\\TLSInfo' => false, 'Vendor\\Library\\Generated\\Model\\NodeStatus' => false, 'Vendor\\Library\\Generated\\Model\\ManagerStatus' => false, 'Vendor\\Library\\Generated\\Model\\SwarmSpec' => false, 'Vendor\\Library\\Generated\\Model\\SwarmSpecOrchestration' => false, 'Vendor\\Library\\Generated\\Model\\SwarmSpecRaft' => false, 'Vendor\\Library\\Generated\\Model\\SwarmSpecDispatcher' => false, 'Vendor\\Library\\Generated\\Model\\SwarmSpecCAConfig' => false, 'Vendor\\Library\\Generated\\Model\\SwarmSpecCAConfigExternalCAsItem' => false, 'Vendor\\Library\\Generated\\Model\\SwarmSpecEncryptionConfig' => false, 'Vendor\\Library\\Generated\\Model\\SwarmSpecTaskDefaults' => false, 'Vendor\\Library\\Generated\\Model\\SwarmSpecTaskDefaultsLogDriver' => false, 'Vendor\\Library\\Generated\\Model\\ClusterInfo' => false, 'Vendor\\Library\\Generated\\Model\\JoinTokens' => false, 'Vendor\\Library\\Generated\\Model\\Swarm' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpec' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecPluginSpec' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpec' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivileges' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivilegesCredentialSpec' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivilegesSELinuxContext' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecDNSConfig' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecSecretsItem' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecSecretsItemFile' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecConfigsItem' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecConfigsItemFile' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecUlimitsItem' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecNetworkAttachmentSpec' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecResources' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecRestartPolicy' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecPlacement' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecPlacementPreferencesItem' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecPlacementPreferencesItemSpread' => false, 'Vendor\\Library\\Generated\\Model\\TaskSpecLogDriver' => false, 'Vendor\\Library\\Generated\\Model\\Task' => false, 'Vendor\\Library\\Generated\\Model\\TaskStatus' => false, 'Vendor\\Library\\Generated\\Model\\TaskStatusContainerStatus' => false, 'Vendor\\Library\\Generated\\Model\\ServiceSpec' => false, 'Vendor\\Library\\Generated\\Model\\ServiceSpecMode' => false, 'Vendor\\Library\\Generated\\Model\\ServiceSpecModeReplicated' => false, 'Vendor\\Library\\Generated\\Model\\ServiceSpecModeReplicatedJob' => false, 'Vendor\\Library\\Generated\\Model\\ServiceSpecUpdateConfig' => false, 'Vendor\\Library\\Generated\\Model\\ServiceSpecRollbackConfig' => false, 'Vendor\\Library\\Generated\\Model\\EndpointPortConfig' => false, 'Vendor\\Library\\Generated\\Model\\EndpointSpec' => false, 'Vendor\\Library\\Generated\\Model\\Service' => false, 'Vendor\\Library\\Generated\\Model\\ServiceEndpoint' => false, 'Vendor\\Library\\Generated\\Model\\ServiceEndpointVirtualIPsItem' => false, 'Vendor\\Library\\Generated\\Model\\ServiceUpdateStatus' => false, 'Vendor\\Library\\Generated\\Model\\ServiceServiceStatus' => false, 'Vendor\\Library\\Generated\\Model\\ServiceJobStatus' => false, 'Vendor\\Library\\Generated\\Model\\ImageDeleteResponseItem' => false, 'Vendor\\Library\\Generated\\Model\\ServiceUpdateResponse' => false, 'Vendor\\Library\\Generated\\Model\\ContainerSummary' => false, 'Vendor\\Library\\Generated\\Model\\ContainerSummaryHostConfig' => false, 'Vendor\\Library\\Generated\\Model\\ContainerSummaryNetworkSettings' => false, 'Vendor\\Library\\Generated\\Model\\Driver' => false, 'Vendor\\Library\\Generated\\Model\\SecretSpec' => false, 'Vendor\\Library\\Generated\\Model\\Secret' => false, 'Vendor\\Library\\Generated\\Model\\ConfigSpec' => false, 'Vendor\\Library\\Generated\\Model\\Config' => false, 'Vendor\\Library\\Generated\\Model\\ContainerState' => false, 'Vendor\\Library\\Generated\\Model\\ContainerCreateResponse' => false, 'Vendor\\Library\\Generated\\Model\\ContainerWaitResponse' => false, 'Vendor\\Library\\Generated\\Model\\ContainerWaitExitError' => false, 'Vendor\\Library\\Generated\\Model\\SystemVersion' => false, 'Vendor\\Library\\Generated\\Model\\SystemVersionPlatform' => false, 'Vendor\\Library\\Generated\\Model\\SystemVersionComponentsItem' => false, 'Vendor\\Library\\Generated\\Model\\SystemInfo' => false, 'Vendor\\Library\\Generated\\Model\\SystemInfoDefaultAddressPoolsItem' => false, 'Vendor\\Library\\Generated\\Model\\PluginsInfo' => false, 'Vendor\\Library\\Generated\\Model\\RegistryServiceConfig' => false, 'Vendor\\Library\\Generated\\Model\\IndexInfo' => false, 'Vendor\\Library\\Generated\\Model\\Runtime' => false, 'Vendor\\Library\\Generated\\Model\\Commit' => false, 'Vendor\\Library\\Generated\\Model\\SwarmInfo' => false, 'Vendor\\Library\\Generated\\Model\\PeerNode' => false, 'Vendor\\Library\\Generated\\Model\\NetworkAttachmentConfig' => false, 'Vendor\\Library\\Generated\\Model\\EventActor' => false, 'Vendor\\Library\\Generated\\Model\\EventMessage' => false, 'Vendor\\Library\\Generated\\Model\\OCIDescriptor' => false, 'Vendor\\Library\\Generated\\Model\\OCIPlatform' => false, 'Vendor\\Library\\Generated\\Model\\DistributionInspect' => false, 'Vendor\\Library\\Generated\\Model\\ClusterVolume' => false, 'Vendor\\Library\\Generated\\Model\\ClusterVolumeInfo' => false, 'Vendor\\Library\\Generated\\Model\\ClusterVolumePublishStatusItem' => false, 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpec' => false, 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessMode' => false, 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessModeSecretsItem' => false, 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessModeAccessibilityRequirements' => false, 'Vendor\\Library\\Generated\\Model\\ClusterVolumeSpecAccessModeCapacityRange' => false, 'Vendor\\Library\\Generated\\Model\\ContainersCreatePostBody' => false, 'Vendor\\Library\\Generated\\Model\\ContainersIdJsonGetResponse200' => false, 'Vendor\\Library\\Generated\\Model\\ContainersIdTopGetResponse200' => false, 'Vendor\\Library\\Generated\\Model\\ContainersIdUpdatePostBody' => false, 'Vendor\\Library\\Generated\\Model\\ContainersIdUpdatePostResponse200' => false, 'Vendor\\Library\\Generated\\Model\\ContainersPrunePostResponse200' => false, 'Vendor\\Library\\Generated\\Model\\BuildPrunePostResponse200' => false, 'Vendor\\Library\\Generated\\Model\\ImagesNameHistoryGetResponse200Item' => false, 'Vendor\\Library\\Generated\\Model\\ImagesSearchGetResponse200Item' => false, 'Vendor\\Library\\Generated\\Model\\ImagesPrunePostResponse200' => false, 'Vendor\\Library\\Generated\\Model\\AuthPostResponse200' => false, 'Vendor\\Library\\Generated\\Model\\SystemDfGetResponse200' => false, 'Vendor\\Library\\Generated\\Model\\ContainersIdExecPostBody' => false, 'Vendor\\Library\\Generated\\Model\\ExecIdStartPostBody' => false, 'Vendor\\Library\\Generated\\Model\\ExecIdJsonGetResponse200' => false, 'Vendor\\Library\\Generated\\Model\\VolumesNamePutBody' => false, 'Vendor\\Library\\Generated\\Model\\VolumesPrunePostResponse200' => false, 'Vendor\\Library\\Generated\\Model\\NetworksCreatePostBody' => false, 'Vendor\\Library\\Generated\\Model\\NetworksCreatePostResponse201' => false, 'Vendor\\Library\\Generated\\Model\\NetworksIdConnectPostBody' => false, 'Vendor\\Library\\Generated\\Model\\NetworksIdDisconnectPostBody' => false, 'Vendor\\Library\\Generated\\Model\\NetworksPrunePostResponse200' => false, 'Vendor\\Library\\Generated\\Model\\SwarmInitPostBody' => false, 'Vendor\\Library\\Generated\\Model\\SwarmJoinPostBody' => false, 'Vendor\\Library\\Generated\\Model\\SwarmUnlockkeyGetResponse200' => false, 'Vendor\\Library\\Generated\\Model\\SwarmUnlockPostBody' => false, 'Vendor\\Library\\Generated\\Model\\ServicesCreatePostBody' => false, 'Vendor\\Library\\Generated\\Model\\ServicesCreatePostResponse201' => false, 'Vendor\\Library\\Generated\\Model\\ServicesIdUpdatePostBody' => false, 'Vendor\\Library\\Generated\\Model\\SecretsCreatePostBody' => false, 'Vendor\\Library\\Generated\\Model\\ConfigsCreatePostBody' => false, '\\Jane\\Component\\JsonSchemaRuntime\\Reference' => false);
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        protected $normalizers = [
+            
+            \Vendor\Library\Generated\Model\Port::class => \Vendor\Library\Generated\Normalizer\PortNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountPoint::class => \Vendor\Library\Generated\Normalizer\MountPointNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DeviceMapping::class => \Vendor\Library\Generated\Normalizer\DeviceMappingNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DeviceRequest::class => \Vendor\Library\Generated\Normalizer\DeviceRequestNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ThrottleDevice::class => \Vendor\Library\Generated\Normalizer\ThrottleDeviceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Mount::class => \Vendor\Library\Generated\Normalizer\MountNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountBindOptions::class => \Vendor\Library\Generated\Normalizer\MountBindOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountVolumeOptions::class => \Vendor\Library\Generated\Normalizer\MountVolumeOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountVolumeOptionsDriverConfig::class => \Vendor\Library\Generated\Normalizer\MountVolumeOptionsDriverConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountImageOptions::class => \Vendor\Library\Generated\Normalizer\MountImageOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\MountTmpfsOptions::class => \Vendor\Library\Generated\Normalizer\MountTmpfsOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\RestartPolicy::class => \Vendor\Library\Generated\Normalizer\RestartPolicyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Resources::class => \Vendor\Library\Generated\Normalizer\ResourcesNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ResourcesBlkioWeightDeviceItem::class => \Vendor\Library\Generated\Normalizer\ResourcesBlkioWeightDeviceItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ResourcesUlimitsItem::class => \Vendor\Library\Generated\Normalizer\ResourcesUlimitsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Limit::class => \Vendor\Library\Generated\Normalizer\LimitNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ResourceObject::class => \Vendor\Library\Generated\Normalizer\ResourceObjectNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\GenericResourcesItem::class => \Vendor\Library\Generated\Normalizer\GenericResourcesItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\GenericResourcesItemNamedResourceSpec::class => \Vendor\Library\Generated\Normalizer\GenericResourcesItemNamedResourceSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\GenericResourcesItemDiscreteResourceSpec::class => \Vendor\Library\Generated\Normalizer\GenericResourcesItemDiscreteResourceSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\HealthConfig::class => \Vendor\Library\Generated\Normalizer\HealthConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Health::class => \Vendor\Library\Generated\Normalizer\HealthNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\HealthcheckResult::class => \Vendor\Library\Generated\Normalizer\HealthcheckResultNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\HostConfig::class => \Vendor\Library\Generated\Normalizer\HostConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\HostConfigLogConfig::class => \Vendor\Library\Generated\Normalizer\HostConfigLogConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerConfig::class => \Vendor\Library\Generated\Normalizer\ContainerConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageConfig::class => \Vendor\Library\Generated\Normalizer\ImageConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkingConfig::class => \Vendor\Library\Generated\Normalizer\NetworkingConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkSettings::class => \Vendor\Library\Generated\Normalizer\NetworkSettingsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Address::class => \Vendor\Library\Generated\Normalizer\AddressNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PortBinding::class => \Vendor\Library\Generated\Normalizer\PortBindingNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DriverData::class => \Vendor\Library\Generated\Normalizer\DriverDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\FilesystemChange::class => \Vendor\Library\Generated\Normalizer\FilesystemChangeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageInspect::class => \Vendor\Library\Generated\Normalizer\ImageInspectNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageInspectRootFS::class => \Vendor\Library\Generated\Normalizer\ImageInspectRootFSNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageInspectMetadata::class => \Vendor\Library\Generated\Normalizer\ImageInspectMetadataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageSummary::class => \Vendor\Library\Generated\Normalizer\ImageSummaryNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\AuthConfig::class => \Vendor\Library\Generated\Normalizer\AuthConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ProcessConfig::class => \Vendor\Library\Generated\Normalizer\ProcessConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Volume::class => \Vendor\Library\Generated\Normalizer\VolumeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumeUsageData::class => \Vendor\Library\Generated\Normalizer\VolumeUsageDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumeCreateOptions::class => \Vendor\Library\Generated\Normalizer\VolumeCreateOptionsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumeListResponse::class => \Vendor\Library\Generated\Normalizer\VolumeListResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Network::class => \Vendor\Library\Generated\Normalizer\NetworkNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ConfigReference::class => \Vendor\Library\Generated\Normalizer\ConfigReferenceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\IPAM::class => \Vendor\Library\Generated\Normalizer\IPAMNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\IPAMConfig::class => \Vendor\Library\Generated\Normalizer\IPAMConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkContainer::class => \Vendor\Library\Generated\Normalizer\NetworkContainerNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PeerInfo::class => \Vendor\Library\Generated\Normalizer\PeerInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkCreateResponse::class => \Vendor\Library\Generated\Normalizer\NetworkCreateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\BuildInfo::class => \Vendor\Library\Generated\Normalizer\BuildInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\BuildCache::class => \Vendor\Library\Generated\Normalizer\BuildCacheNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageID::class => \Vendor\Library\Generated\Normalizer\ImageIDNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\CreateImageInfo::class => \Vendor\Library\Generated\Normalizer\CreateImageInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PushImageInfo::class => \Vendor\Library\Generated\Normalizer\PushImageInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DeviceInfo::class => \Vendor\Library\Generated\Normalizer\DeviceInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ErrorDetail::class => \Vendor\Library\Generated\Normalizer\ErrorDetailNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ProgressDetail::class => \Vendor\Library\Generated\Normalizer\ProgressDetailNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ErrorResponse::class => \Vendor\Library\Generated\Normalizer\ErrorResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\IDResponse::class => \Vendor\Library\Generated\Normalizer\IDResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EndpointSettings::class => \Vendor\Library\Generated\Normalizer\EndpointSettingsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EndpointIPAMConfig::class => \Vendor\Library\Generated\Normalizer\EndpointIPAMConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginMount::class => \Vendor\Library\Generated\Normalizer\PluginMountNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginDevice::class => \Vendor\Library\Generated\Normalizer\PluginDeviceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginEnv::class => \Vendor\Library\Generated\Normalizer\PluginEnvNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginInterfaceType::class => \Vendor\Library\Generated\Normalizer\PluginInterfaceTypeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginPrivilege::class => \Vendor\Library\Generated\Normalizer\PluginPrivilegeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Plugin::class => \Vendor\Library\Generated\Normalizer\PluginNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginSettings::class => \Vendor\Library\Generated\Normalizer\PluginSettingsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfig::class => \Vendor\Library\Generated\Normalizer\PluginConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigInterface::class => \Vendor\Library\Generated\Normalizer\PluginConfigInterfaceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigUser::class => \Vendor\Library\Generated\Normalizer\PluginConfigUserNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigNetwork::class => \Vendor\Library\Generated\Normalizer\PluginConfigNetworkNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigLinux::class => \Vendor\Library\Generated\Normalizer\PluginConfigLinuxNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigArgs::class => \Vendor\Library\Generated\Normalizer\PluginConfigArgsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginConfigRootfs::class => \Vendor\Library\Generated\Normalizer\PluginConfigRootfsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ObjectVersion::class => \Vendor\Library\Generated\Normalizer\ObjectVersionNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NodeSpec::class => \Vendor\Library\Generated\Normalizer\NodeSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Node::class => \Vendor\Library\Generated\Normalizer\NodeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NodeDescription::class => \Vendor\Library\Generated\Normalizer\NodeDescriptionNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Platform::class => \Vendor\Library\Generated\Normalizer\PlatformNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EngineDescription::class => \Vendor\Library\Generated\Normalizer\EngineDescriptionNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EngineDescriptionPluginsItem::class => \Vendor\Library\Generated\Normalizer\EngineDescriptionPluginsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TLSInfo::class => \Vendor\Library\Generated\Normalizer\TLSInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NodeStatus::class => \Vendor\Library\Generated\Normalizer\NodeStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ManagerStatus::class => \Vendor\Library\Generated\Normalizer\ManagerStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpec::class => \Vendor\Library\Generated\Normalizer\SwarmSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecOrchestration::class => \Vendor\Library\Generated\Normalizer\SwarmSpecOrchestrationNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecRaft::class => \Vendor\Library\Generated\Normalizer\SwarmSpecRaftNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecDispatcher::class => \Vendor\Library\Generated\Normalizer\SwarmSpecDispatcherNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecCAConfig::class => \Vendor\Library\Generated\Normalizer\SwarmSpecCAConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecCAConfigExternalCAsItem::class => \Vendor\Library\Generated\Normalizer\SwarmSpecCAConfigExternalCAsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecEncryptionConfig::class => \Vendor\Library\Generated\Normalizer\SwarmSpecEncryptionConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecTaskDefaults::class => \Vendor\Library\Generated\Normalizer\SwarmSpecTaskDefaultsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmSpecTaskDefaultsLogDriver::class => \Vendor\Library\Generated\Normalizer\SwarmSpecTaskDefaultsLogDriverNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterInfo::class => \Vendor\Library\Generated\Normalizer\ClusterInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\JoinTokens::class => \Vendor\Library\Generated\Normalizer\JoinTokensNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Swarm::class => \Vendor\Library\Generated\Normalizer\SwarmNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecPluginSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecPluginSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesCredentialSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesCredentialSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSELinuxContext::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesSELinuxContextNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSeccomp::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesSeccompNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesAppArmor::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecPrivilegesAppArmorNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecDNSConfig::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecDNSConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecSecretsItem::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecSecretsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecSecretsItemFile::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecSecretsItemFileNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecConfigsItem::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecConfigsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecConfigsItemFile::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecConfigsItemFileNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecContainerSpecUlimitsItem::class => \Vendor\Library\Generated\Normalizer\TaskSpecContainerSpecUlimitsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecNetworkAttachmentSpec::class => \Vendor\Library\Generated\Normalizer\TaskSpecNetworkAttachmentSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecResources::class => \Vendor\Library\Generated\Normalizer\TaskSpecResourcesNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecRestartPolicy::class => \Vendor\Library\Generated\Normalizer\TaskSpecRestartPolicyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecPlacement::class => \Vendor\Library\Generated\Normalizer\TaskSpecPlacementNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecPlacementPreferencesItem::class => \Vendor\Library\Generated\Normalizer\TaskSpecPlacementPreferencesItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecPlacementPreferencesItemSpread::class => \Vendor\Library\Generated\Normalizer\TaskSpecPlacementPreferencesItemSpreadNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskSpecLogDriver::class => \Vendor\Library\Generated\Normalizer\TaskSpecLogDriverNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerStatus::class => \Vendor\Library\Generated\Normalizer\ContainerStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PortStatus::class => \Vendor\Library\Generated\Normalizer\PortStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\TaskStatus::class => \Vendor\Library\Generated\Normalizer\TaskStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Task::class => \Vendor\Library\Generated\Normalizer\TaskNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpec::class => \Vendor\Library\Generated\Normalizer\ServiceSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecMode::class => \Vendor\Library\Generated\Normalizer\ServiceSpecModeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecModeReplicated::class => \Vendor\Library\Generated\Normalizer\ServiceSpecModeReplicatedNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecModeReplicatedJob::class => \Vendor\Library\Generated\Normalizer\ServiceSpecModeReplicatedJobNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecUpdateConfig::class => \Vendor\Library\Generated\Normalizer\ServiceSpecUpdateConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceSpecRollbackConfig::class => \Vendor\Library\Generated\Normalizer\ServiceSpecRollbackConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EndpointPortConfig::class => \Vendor\Library\Generated\Normalizer\EndpointPortConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EndpointSpec::class => \Vendor\Library\Generated\Normalizer\EndpointSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Service::class => \Vendor\Library\Generated\Normalizer\ServiceNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceEndpoint::class => \Vendor\Library\Generated\Normalizer\ServiceEndpointNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceEndpointVirtualIPsItem::class => \Vendor\Library\Generated\Normalizer\ServiceEndpointVirtualIPsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceUpdateStatus::class => \Vendor\Library\Generated\Normalizer\ServiceUpdateStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceServiceStatus::class => \Vendor\Library\Generated\Normalizer\ServiceServiceStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceJobStatus::class => \Vendor\Library\Generated\Normalizer\ServiceJobStatusNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageDeleteResponseItem::class => \Vendor\Library\Generated\Normalizer\ImageDeleteResponseItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceCreateResponse::class => \Vendor\Library\Generated\Normalizer\ServiceCreateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServiceUpdateResponse::class => \Vendor\Library\Generated\Normalizer\ServiceUpdateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerInspectResponse::class => \Vendor\Library\Generated\Normalizer\ContainerInspectResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerSummary::class => \Vendor\Library\Generated\Normalizer\ContainerSummaryNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerSummaryHostConfig::class => \Vendor\Library\Generated\Normalizer\ContainerSummaryHostConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerSummaryNetworkSettings::class => \Vendor\Library\Generated\Normalizer\ContainerSummaryNetworkSettingsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Driver::class => \Vendor\Library\Generated\Normalizer\DriverNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SecretSpec::class => \Vendor\Library\Generated\Normalizer\SecretSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Secret::class => \Vendor\Library\Generated\Normalizer\SecretNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ConfigSpec::class => \Vendor\Library\Generated\Normalizer\ConfigSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Config::class => \Vendor\Library\Generated\Normalizer\ConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerState::class => \Vendor\Library\Generated\Normalizer\ContainerStateNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerCreateResponse::class => \Vendor\Library\Generated\Normalizer\ContainerCreateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerUpdateResponse::class => \Vendor\Library\Generated\Normalizer\ContainerUpdateResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerStatsResponse::class => \Vendor\Library\Generated\Normalizer\ContainerStatsResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerBlkioStats::class => \Vendor\Library\Generated\Normalizer\ContainerBlkioStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerBlkioStatEntry::class => \Vendor\Library\Generated\Normalizer\ContainerBlkioStatEntryNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerCPUStats::class => \Vendor\Library\Generated\Normalizer\ContainerCPUStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerCPUUsage::class => \Vendor\Library\Generated\Normalizer\ContainerCPUUsageNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerPidsStats::class => \Vendor\Library\Generated\Normalizer\ContainerPidsStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerThrottlingData::class => \Vendor\Library\Generated\Normalizer\ContainerThrottlingDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerMemoryStats::class => \Vendor\Library\Generated\Normalizer\ContainerMemoryStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerNetworkStats::class => \Vendor\Library\Generated\Normalizer\ContainerNetworkStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerStorageStats::class => \Vendor\Library\Generated\Normalizer\ContainerStorageStatsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerTopResponse::class => \Vendor\Library\Generated\Normalizer\ContainerTopResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerWaitResponse::class => \Vendor\Library\Generated\Normalizer\ContainerWaitResponseNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerWaitExitError::class => \Vendor\Library\Generated\Normalizer\ContainerWaitExitErrorNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemVersion::class => \Vendor\Library\Generated\Normalizer\SystemVersionNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemVersionPlatform::class => \Vendor\Library\Generated\Normalizer\SystemVersionPlatformNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemVersionComponentsItem::class => \Vendor\Library\Generated\Normalizer\SystemVersionComponentsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemInfo::class => \Vendor\Library\Generated\Normalizer\SystemInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemInfoDefaultAddressPoolsItem::class => \Vendor\Library\Generated\Normalizer\SystemInfoDefaultAddressPoolsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerdInfo::class => \Vendor\Library\Generated\Normalizer\ContainerdInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainerdInfoNamespaces::class => \Vendor\Library\Generated\Normalizer\ContainerdInfoNamespacesNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\FirewallInfo::class => \Vendor\Library\Generated\Normalizer\FirewallInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PluginsInfo::class => \Vendor\Library\Generated\Normalizer\PluginsInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\RegistryServiceConfig::class => \Vendor\Library\Generated\Normalizer\RegistryServiceConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\IndexInfo::class => \Vendor\Library\Generated\Normalizer\IndexInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Runtime::class => \Vendor\Library\Generated\Normalizer\RuntimeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\Commit::class => \Vendor\Library\Generated\Normalizer\CommitNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmInfo::class => \Vendor\Library\Generated\Normalizer\SwarmInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\PeerNode::class => \Vendor\Library\Generated\Normalizer\PeerNodeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworkAttachmentConfig::class => \Vendor\Library\Generated\Normalizer\NetworkAttachmentConfigNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EventActor::class => \Vendor\Library\Generated\Normalizer\EventActorNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\EventMessage::class => \Vendor\Library\Generated\Normalizer\EventMessageNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\OCIDescriptor::class => \Vendor\Library\Generated\Normalizer\OCIDescriptorNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\OCIPlatform::class => \Vendor\Library\Generated\Normalizer\OCIPlatformNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\DistributionInspect::class => \Vendor\Library\Generated\Normalizer\DistributionInspectNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolume::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeInfo::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeInfoNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumePublishStatusItem::class => \Vendor\Library\Generated\Normalizer\ClusterVolumePublishStatusItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpec::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessMode::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecAccessModeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeSecretsItem::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecAccessModeSecretsItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecAccessModeAccessibilityRequirementsNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeCapacityRange::class => \Vendor\Library\Generated\Normalizer\ClusterVolumeSpecAccessModeCapacityRangeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummary::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummaryNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummarySize::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummarySizeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummaryImageData::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummaryImageDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummaryImageDataSize::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummaryImageDataSizeNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImageManifestSummaryAttestationData::class => \Vendor\Library\Generated\Normalizer\ImageManifestSummaryAttestationDataNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainersCreatePostBody::class => \Vendor\Library\Generated\Normalizer\ContainersCreatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainersIdUpdatePostBody::class => \Vendor\Library\Generated\Normalizer\ContainersIdUpdatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainersPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\ContainersPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\BuildPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\BuildPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImagesNameHistoryGetResponse200Item::class => \Vendor\Library\Generated\Normalizer\ImagesNameHistoryGetResponse200ItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImagesSearchGetResponse200Item::class => \Vendor\Library\Generated\Normalizer\ImagesSearchGetResponse200ItemNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ImagesPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\ImagesPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\AuthPostResponse200::class => \Vendor\Library\Generated\Normalizer\AuthPostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\SystemDfGetResponse200::class => \Vendor\Library\Generated\Normalizer\SystemDfGetResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\ContainersIdExecPostBody::class => \Vendor\Library\Generated\Normalizer\ContainersIdExecPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ExecIdStartPostBody::class => \Vendor\Library\Generated\Normalizer\ExecIdStartPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ExecIdJsonGetResponse200::class => \Vendor\Library\Generated\Normalizer\ExecIdJsonGetResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumesNamePutBody::class => \Vendor\Library\Generated\Normalizer\VolumesNamePutBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\VolumesPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\VolumesPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworksCreatePostBody::class => \Vendor\Library\Generated\Normalizer\NetworksCreatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworksIdConnectPostBody::class => \Vendor\Library\Generated\Normalizer\NetworksIdConnectPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworksIdDisconnectPostBody::class => \Vendor\Library\Generated\Normalizer\NetworksIdDisconnectPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\NetworksPrunePostResponse200::class => \Vendor\Library\Generated\Normalizer\NetworksPrunePostResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmInitPostBody::class => \Vendor\Library\Generated\Normalizer\SwarmInitPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmJoinPostBody::class => \Vendor\Library\Generated\Normalizer\SwarmJoinPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmUnlockkeyGetResponse200::class => \Vendor\Library\Generated\Normalizer\SwarmUnlockkeyGetResponse200Normalizer::class,
+            
+            \Vendor\Library\Generated\Model\SwarmUnlockPostBody::class => \Vendor\Library\Generated\Normalizer\SwarmUnlockPostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServicesCreatePostBody::class => \Vendor\Library\Generated\Normalizer\ServicesCreatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ServicesIdUpdatePostBody::class => \Vendor\Library\Generated\Normalizer\ServicesIdUpdatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\SecretsCreatePostBody::class => \Vendor\Library\Generated\Normalizer\SecretsCreatePostBodyNormalizer::class,
+            
+            \Vendor\Library\Generated\Model\ConfigsCreatePostBody::class => \Vendor\Library\Generated\Normalizer\ConfigsCreatePostBodyNormalizer::class,
+            
+            \Jane\Component\JsonSchemaRuntime\Reference::class => \Vendor\Library\Generated\Runtime\Normalizer\ReferenceNormalizer::class,
+        ], $normalizersCache = [];
+        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
+        {
+            return array_key_exists($type, $this->normalizers);
+        }
+        public function supportsNormalization($data, $format = null, array $context = []): bool
+        {
+            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
+        }
+        /**
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $normalizerClass = $this->normalizers[get_class($object)];
+            $normalizer = $this->getNormalizer($normalizerClass);
+            return $normalizer->normalize($object, $format, $context);
+        }
+        /**
+         * @return mixed
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            $denormalizerClass = $this->normalizers[$type];
+            $denormalizer = $this->getNormalizer($denormalizerClass);
+            return $denormalizer->denormalize($data, $type, $format, $context);
+        }
+        private function getNormalizer(string $normalizerClass)
+        {
+            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
+        }
+        private function initNormalizer(string $normalizerClass)
+        {
+            $normalizer = new $normalizerClass();
+            $normalizer->setNormalizer($this->normalizer);
+            $normalizer->setDenormalizer($this->denormalizer);
+            $this->normalizersCache[$normalizerClass] = $normalizer;
+            return $normalizer;
+        }
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [
+                
+                \Vendor\Library\Generated\Model\Port::class => false,
+                \Vendor\Library\Generated\Model\MountPoint::class => false,
+                \Vendor\Library\Generated\Model\DeviceMapping::class => false,
+                \Vendor\Library\Generated\Model\DeviceRequest::class => false,
+                \Vendor\Library\Generated\Model\ThrottleDevice::class => false,
+                \Vendor\Library\Generated\Model\Mount::class => false,
+                \Vendor\Library\Generated\Model\MountBindOptions::class => false,
+                \Vendor\Library\Generated\Model\MountVolumeOptions::class => false,
+                \Vendor\Library\Generated\Model\MountVolumeOptionsDriverConfig::class => false,
+                \Vendor\Library\Generated\Model\MountImageOptions::class => false,
+                \Vendor\Library\Generated\Model\MountTmpfsOptions::class => false,
+                \Vendor\Library\Generated\Model\RestartPolicy::class => false,
+                \Vendor\Library\Generated\Model\Resources::class => false,
+                \Vendor\Library\Generated\Model\ResourcesBlkioWeightDeviceItem::class => false,
+                \Vendor\Library\Generated\Model\ResourcesUlimitsItem::class => false,
+                \Vendor\Library\Generated\Model\Limit::class => false,
+                \Vendor\Library\Generated\Model\ResourceObject::class => false,
+                \Vendor\Library\Generated\Model\GenericResourcesItem::class => false,
+                \Vendor\Library\Generated\Model\GenericResourcesItemNamedResourceSpec::class => false,
+                \Vendor\Library\Generated\Model\GenericResourcesItemDiscreteResourceSpec::class => false,
+                \Vendor\Library\Generated\Model\HealthConfig::class => false,
+                \Vendor\Library\Generated\Model\Health::class => false,
+                \Vendor\Library\Generated\Model\HealthcheckResult::class => false,
+                \Vendor\Library\Generated\Model\HostConfig::class => false,
+                \Vendor\Library\Generated\Model\HostConfigLogConfig::class => false,
+                \Vendor\Library\Generated\Model\ContainerConfig::class => false,
+                \Vendor\Library\Generated\Model\ImageConfig::class => false,
+                \Vendor\Library\Generated\Model\NetworkingConfig::class => false,
+                \Vendor\Library\Generated\Model\NetworkSettings::class => false,
+                \Vendor\Library\Generated\Model\Address::class => false,
+                \Vendor\Library\Generated\Model\PortBinding::class => false,
+                \Vendor\Library\Generated\Model\DriverData::class => false,
+                \Vendor\Library\Generated\Model\FilesystemChange::class => false,
+                \Vendor\Library\Generated\Model\ImageInspect::class => false,
+                \Vendor\Library\Generated\Model\ImageInspectRootFS::class => false,
+                \Vendor\Library\Generated\Model\ImageInspectMetadata::class => false,
+                \Vendor\Library\Generated\Model\ImageSummary::class => false,
+                \Vendor\Library\Generated\Model\AuthConfig::class => false,
+                \Vendor\Library\Generated\Model\ProcessConfig::class => false,
+                \Vendor\Library\Generated\Model\Volume::class => false,
+                \Vendor\Library\Generated\Model\VolumeUsageData::class => false,
+                \Vendor\Library\Generated\Model\VolumeCreateOptions::class => false,
+                \Vendor\Library\Generated\Model\VolumeListResponse::class => false,
+                \Vendor\Library\Generated\Model\Network::class => false,
+                \Vendor\Library\Generated\Model\ConfigReference::class => false,
+                \Vendor\Library\Generated\Model\IPAM::class => false,
+                \Vendor\Library\Generated\Model\IPAMConfig::class => false,
+                \Vendor\Library\Generated\Model\NetworkContainer::class => false,
+                \Vendor\Library\Generated\Model\PeerInfo::class => false,
+                \Vendor\Library\Generated\Model\NetworkCreateResponse::class => false,
+                \Vendor\Library\Generated\Model\BuildInfo::class => false,
+                \Vendor\Library\Generated\Model\BuildCache::class => false,
+                \Vendor\Library\Generated\Model\ImageID::class => false,
+                \Vendor\Library\Generated\Model\CreateImageInfo::class => false,
+                \Vendor\Library\Generated\Model\PushImageInfo::class => false,
+                \Vendor\Library\Generated\Model\DeviceInfo::class => false,
+                \Vendor\Library\Generated\Model\ErrorDetail::class => false,
+                \Vendor\Library\Generated\Model\ProgressDetail::class => false,
+                \Vendor\Library\Generated\Model\ErrorResponse::class => false,
+                \Vendor\Library\Generated\Model\IDResponse::class => false,
+                \Vendor\Library\Generated\Model\EndpointSettings::class => false,
+                \Vendor\Library\Generated\Model\EndpointIPAMConfig::class => false,
+                \Vendor\Library\Generated\Model\PluginMount::class => false,
+                \Vendor\Library\Generated\Model\PluginDevice::class => false,
+                \Vendor\Library\Generated\Model\PluginEnv::class => false,
+                \Vendor\Library\Generated\Model\PluginInterfaceType::class => false,
+                \Vendor\Library\Generated\Model\PluginPrivilege::class => false,
+                \Vendor\Library\Generated\Model\Plugin::class => false,
+                \Vendor\Library\Generated\Model\PluginSettings::class => false,
+                \Vendor\Library\Generated\Model\PluginConfig::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigInterface::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigUser::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigNetwork::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigLinux::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigArgs::class => false,
+                \Vendor\Library\Generated\Model\PluginConfigRootfs::class => false,
+                \Vendor\Library\Generated\Model\ObjectVersion::class => false,
+                \Vendor\Library\Generated\Model\NodeSpec::class => false,
+                \Vendor\Library\Generated\Model\Node::class => false,
+                \Vendor\Library\Generated\Model\NodeDescription::class => false,
+                \Vendor\Library\Generated\Model\Platform::class => false,
+                \Vendor\Library\Generated\Model\EngineDescription::class => false,
+                \Vendor\Library\Generated\Model\EngineDescriptionPluginsItem::class => false,
+                \Vendor\Library\Generated\Model\TLSInfo::class => false,
+                \Vendor\Library\Generated\Model\NodeStatus::class => false,
+                \Vendor\Library\Generated\Model\ManagerStatus::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpec::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecOrchestration::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecRaft::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecDispatcher::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecCAConfig::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecCAConfigExternalCAsItem::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecEncryptionConfig::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecTaskDefaults::class => false,
+                \Vendor\Library\Generated\Model\SwarmSpecTaskDefaultsLogDriver::class => false,
+                \Vendor\Library\Generated\Model\ClusterInfo::class => false,
+                \Vendor\Library\Generated\Model\JoinTokens::class => false,
+                \Vendor\Library\Generated\Model\Swarm::class => false,
+                \Vendor\Library\Generated\Model\TaskSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecPluginSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesCredentialSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSELinuxContext::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSeccomp::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesAppArmor::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecDNSConfig::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecSecretsItem::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecSecretsItemFile::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecConfigsItem::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecConfigsItemFile::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecContainerSpecUlimitsItem::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecNetworkAttachmentSpec::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecResources::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecRestartPolicy::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecPlacement::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecPlacementPreferencesItem::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecPlacementPreferencesItemSpread::class => false,
+                \Vendor\Library\Generated\Model\TaskSpecLogDriver::class => false,
+                \Vendor\Library\Generated\Model\ContainerStatus::class => false,
+                \Vendor\Library\Generated\Model\PortStatus::class => false,
+                \Vendor\Library\Generated\Model\TaskStatus::class => false,
+                \Vendor\Library\Generated\Model\Task::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpec::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecMode::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecModeReplicated::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecModeReplicatedJob::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecUpdateConfig::class => false,
+                \Vendor\Library\Generated\Model\ServiceSpecRollbackConfig::class => false,
+                \Vendor\Library\Generated\Model\EndpointPortConfig::class => false,
+                \Vendor\Library\Generated\Model\EndpointSpec::class => false,
+                \Vendor\Library\Generated\Model\Service::class => false,
+                \Vendor\Library\Generated\Model\ServiceEndpoint::class => false,
+                \Vendor\Library\Generated\Model\ServiceEndpointVirtualIPsItem::class => false,
+                \Vendor\Library\Generated\Model\ServiceUpdateStatus::class => false,
+                \Vendor\Library\Generated\Model\ServiceServiceStatus::class => false,
+                \Vendor\Library\Generated\Model\ServiceJobStatus::class => false,
+                \Vendor\Library\Generated\Model\ImageDeleteResponseItem::class => false,
+                \Vendor\Library\Generated\Model\ServiceCreateResponse::class => false,
+                \Vendor\Library\Generated\Model\ServiceUpdateResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerInspectResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerSummary::class => false,
+                \Vendor\Library\Generated\Model\ContainerSummaryHostConfig::class => false,
+                \Vendor\Library\Generated\Model\ContainerSummaryNetworkSettings::class => false,
+                \Vendor\Library\Generated\Model\Driver::class => false,
+                \Vendor\Library\Generated\Model\SecretSpec::class => false,
+                \Vendor\Library\Generated\Model\Secret::class => false,
+                \Vendor\Library\Generated\Model\ConfigSpec::class => false,
+                \Vendor\Library\Generated\Model\Config::class => false,
+                \Vendor\Library\Generated\Model\ContainerState::class => false,
+                \Vendor\Library\Generated\Model\ContainerCreateResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerUpdateResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerStatsResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerBlkioStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerBlkioStatEntry::class => false,
+                \Vendor\Library\Generated\Model\ContainerCPUStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerCPUUsage::class => false,
+                \Vendor\Library\Generated\Model\ContainerPidsStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerThrottlingData::class => false,
+                \Vendor\Library\Generated\Model\ContainerMemoryStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerNetworkStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerStorageStats::class => false,
+                \Vendor\Library\Generated\Model\ContainerTopResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerWaitResponse::class => false,
+                \Vendor\Library\Generated\Model\ContainerWaitExitError::class => false,
+                \Vendor\Library\Generated\Model\SystemVersion::class => false,
+                \Vendor\Library\Generated\Model\SystemVersionPlatform::class => false,
+                \Vendor\Library\Generated\Model\SystemVersionComponentsItem::class => false,
+                \Vendor\Library\Generated\Model\SystemInfo::class => false,
+                \Vendor\Library\Generated\Model\SystemInfoDefaultAddressPoolsItem::class => false,
+                \Vendor\Library\Generated\Model\ContainerdInfo::class => false,
+                \Vendor\Library\Generated\Model\ContainerdInfoNamespaces::class => false,
+                \Vendor\Library\Generated\Model\FirewallInfo::class => false,
+                \Vendor\Library\Generated\Model\PluginsInfo::class => false,
+                \Vendor\Library\Generated\Model\RegistryServiceConfig::class => false,
+                \Vendor\Library\Generated\Model\IndexInfo::class => false,
+                \Vendor\Library\Generated\Model\Runtime::class => false,
+                \Vendor\Library\Generated\Model\Commit::class => false,
+                \Vendor\Library\Generated\Model\SwarmInfo::class => false,
+                \Vendor\Library\Generated\Model\PeerNode::class => false,
+                \Vendor\Library\Generated\Model\NetworkAttachmentConfig::class => false,
+                \Vendor\Library\Generated\Model\EventActor::class => false,
+                \Vendor\Library\Generated\Model\EventMessage::class => false,
+                \Vendor\Library\Generated\Model\OCIDescriptor::class => false,
+                \Vendor\Library\Generated\Model\OCIPlatform::class => false,
+                \Vendor\Library\Generated\Model\DistributionInspect::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolume::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeInfo::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumePublishStatusItem::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpec::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessMode::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeSecretsItem::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeAccessibilityRequirements::class => false,
+                \Vendor\Library\Generated\Model\ClusterVolumeSpecAccessModeCapacityRange::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummary::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummarySize::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummaryImageData::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummaryImageDataSize::class => false,
+                \Vendor\Library\Generated\Model\ImageManifestSummaryAttestationData::class => false,
+                \Vendor\Library\Generated\Model\ContainersCreatePostBody::class => false,
+                \Vendor\Library\Generated\Model\ContainersIdUpdatePostBody::class => false,
+                \Vendor\Library\Generated\Model\ContainersPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\BuildPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\ImagesNameHistoryGetResponse200Item::class => false,
+                \Vendor\Library\Generated\Model\ImagesSearchGetResponse200Item::class => false,
+                \Vendor\Library\Generated\Model\ImagesPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\AuthPostResponse200::class => false,
+                \Vendor\Library\Generated\Model\SystemDfGetResponse200::class => false,
+                \Vendor\Library\Generated\Model\ContainersIdExecPostBody::class => false,
+                \Vendor\Library\Generated\Model\ExecIdStartPostBody::class => false,
+                \Vendor\Library\Generated\Model\ExecIdJsonGetResponse200::class => false,
+                \Vendor\Library\Generated\Model\VolumesNamePutBody::class => false,
+                \Vendor\Library\Generated\Model\VolumesPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\NetworksCreatePostBody::class => false,
+                \Vendor\Library\Generated\Model\NetworksIdConnectPostBody::class => false,
+                \Vendor\Library\Generated\Model\NetworksIdDisconnectPostBody::class => false,
+                \Vendor\Library\Generated\Model\NetworksPrunePostResponse200::class => false,
+                \Vendor\Library\Generated\Model\SwarmInitPostBody::class => false,
+                \Vendor\Library\Generated\Model\SwarmJoinPostBody::class => false,
+                \Vendor\Library\Generated\Model\SwarmUnlockkeyGetResponse200::class => false,
+                \Vendor\Library\Generated\Model\SwarmUnlockPostBody::class => false,
+                \Vendor\Library\Generated\Model\ServicesCreatePostBody::class => false,
+                \Vendor\Library\Generated\Model\ServicesIdUpdatePostBody::class => false,
+                \Vendor\Library\Generated\Model\SecretsCreatePostBody::class => false,
+                \Vendor\Library\Generated\Model\ConfigsCreatePostBody::class => false,
+                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
+            ];
+        }
     }
 }

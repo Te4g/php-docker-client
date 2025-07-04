@@ -7,27 +7,27 @@ class HealthConfig
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
     * The test to perform. Possible values are:
-
+    
     - `[]` inherit healthcheck from image or parent image
     - `["NONE"]` disable healthcheck
     - `["CMD", args...]` exec arguments directly
     - `["CMD-SHELL", command]` run command with system's default shell
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $test;
     /**
     * The time to wait between checks in nanoseconds. It should be 0 or at
     least 1000000 (1 ms). 0 means inherit.
-
+    
     *
     * @var int
     */
@@ -35,7 +35,7 @@ class HealthConfig
     /**
     * The time to wait before considering the check to have hung. It should
     be 0 or at least 1000000 (1 ms). 0 means inherit.
-
+    
     *
     * @var int
     */
@@ -43,7 +43,7 @@ class HealthConfig
     /**
     * The number of consecutive failures needed to consider a container as
     unhealthy. 0 means inherit.
-
+    
     *
     * @var int
     */
@@ -52,21 +52,29 @@ class HealthConfig
     * Start period for the container to initialize before starting
     health-retries countdown in nanoseconds. It should be 0 or at least
     1000000 (1 ms). 0 means inherit.
-
+    
     *
     * @var int
     */
     protected $startPeriod;
     /**
+    * The time to wait between checks in nanoseconds during the start period.
+    It should be 0 or at least 1000000 (1 ms). 0 means inherit.
+    
+    *
+    * @var int
+    */
+    protected $startInterval;
+    /**
     * The test to perform. Possible values are:
-
+    
     - `[]` inherit healthcheck from image or parent image
     - `["NONE"]` disable healthcheck
     - `["CMD", args...]` exec arguments directly
     - `["CMD-SHELL", command]` run command with system's default shell
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getTest(): array
     {
@@ -74,14 +82,14 @@ class HealthConfig
     }
     /**
     * The test to perform. Possible values are:
-
+    
     - `[]` inherit healthcheck from image or parent image
     - `["NONE"]` disable healthcheck
     - `["CMD", args...]` exec arguments directly
     - `["CMD-SHELL", command]` run command with system's default shell
-
+    
     *
-    * @param string[] $test
+    * @param list<string> $test
     *
     * @return self
     */
@@ -94,7 +102,7 @@ class HealthConfig
     /**
     * The time to wait between checks in nanoseconds. It should be 0 or at
     least 1000000 (1 ms). 0 means inherit.
-
+    
     *
     * @return int
     */
@@ -105,7 +113,7 @@ class HealthConfig
     /**
     * The time to wait between checks in nanoseconds. It should be 0 or at
     least 1000000 (1 ms). 0 means inherit.
-
+    
     *
     * @param int $interval
     *
@@ -120,7 +128,7 @@ class HealthConfig
     /**
     * The time to wait before considering the check to have hung. It should
     be 0 or at least 1000000 (1 ms). 0 means inherit.
-
+    
     *
     * @return int
     */
@@ -131,7 +139,7 @@ class HealthConfig
     /**
     * The time to wait before considering the check to have hung. It should
     be 0 or at least 1000000 (1 ms). 0 means inherit.
-
+    
     *
     * @param int $timeout
     *
@@ -146,7 +154,7 @@ class HealthConfig
     /**
     * The number of consecutive failures needed to consider a container as
     unhealthy. 0 means inherit.
-
+    
     *
     * @return int
     */
@@ -157,7 +165,7 @@ class HealthConfig
     /**
     * The number of consecutive failures needed to consider a container as
     unhealthy. 0 means inherit.
-
+    
     *
     * @param int $retries
     *
@@ -173,7 +181,7 @@ class HealthConfig
     * Start period for the container to initialize before starting
     health-retries countdown in nanoseconds. It should be 0 or at least
     1000000 (1 ms). 0 means inherit.
-
+    
     *
     * @return int
     */
@@ -185,7 +193,7 @@ class HealthConfig
     * Start period for the container to initialize before starting
     health-retries countdown in nanoseconds. It should be 0 or at least
     1000000 (1 ms). 0 means inherit.
-
+    
     *
     * @param int $startPeriod
     *
@@ -195,6 +203,32 @@ class HealthConfig
     {
         $this->initialized['startPeriod'] = true;
         $this->startPeriod = $startPeriod;
+        return $this;
+    }
+    /**
+    * The time to wait between checks in nanoseconds during the start period.
+    It should be 0 or at least 1000000 (1 ms). 0 means inherit.
+    
+    *
+    * @return int
+    */
+    public function getStartInterval(): int
+    {
+        return $this->startInterval;
+    }
+    /**
+    * The time to wait between checks in nanoseconds during the start period.
+    It should be 0 or at least 1000000 (1 ms). 0 means inherit.
+    
+    *
+    * @param int $startInterval
+    *
+    * @return self
+    */
+    public function setStartInterval(int $startInterval): self
+    {
+        $this->initialized['startInterval'] = true;
+        $this->startInterval = $startInterval;
         return $this;
     }
 }

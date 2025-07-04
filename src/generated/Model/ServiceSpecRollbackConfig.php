@@ -7,7 +7,7 @@ class ServiceSpecRollbackConfig
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class ServiceSpecRollbackConfig
     /**
     * Maximum number of tasks to be rolled back in one iteration (0 means
     unlimited parallelism).
-
+    
     *
     * @var int
     */
@@ -29,7 +29,7 @@ class ServiceSpecRollbackConfig
     /**
     * Action to take if an rolled back task fails to run, or stops
     running during the rollback.
-
+    
     *
     * @var string
     */
@@ -37,7 +37,7 @@ class ServiceSpecRollbackConfig
     /**
     * Amount of time to monitor each rolled back task for failures, in
     nanoseconds.
-
+    
     *
     * @var int
     */
@@ -46,7 +46,7 @@ class ServiceSpecRollbackConfig
     * The fraction of tasks that may fail during a rollback before the
     failure action is invoked, specified as a floating point number
     between 0 and 1.
-
+    
     *
     * @var float
     */
@@ -55,7 +55,7 @@ class ServiceSpecRollbackConfig
     * The order of operations when rolling back a task. Either the old
     task is shut down before the new task is started, or the new task
     is started before the old task is shut down.
-
+    
     *
     * @var string
     */
@@ -63,7 +63,7 @@ class ServiceSpecRollbackConfig
     /**
     * Maximum number of tasks to be rolled back in one iteration (0 means
     unlimited parallelism).
-
+    
     *
     * @return int
     */
@@ -74,7 +74,7 @@ class ServiceSpecRollbackConfig
     /**
     * Maximum number of tasks to be rolled back in one iteration (0 means
     unlimited parallelism).
-
+    
     *
     * @param int $parallelism
     *
@@ -111,7 +111,7 @@ class ServiceSpecRollbackConfig
     /**
     * Action to take if an rolled back task fails to run, or stops
     running during the rollback.
-
+    
     *
     * @return string
     */
@@ -122,7 +122,7 @@ class ServiceSpecRollbackConfig
     /**
     * Action to take if an rolled back task fails to run, or stops
     running during the rollback.
-
+    
     *
     * @param string $failureAction
     *
@@ -137,7 +137,7 @@ class ServiceSpecRollbackConfig
     /**
     * Amount of time to monitor each rolled back task for failures, in
     nanoseconds.
-
+    
     *
     * @return int
     */
@@ -148,7 +148,7 @@ class ServiceSpecRollbackConfig
     /**
     * Amount of time to monitor each rolled back task for failures, in
     nanoseconds.
-
+    
     *
     * @param int $monitor
     *
@@ -164,7 +164,7 @@ class ServiceSpecRollbackConfig
     * The fraction of tasks that may fail during a rollback before the
     failure action is invoked, specified as a floating point number
     between 0 and 1.
-
+    
     *
     * @return float
     */
@@ -176,7 +176,7 @@ class ServiceSpecRollbackConfig
     * The fraction of tasks that may fail during a rollback before the
     failure action is invoked, specified as a floating point number
     between 0 and 1.
-
+    
     *
     * @param float $maxFailureRatio
     *
@@ -192,7 +192,7 @@ class ServiceSpecRollbackConfig
     * The order of operations when rolling back a task. Either the old
     task is shut down before the new task is started, or the new task
     is started before the old task is shut down.
-
+    
     *
     * @return string
     */
@@ -204,7 +204,7 @@ class ServiceSpecRollbackConfig
     * The order of operations when rolling back a task. Either the old
     task is shut down before the new task is started, or the new task
     is started before the old task is shut down.
-
+    
     *
     * @param string $order
     *

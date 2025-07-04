@@ -4,7 +4,6 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ContainerExec extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $id;
     /**
      * Run a command inside a running container.
@@ -17,13 +16,14 @@ class ContainerExec extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoin
         $this->id = $id;
         $this->body = $execConfig;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'POST';
     }
     public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/containers/{id}/exec');
+        return str_replace(['{id}'], [$this->id], '/containers/{id}/exec');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
@@ -31,7 +31,7 @@ class ContainerExec extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoin
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -40,27 +40,27 @@ class ContainerExec extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoin
      * @throws \Vendor\Library\Generated\Exception\ContainerExecConflictException
      * @throws \Vendor\Library\Generated\Exception\ContainerExecInternalServerErrorException
      *
-     * @return null|\Vendor\Library\Generated\Model\IdResponse
+     * @return null|\Vendor\Library\Generated\Model\IDResponse
      */
     protected function transformResponseBody(\Psr\Http\Message\ResponseInterface $response, \Symfony\Component\Serializer\SerializerInterface $serializer, ?string $contentType = null)
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (201 === $status) {
-            return $serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\IdResponse', 'json');
+            return $serializer->deserialize($body, 'Vendor\Library\Generated\Model\IDResponse', 'json');
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerExecNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerExecNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (409 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerExecConflictException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerExecConflictException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerExecInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerExecInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

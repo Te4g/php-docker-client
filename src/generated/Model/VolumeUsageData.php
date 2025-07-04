@@ -7,7 +7,7 @@ class VolumeUsageData
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -17,7 +17,7 @@ class VolumeUsageData
     is only available for volumes created with the `"local"` volume
     driver. For volumes created with other volume drivers, this field
     is set to `-1` ("not available")
-
+    
     *
     * @var int
     */
@@ -25,7 +25,7 @@ class VolumeUsageData
     /**
     * The number of containers referencing this volume. This field
     is set to `-1` if the reference-count is not available.
-
+    
     *
     * @var int
     */
@@ -35,7 +35,7 @@ class VolumeUsageData
     is only available for volumes created with the `"local"` volume
     driver. For volumes created with other volume drivers, this field
     is set to `-1` ("not available")
-
+    
     *
     * @return int
     */
@@ -48,7 +48,7 @@ class VolumeUsageData
     is only available for volumes created with the `"local"` volume
     driver. For volumes created with other volume drivers, this field
     is set to `-1` ("not available")
-
+    
     *
     * @param int $size
     *
@@ -63,7 +63,7 @@ class VolumeUsageData
     /**
     * The number of containers referencing this volume. This field
     is set to `-1` if the reference-count is not available.
-
+    
     *
     * @return int
     */
@@ -74,7 +74,7 @@ class VolumeUsageData
     /**
     * The number of containers referencing this volume. This field
     is set to `-1` if the reference-count is not available.
-
+    
     *
     * @param int $refCount
     *

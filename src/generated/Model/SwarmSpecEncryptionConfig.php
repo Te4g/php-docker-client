@@ -7,7 +7,7 @@ class SwarmSpecEncryptionConfig
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class SwarmSpecEncryptionConfig
     /**
     * If set, generate a key and use it to lock data stored on the
     managers.
-
+    
     *
     * @var bool
     */
@@ -23,7 +23,7 @@ class SwarmSpecEncryptionConfig
     /**
     * If set, generate a key and use it to lock data stored on the
     managers.
-
+    
     *
     * @return bool
     */
@@ -34,7 +34,7 @@ class SwarmSpecEncryptionConfig
     /**
     * If set, generate a key and use it to lock data stored on the
     managers.
-
+    
     *
     * @param bool $autoLockManagers
     *

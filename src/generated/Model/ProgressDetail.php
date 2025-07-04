@@ -7,25 +7,25 @@ class ProgressDetail
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var int
      */
     protected $current;
     /**
-     *
+     * 
      *
      * @var int
      */
     protected $total;
     /**
-     *
+     * 
      *
      * @return int
      */
@@ -34,7 +34,7 @@ class ProgressDetail
         return $this->current;
     }
     /**
-     *
+     * 
      *
      * @param int $current
      *
@@ -47,7 +47,7 @@ class ProgressDetail
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return int
      */
@@ -56,7 +56,7 @@ class ProgressDetail
         return $this->total;
     }
     /**
-     *
+     * 
      *
      * @param int $total
      *

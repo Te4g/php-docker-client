@@ -7,7 +7,7 @@ class ContainersCreatePostBody
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -25,10 +25,14 @@ class ContainersCreatePostBody
      */
     protected $domainname;
     /**
-     * The user that commands are run as inside the container.
-     *
-     * @var string
-     */
+    * Commands run as this user inside the container. If omitted, commands
+    run as the user specified in the image the container was started from.
+    
+    Can be either user-name or UID, and optional group-name or GID,
+    separated by a colon (`<user-name|UID>[<:group-name|GID>]`).
+    *
+    * @var string
+    */
     protected $user;
     /**
      * Whether to attach to `stdin`.
@@ -50,9 +54,9 @@ class ContainersCreatePostBody
     protected $attachStderr = true;
     /**
     * An object mapping ports to an empty object in the form:
-
+    
     `{"<port>/<tcp|udp|sctp>": {}}`
-
+    
     *
     * @var array<string, mixed>|null
     */
@@ -79,15 +83,15 @@ class ContainersCreatePostBody
     * A list of environment variables to set inside the container in the
     form `["VAR=value", ...]`. A variable without `=` is removed from the
     environment, rather than to have an empty value.
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $env;
     /**
      * Command to run specified as a string or an array of strings.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $cmd;
     /**
@@ -105,7 +109,7 @@ class ContainersCreatePostBody
     /**
     * The name (or reference) of the image to use when creating the container,
     or which was used when the container was created.
-
+    
     *
     * @var string
     */
@@ -113,7 +117,7 @@ class ContainersCreatePostBody
     /**
     * An object mapping mount point paths inside the container to empty
     objects.
-
+    
     *
     * @var array<string, mixed>
     */
@@ -126,13 +130,13 @@ class ContainersCreatePostBody
     protected $workingDir;
     /**
     * The entry point for the container as a string or an array of strings.
-
+    
     If the array consists of exactly one empty string (`[""]`) then the
     entry point is reset to system default (i.e., the entry point used by
     docker when there is no `ENTRYPOINT` instruction in the `Dockerfile`).
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $entrypoint;
     /**
@@ -142,15 +146,18 @@ class ContainersCreatePostBody
      */
     protected $networkDisabled;
     /**
-     * MAC address of the container.
-     *
-     * @var string|null
-     */
+    * MAC address of the container.
+    
+    Deprecated: this field is deprecated in API v1.44 and up. Use EndpointSettings.MacAddress instead.
+    
+    *
+    * @var string|null
+    */
     protected $macAddress;
     /**
      * `ONBUILD` metadata that were defined in the image's `Dockerfile`.
      *
-     * @var string[]|null
+     * @var list<string>|null
      */
     protected $onBuild;
     /**
@@ -174,7 +181,7 @@ class ContainersCreatePostBody
     /**
      * Shell for when `RUN`, `CMD`, and `ENTRYPOINT` uses a shell.
      *
-     * @var string[]|null
+     * @var list<string>|null
      */
     protected $shell;
     /**
@@ -188,7 +195,7 @@ class ContainersCreatePostBody
     each of its interfaces.
     It is used for the networking configs specified in the `docker create`
     and `docker network connect` commands.
-
+    
     *
     * @var NetworkingConfig
     */
@@ -238,21 +245,29 @@ class ContainersCreatePostBody
         return $this;
     }
     /**
-     * The user that commands are run as inside the container.
-     *
-     * @return string
-     */
+    * Commands run as this user inside the container. If omitted, commands
+    run as the user specified in the image the container was started from.
+    
+    Can be either user-name or UID, and optional group-name or GID,
+    separated by a colon (`<user-name|UID>[<:group-name|GID>]`).
+    *
+    * @return string
+    */
     public function getUser(): string
     {
         return $this->user;
     }
     /**
-     * The user that commands are run as inside the container.
-     *
-     * @param string $user
-     *
-     * @return self
-     */
+    * Commands run as this user inside the container. If omitted, commands
+    run as the user specified in the image the container was started from.
+    
+    Can be either user-name or UID, and optional group-name or GID,
+    separated by a colon (`<user-name|UID>[<:group-name|GID>]`).
+    *
+    * @param string $user
+    *
+    * @return self
+    */
     public function setUser(string $user): self
     {
         $this->initialized['user'] = true;
@@ -327,9 +342,9 @@ class ContainersCreatePostBody
     }
     /**
     * An object mapping ports to an empty object in the form:
-
+    
     `{"<port>/<tcp|udp|sctp>": {}}`
-
+    
     *
     * @return array<string, mixed>|null
     */
@@ -339,9 +354,9 @@ class ContainersCreatePostBody
     }
     /**
     * An object mapping ports to an empty object in the form:
-
+    
     `{"<port>/<tcp|udp|sctp>": {}}`
-
+    
     *
     * @param array<string, mixed>|null $exposedPorts
     *
@@ -423,9 +438,9 @@ class ContainersCreatePostBody
     * A list of environment variables to set inside the container in the
     form `["VAR=value", ...]`. A variable without `=` is removed from the
     environment, rather than to have an empty value.
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getEnv(): array
     {
@@ -435,9 +450,9 @@ class ContainersCreatePostBody
     * A list of environment variables to set inside the container in the
     form `["VAR=value", ...]`. A variable without `=` is removed from the
     environment, rather than to have an empty value.
-
+    
     *
-    * @param string[] $env
+    * @param list<string> $env
     *
     * @return self
     */
@@ -450,7 +465,7 @@ class ContainersCreatePostBody
     /**
      * Command to run specified as a string or an array of strings.
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getCmd(): array
     {
@@ -459,7 +474,7 @@ class ContainersCreatePostBody
     /**
      * Command to run specified as a string or an array of strings.
      *
-     * @param string[] $cmd
+     * @param list<string> $cmd
      *
      * @return self
      */
@@ -516,7 +531,7 @@ class ContainersCreatePostBody
     /**
     * The name (or reference) of the image to use when creating the container,
     or which was used when the container was created.
-
+    
     *
     * @return string
     */
@@ -527,7 +542,7 @@ class ContainersCreatePostBody
     /**
     * The name (or reference) of the image to use when creating the container,
     or which was used when the container was created.
-
+    
     *
     * @param string $image
     *
@@ -542,7 +557,7 @@ class ContainersCreatePostBody
     /**
     * An object mapping mount point paths inside the container to empty
     objects.
-
+    
     *
     * @return array<string, mixed>
     */
@@ -553,7 +568,7 @@ class ContainersCreatePostBody
     /**
     * An object mapping mount point paths inside the container to empty
     objects.
-
+    
     *
     * @param array<string, mixed> $volumes
     *
@@ -589,13 +604,13 @@ class ContainersCreatePostBody
     }
     /**
     * The entry point for the container as a string or an array of strings.
-
+    
     If the array consists of exactly one empty string (`[""]`) then the
     entry point is reset to system default (i.e., the entry point used by
     docker when there is no `ENTRYPOINT` instruction in the `Dockerfile`).
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getEntrypoint(): array
     {
@@ -603,13 +618,13 @@ class ContainersCreatePostBody
     }
     /**
     * The entry point for the container as a string or an array of strings.
-
+    
     If the array consists of exactly one empty string (`[""]`) then the
     entry point is reset to system default (i.e., the entry point used by
     docker when there is no `ENTRYPOINT` instruction in the `Dockerfile`).
-
+    
     *
-    * @param string[] $entrypoint
+    * @param list<string> $entrypoint
     *
     * @return self
     */
@@ -642,21 +657,27 @@ class ContainersCreatePostBody
         return $this;
     }
     /**
-     * MAC address of the container.
-     *
-     * @return string|null
-     */
+    * MAC address of the container.
+    
+    Deprecated: this field is deprecated in API v1.44 and up. Use EndpointSettings.MacAddress instead.
+    
+    *
+    * @return string|null
+    */
     public function getMacAddress(): ?string
     {
         return $this->macAddress;
     }
     /**
-     * MAC address of the container.
-     *
-     * @param string|null $macAddress
-     *
-     * @return self
-     */
+    * MAC address of the container.
+    
+    Deprecated: this field is deprecated in API v1.44 and up. Use EndpointSettings.MacAddress instead.
+    
+    *
+    * @param string|null $macAddress
+    *
+    * @return self
+    */
     public function setMacAddress(?string $macAddress): self
     {
         $this->initialized['macAddress'] = true;
@@ -666,7 +687,7 @@ class ContainersCreatePostBody
     /**
      * `ONBUILD` metadata that were defined in the image's `Dockerfile`.
      *
-     * @return string[]|null
+     * @return list<string>|null
      */
     public function getOnBuild(): ?array
     {
@@ -675,7 +696,7 @@ class ContainersCreatePostBody
     /**
      * `ONBUILD` metadata that were defined in the image's `Dockerfile`.
      *
-     * @param string[]|null $onBuild
+     * @param list<string>|null $onBuild
      *
      * @return self
      */
@@ -754,7 +775,7 @@ class ContainersCreatePostBody
     /**
      * Shell for when `RUN`, `CMD`, and `ENTRYPOINT` uses a shell.
      *
-     * @return string[]|null
+     * @return list<string>|null
      */
     public function getShell(): ?array
     {
@@ -763,7 +784,7 @@ class ContainersCreatePostBody
     /**
      * Shell for when `RUN`, `CMD`, and `ENTRYPOINT` uses a shell.
      *
-     * @param string[]|null $shell
+     * @param list<string>|null $shell
      *
      * @return self
      */
@@ -800,7 +821,7 @@ class ContainersCreatePostBody
     each of its interfaces.
     It is used for the networking configs specified in the `docker create`
     and `docker network connect` commands.
-
+    
     *
     * @return NetworkingConfig
     */
@@ -813,7 +834,7 @@ class ContainersCreatePostBody
     each of its interfaces.
     It is used for the networking configs specified in the `docker create`
     and `docker network connect` commands.
-
+    
     *
     * @param NetworkingConfig $networkingConfig
     *

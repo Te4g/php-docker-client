@@ -12,60 +12,149 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
-class TaskSpecContainerSpecPrivilegesNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-    use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()): bool
+use Symfony\Component\HttpKernel\Kernel;
+if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
+    class TaskSpecContainerSpecPrivilegesNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return $type === 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivileges';
-    }
-    public function supportsNormalization($data, $format = null, array $context = array()): bool
-    {
-        return is_object($data) && get_class($data) === 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivileges';
-    }
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = array())
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class;
         }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class;
         }
-        $object = new \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges();
-        if (null === $data || false === \is_array($data)) {
+        public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('CredentialSpec', $data)) {
+                $object->setCredentialSpec($this->denormalizer->denormalize($data['CredentialSpec'], \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesCredentialSpec::class, 'json', $context));
+            }
+            if (\array_key_exists('SELinuxContext', $data)) {
+                $object->setSELinuxContext($this->denormalizer->denormalize($data['SELinuxContext'], \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSELinuxContext::class, 'json', $context));
+            }
+            if (\array_key_exists('Seccomp', $data)) {
+                $object->setSeccomp($this->denormalizer->denormalize($data['Seccomp'], \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSeccomp::class, 'json', $context));
+            }
+            if (\array_key_exists('AppArmor', $data)) {
+                $object->setAppArmor($this->denormalizer->denormalize($data['AppArmor'], \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesAppArmor::class, 'json', $context));
+            }
+            if (\array_key_exists('NoNewPrivileges', $data)) {
+                $object->setNoNewPrivileges($data['NoNewPrivileges']);
+            }
             return $object;
         }
-        if (\array_key_exists('CredentialSpec', $data)) {
-            $object->setCredentialSpec($this->denormalizer->denormalize($data['CredentialSpec'], 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivilegesCredentialSpec', 'json', $context));
+        public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('credentialSpec') && null !== $object->getCredentialSpec()) {
+                $data['CredentialSpec'] = $this->normalizer->normalize($object->getCredentialSpec(), 'json', $context);
+            }
+            if ($object->isInitialized('sELinuxContext') && null !== $object->getSELinuxContext()) {
+                $data['SELinuxContext'] = $this->normalizer->normalize($object->getSELinuxContext(), 'json', $context);
+            }
+            if ($object->isInitialized('seccomp') && null !== $object->getSeccomp()) {
+                $data['Seccomp'] = $this->normalizer->normalize($object->getSeccomp(), 'json', $context);
+            }
+            if ($object->isInitialized('appArmor') && null !== $object->getAppArmor()) {
+                $data['AppArmor'] = $this->normalizer->normalize($object->getAppArmor(), 'json', $context);
+            }
+            if ($object->isInitialized('noNewPrivileges') && null !== $object->getNoNewPrivileges()) {
+                $data['NoNewPrivileges'] = $object->getNoNewPrivileges();
+            }
+            return $data;
         }
-        if (\array_key_exists('SELinuxContext', $data)) {
-            $object->setSELinuxContext($this->denormalizer->denormalize($data['SELinuxContext'], 'Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivilegesSELinuxContext', 'json', $context));
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class => false];
         }
-        return $object;
     }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = array())
+} else {
+    class TaskSpecContainerSpecPrivilegesNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        $data = array();
-        if ($object->isInitialized('credentialSpec') && null !== $object->getCredentialSpec()) {
-            $data['CredentialSpec'] = $this->normalizer->normalize($object->getCredentialSpec(), 'json', $context);
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization($data, $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class;
         }
-        if ($object->isInitialized('sELinuxContext') && null !== $object->getSELinuxContext()) {
-            $data['SELinuxContext'] = $this->normalizer->normalize($object->getSELinuxContext(), 'json', $context);
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class;
         }
-        return $data;
-    }
-    public function getSupportedTypes(?string $format = null): array
-    {
-        return array('Vendor\\Library\\Generated\\Model\\TaskSpecContainerSpecPrivileges' => false);
+        /**
+         * @return mixed
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('CredentialSpec', $data)) {
+                $object->setCredentialSpec($this->denormalizer->denormalize($data['CredentialSpec'], \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesCredentialSpec::class, 'json', $context));
+            }
+            if (\array_key_exists('SELinuxContext', $data)) {
+                $object->setSELinuxContext($this->denormalizer->denormalize($data['SELinuxContext'], \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSELinuxContext::class, 'json', $context));
+            }
+            if (\array_key_exists('Seccomp', $data)) {
+                $object->setSeccomp($this->denormalizer->denormalize($data['Seccomp'], \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesSeccomp::class, 'json', $context));
+            }
+            if (\array_key_exists('AppArmor', $data)) {
+                $object->setAppArmor($this->denormalizer->denormalize($data['AppArmor'], \Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivilegesAppArmor::class, 'json', $context));
+            }
+            if (\array_key_exists('NoNewPrivileges', $data)) {
+                $object->setNoNewPrivileges($data['NoNewPrivileges']);
+            }
+            return $object;
+        }
+        /**
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('credentialSpec') && null !== $object->getCredentialSpec()) {
+                $data['CredentialSpec'] = $this->normalizer->normalize($object->getCredentialSpec(), 'json', $context);
+            }
+            if ($object->isInitialized('sELinuxContext') && null !== $object->getSELinuxContext()) {
+                $data['SELinuxContext'] = $this->normalizer->normalize($object->getSELinuxContext(), 'json', $context);
+            }
+            if ($object->isInitialized('seccomp') && null !== $object->getSeccomp()) {
+                $data['Seccomp'] = $this->normalizer->normalize($object->getSeccomp(), 'json', $context);
+            }
+            if ($object->isInitialized('appArmor') && null !== $object->getAppArmor()) {
+                $data['AppArmor'] = $this->normalizer->normalize($object->getAppArmor(), 'json', $context);
+            }
+            if ($object->isInitialized('noNewPrivileges') && null !== $object->getNoNewPrivileges()) {
+                $data['NoNewPrivileges'] = $object->getNoNewPrivileges();
+            }
+            return $data;
+        }
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\TaskSpecContainerSpecPrivileges::class => false];
+        }
     }
 }

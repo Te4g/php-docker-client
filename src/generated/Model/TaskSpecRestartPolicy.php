@@ -7,7 +7,7 @@ class TaskSpecRestartPolicy
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -27,7 +27,7 @@ class TaskSpecRestartPolicy
     /**
     * Maximum attempts to restart a given container before giving up
     (default value is 0, which is ignored).
-
+    
     *
     * @var int
     */
@@ -35,7 +35,7 @@ class TaskSpecRestartPolicy
     /**
     * Windows is the time window used to evaluate the restart policy
     (default value is 0, which is unbounded).
-
+    
     *
     * @var int
     */
@@ -87,7 +87,7 @@ class TaskSpecRestartPolicy
     /**
     * Maximum attempts to restart a given container before giving up
     (default value is 0, which is ignored).
-
+    
     *
     * @return int
     */
@@ -98,7 +98,7 @@ class TaskSpecRestartPolicy
     /**
     * Maximum attempts to restart a given container before giving up
     (default value is 0, which is ignored).
-
+    
     *
     * @param int $maxAttempts
     *
@@ -113,7 +113,7 @@ class TaskSpecRestartPolicy
     /**
     * Windows is the time window used to evaluate the restart policy
     (default value is 0, which is unbounded).
-
+    
     *
     * @return int
     */
@@ -124,7 +124,7 @@ class TaskSpecRestartPolicy
     /**
     * Windows is the time window used to evaluate the restart policy
     (default value is 0, which is unbounded).
-
+    
     *
     * @param int $window
     *

@@ -7,20 +7,21 @@ class MountPoint
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
     * The mount type:
-
+    
     - `bind` a mount of a file or directory from the host into the container.
     - `volume` a docker volume with the given `Name`.
+    - `image` a docker image
     - `tmpfs` a `tmpfs`.
     - `npipe` a named pipe from the host into the container.
     - `cluster` a Swarm cluster volume
-
+    
     *
     * @var string
     */
@@ -28,19 +29,19 @@ class MountPoint
     /**
     * Name is the name reference to the underlying data defined by `Source`
     e.g., the volume name.
-
+    
     *
     * @var string
     */
     protected $name;
     /**
     * Source location of the mount.
-
+    
     For volumes, this contains the storage location of the volume (within
     `/var/lib/docker/volumes/`). For bind-mounts, and `npipe`, this contains
     the source (host) part of the bind-mount. For `tmpfs` mount points, this
     field is empty.
-
+    
     *
     * @var string
     */
@@ -48,7 +49,7 @@ class MountPoint
     /**
     * Destination is the path relative to the container root (`/`) where
     the `Source` is mounted inside the container.
-
+    
     *
     * @var string
     */
@@ -62,9 +63,9 @@ class MountPoint
     /**
     * Mode is a comma separated list of options supplied by the user when
     creating the bind/volume mount.
-
+    
     The default is platform-specific (`"z"` on Linux, empty on Windows).
-
+    
     *
     * @var string
     */
@@ -79,20 +80,21 @@ class MountPoint
     * Propagation describes how mounts are propagated from the host into the
     mount point, and vice-versa. Refer to the [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
     for details. This field is not used on Windows.
-
+    
     *
     * @var string
     */
     protected $propagation;
     /**
     * The mount type:
-
+    
     - `bind` a mount of a file or directory from the host into the container.
     - `volume` a docker volume with the given `Name`.
+    - `image` a docker image
     - `tmpfs` a `tmpfs`.
     - `npipe` a named pipe from the host into the container.
     - `cluster` a Swarm cluster volume
-
+    
     *
     * @return string
     */
@@ -102,13 +104,14 @@ class MountPoint
     }
     /**
     * The mount type:
-
+    
     - `bind` a mount of a file or directory from the host into the container.
     - `volume` a docker volume with the given `Name`.
+    - `image` a docker image
     - `tmpfs` a `tmpfs`.
     - `npipe` a named pipe from the host into the container.
     - `cluster` a Swarm cluster volume
-
+    
     *
     * @param string $type
     *
@@ -123,7 +126,7 @@ class MountPoint
     /**
     * Name is the name reference to the underlying data defined by `Source`
     e.g., the volume name.
-
+    
     *
     * @return string
     */
@@ -134,7 +137,7 @@ class MountPoint
     /**
     * Name is the name reference to the underlying data defined by `Source`
     e.g., the volume name.
-
+    
     *
     * @param string $name
     *
@@ -148,12 +151,12 @@ class MountPoint
     }
     /**
     * Source location of the mount.
-
+    
     For volumes, this contains the storage location of the volume (within
     `/var/lib/docker/volumes/`). For bind-mounts, and `npipe`, this contains
     the source (host) part of the bind-mount. For `tmpfs` mount points, this
     field is empty.
-
+    
     *
     * @return string
     */
@@ -163,12 +166,12 @@ class MountPoint
     }
     /**
     * Source location of the mount.
-
+    
     For volumes, this contains the storage location of the volume (within
     `/var/lib/docker/volumes/`). For bind-mounts, and `npipe`, this contains
     the source (host) part of the bind-mount. For `tmpfs` mount points, this
     field is empty.
-
+    
     *
     * @param string $source
     *
@@ -183,7 +186,7 @@ class MountPoint
     /**
     * Destination is the path relative to the container root (`/`) where
     the `Source` is mounted inside the container.
-
+    
     *
     * @return string
     */
@@ -194,7 +197,7 @@ class MountPoint
     /**
     * Destination is the path relative to the container root (`/`) where
     the `Source` is mounted inside the container.
-
+    
     *
     * @param string $destination
     *
@@ -231,9 +234,9 @@ class MountPoint
     /**
     * Mode is a comma separated list of options supplied by the user when
     creating the bind/volume mount.
-
+    
     The default is platform-specific (`"z"` on Linux, empty on Windows).
-
+    
     *
     * @return string
     */
@@ -244,9 +247,9 @@ class MountPoint
     /**
     * Mode is a comma separated list of options supplied by the user when
     creating the bind/volume mount.
-
+    
     The default is platform-specific (`"z"` on Linux, empty on Windows).
-
+    
     *
     * @param string $mode
     *
@@ -284,7 +287,7 @@ class MountPoint
     * Propagation describes how mounts are propagated from the host into the
     mount point, and vice-versa. Refer to the [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
     for details. This field is not used on Windows.
-
+    
     *
     * @return string
     */
@@ -296,7 +299,7 @@ class MountPoint
     * Propagation describes how mounts are propagated from the host into the
     mount point, and vice-versa. Refer to the [Linux kernel documentation](https://www.kernel.org/doc/Documentation/filesystems/sharedsubtree.txt)
     for details. This field is not used on Windows.
-
+    
     *
     * @param string $propagation
     *

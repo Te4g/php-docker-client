@@ -7,7 +7,7 @@ class ServiceServiceStatus
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -24,7 +24,7 @@ class ServiceServiceStatus
     service spec. For global services, this is computed by taking
     count of all tasks for the service with a Desired State other
     than Shutdown.
-
+    
     *
     * @var int
     */
@@ -34,7 +34,7 @@ class ServiceServiceStatus
     This field must be cross-referenced with the service type, as the
     value of 0 may mean the service is not in a job mode, or it may
     mean the job-mode service has no tasks yet Completed.
-
+    
     *
     * @var int
     */
@@ -67,7 +67,7 @@ class ServiceServiceStatus
     service spec. For global services, this is computed by taking
     count of all tasks for the service with a Desired State other
     than Shutdown.
-
+    
     *
     * @return int
     */
@@ -81,7 +81,7 @@ class ServiceServiceStatus
     service spec. For global services, this is computed by taking
     count of all tasks for the service with a Desired State other
     than Shutdown.
-
+    
     *
     * @param int $desiredTasks
     *
@@ -98,7 +98,7 @@ class ServiceServiceStatus
     This field must be cross-referenced with the service type, as the
     value of 0 may mean the service is not in a job mode, or it may
     mean the job-mode service has no tasks yet Completed.
-
+    
     *
     * @return int
     */
@@ -111,7 +111,7 @@ class ServiceServiceStatus
     This field must be cross-referenced with the service type, as the
     value of 0 may mean the service is not in a job mode, or it may
     mean the job-mode service has no tasks yet Completed.
-
+    
     *
     * @param int $completedTasks
     *

@@ -7,7 +7,7 @@ class IPAM
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -20,13 +20,13 @@ class IPAM
     protected $driver = 'default';
     /**
     * List of IPAM configuration options, specified as a map:
-
+    
     ```
     {"Subnet": <CIDR>, "IPRange": <CIDR>, "Gateway": <IP address>, "AuxAddress": <device_name:IP address>}
     ```
-
+    
     *
-    * @var IPAMConfig[]
+    * @var list<IPAMConfig>
     */
     protected $config;
     /**
@@ -59,13 +59,13 @@ class IPAM
     }
     /**
     * List of IPAM configuration options, specified as a map:
-
+    
     ```
     {"Subnet": <CIDR>, "IPRange": <CIDR>, "Gateway": <IP address>, "AuxAddress": <device_name:IP address>}
     ```
-
+    
     *
-    * @return IPAMConfig[]
+    * @return list<IPAMConfig>
     */
     public function getConfig(): array
     {
@@ -73,13 +73,13 @@ class IPAM
     }
     /**
     * List of IPAM configuration options, specified as a map:
-
+    
     ```
     {"Subnet": <CIDR>, "IPRange": <CIDR>, "Gateway": <IP address>, "AuxAddress": <device_name:IP address>}
     ```
-
+    
     *
-    * @param IPAMConfig[] $config
+    * @param list<IPAMConfig> $config
     *
     * @return self
     */

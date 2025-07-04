@@ -7,43 +7,49 @@ class TaskStatus
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $timestamp;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $state;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $message;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $err;
     /**
+     * represents the status of a container.
      *
-     *
-     * @var TaskStatusContainerStatus
+     * @var ContainerStatus
      */
     protected $containerStatus;
     /**
+     * represents the port status of a task's host ports whose service has published host ports
      *
+     * @var PortStatus
+     */
+    protected $portStatus;
+    /**
+     * 
      *
      * @return string
      */
@@ -52,7 +58,7 @@ class TaskStatus
         return $this->timestamp;
     }
     /**
-     *
+     * 
      *
      * @param string $timestamp
      *
@@ -65,7 +71,7 @@ class TaskStatus
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -74,7 +80,7 @@ class TaskStatus
         return $this->state;
     }
     /**
-     *
+     * 
      *
      * @param string $state
      *
@@ -87,7 +93,7 @@ class TaskStatus
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -96,7 +102,7 @@ class TaskStatus
         return $this->message;
     }
     /**
-     *
+     * 
      *
      * @param string $message
      *
@@ -109,7 +115,7 @@ class TaskStatus
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -118,7 +124,7 @@ class TaskStatus
         return $this->err;
     }
     /**
-     *
+     * 
      *
      * @param string $err
      *
@@ -131,25 +137,47 @@ class TaskStatus
         return $this;
     }
     /**
+     * represents the status of a container.
      *
-     *
-     * @return TaskStatusContainerStatus
+     * @return ContainerStatus
      */
-    public function getContainerStatus(): TaskStatusContainerStatus
+    public function getContainerStatus(): ContainerStatus
     {
         return $this->containerStatus;
     }
     /**
+     * represents the status of a container.
      *
-     *
-     * @param TaskStatusContainerStatus $containerStatus
+     * @param ContainerStatus $containerStatus
      *
      * @return self
      */
-    public function setContainerStatus(TaskStatusContainerStatus $containerStatus): self
+    public function setContainerStatus(ContainerStatus $containerStatus): self
     {
         $this->initialized['containerStatus'] = true;
         $this->containerStatus = $containerStatus;
+        return $this;
+    }
+    /**
+     * represents the port status of a task's host ports whose service has published host ports
+     *
+     * @return PortStatus
+     */
+    public function getPortStatus(): PortStatus
+    {
+        return $this->portStatus;
+    }
+    /**
+     * represents the port status of a task's host ports whose service has published host ports
+     *
+     * @param PortStatus $portStatus
+     *
+     * @return self
+     */
+    public function setPortStatus(PortStatus $portStatus): self
+    {
+        $this->initialized['portStatus'] = true;
+        $this->portStatus = $portStatus;
         return $this;
     }
 }

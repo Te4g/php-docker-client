@@ -15,11 +15,11 @@ class SystemPingHead extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoi
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -36,11 +36,11 @@ class SystemPingHead extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoi
             return json_decode($body);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\SystemPingHeadInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\SystemPingHeadInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

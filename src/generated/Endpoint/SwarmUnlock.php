@@ -4,16 +4,16 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class SwarmUnlock extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     /**
+     * 
      *
-     *
-     * @param \Vendor\Library\Generated\Model\SwarmUnlockPostBody $body
+     * @param \Vendor\Library\Generated\Model\SwarmUnlockPostBody $body 
      */
     public function __construct(\Vendor\Library\Generated\Model\SwarmUnlockPostBody $body)
     {
         $this->body = $body;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'POST';
@@ -28,7 +28,7 @@ class SwarmUnlock extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint 
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -46,14 +46,14 @@ class SwarmUnlock extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint 
             return null;
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\SwarmUnlockInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\SwarmUnlockInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (503 === $status) {
-            throw new \Vendor\Library\Generated\Exception\SwarmUnlockServiceUnavailableException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\SwarmUnlockServiceUnavailableException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

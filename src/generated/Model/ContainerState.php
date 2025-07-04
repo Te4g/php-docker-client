@@ -7,7 +7,7 @@ class ContainerState
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,23 +15,23 @@ class ContainerState
     /**
     * String representation of the container state. Can be one of "created",
     "running", "paused", "restarting", "removing", "exited", or "dead".
-
+    
     *
     * @var string
     */
     protected $status;
     /**
     * Whether this container is running.
-
+    
     Note that a running container can be _paused_. The `Running` and `Paused`
     booleans are not mutually exclusive:
-
+    
     When pausing a container (on Linux), the freezer cgroup is used to suspend
     all processes in the container. Freezing the process requires the process to
     be running. As a result, paused containers are both `Running` _and_ `Paused`.
-
+    
     Use the `Status` field instead to determine if a container's state is "running".
-
+    
     *
     * @var bool
     */
@@ -51,13 +51,13 @@ class ContainerState
     /**
     * Whether a process within this container has been killed because it ran
     out of memory since the container was last started.
-
+    
     *
     * @var bool
     */
     protected $oOMKilled;
     /**
-     *
+     * 
      *
      * @var bool
      */
@@ -75,7 +75,7 @@ class ContainerState
      */
     protected $exitCode;
     /**
-     *
+     * 
      *
      * @var string
      */
@@ -101,7 +101,7 @@ class ContainerState
     /**
     * String representation of the container state. Can be one of "created",
     "running", "paused", "restarting", "removing", "exited", or "dead".
-
+    
     *
     * @return string
     */
@@ -112,7 +112,7 @@ class ContainerState
     /**
     * String representation of the container state. Can be one of "created",
     "running", "paused", "restarting", "removing", "exited", or "dead".
-
+    
     *
     * @param string $status
     *
@@ -126,16 +126,16 @@ class ContainerState
     }
     /**
     * Whether this container is running.
-
+    
     Note that a running container can be _paused_. The `Running` and `Paused`
     booleans are not mutually exclusive:
-
+    
     When pausing a container (on Linux), the freezer cgroup is used to suspend
     all processes in the container. Freezing the process requires the process to
     be running. As a result, paused containers are both `Running` _and_ `Paused`.
-
+    
     Use the `Status` field instead to determine if a container's state is "running".
-
+    
     *
     * @return bool
     */
@@ -145,16 +145,16 @@ class ContainerState
     }
     /**
     * Whether this container is running.
-
+    
     Note that a running container can be _paused_. The `Running` and `Paused`
     booleans are not mutually exclusive:
-
+    
     When pausing a container (on Linux), the freezer cgroup is used to suspend
     all processes in the container. Freezing the process requires the process to
     be running. As a result, paused containers are both `Running` _and_ `Paused`.
-
+    
     Use the `Status` field instead to determine if a container's state is "running".
-
+    
     *
     * @param bool $running
     *
@@ -213,7 +213,7 @@ class ContainerState
     /**
     * Whether a process within this container has been killed because it ran
     out of memory since the container was last started.
-
+    
     *
     * @return bool
     */
@@ -224,7 +224,7 @@ class ContainerState
     /**
     * Whether a process within this container has been killed because it ran
     out of memory since the container was last started.
-
+    
     *
     * @param bool $oOMKilled
     *
@@ -237,7 +237,7 @@ class ContainerState
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return bool
      */
@@ -246,7 +246,7 @@ class ContainerState
         return $this->dead;
     }
     /**
-     *
+     * 
      *
      * @param bool $dead
      *
@@ -303,7 +303,7 @@ class ContainerState
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -312,7 +312,7 @@ class ContainerState
         return $this->error;
     }
     /**
-     *
+     * 
      *
      * @param string $error
      *

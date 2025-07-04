@@ -7,7 +7,7 @@ class ClusterVolumeSpecAccessModeAccessibilityRequirements
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,25 +15,25 @@ class ClusterVolumeSpecAccessModeAccessibilityRequirements
     /**
     * A list of required topologies, at least one of which the
     volume must be accessible from.
-
+    
     *
-    * @var array<string, string>[]
+    * @var list<array<string, string>>
     */
     protected $requisite;
     /**
     * A list of topologies that the volume should attempt to be
     provisioned in.
-
+    
     *
-    * @var array<string, string>[]
+    * @var list<array<string, string>>
     */
     protected $preferred;
     /**
     * A list of required topologies, at least one of which the
     volume must be accessible from.
-
+    
     *
-    * @return array<string, string>[]
+    * @return list<array<string, string>>
     */
     public function getRequisite(): array
     {
@@ -42,9 +42,9 @@ class ClusterVolumeSpecAccessModeAccessibilityRequirements
     /**
     * A list of required topologies, at least one of which the
     volume must be accessible from.
-
+    
     *
-    * @param array<string, string>[] $requisite
+    * @param list<array<string, string>> $requisite
     *
     * @return self
     */
@@ -57,9 +57,9 @@ class ClusterVolumeSpecAccessModeAccessibilityRequirements
     /**
     * A list of topologies that the volume should attempt to be
     provisioned in.
-
+    
     *
-    * @return array<string, string>[]
+    * @return list<array<string, string>>
     */
     public function getPreferred(): array
     {
@@ -68,9 +68,9 @@ class ClusterVolumeSpecAccessModeAccessibilityRequirements
     /**
     * A list of topologies that the volume should attempt to be
     provisioned in.
-
+    
     *
-    * @param array<string, string>[] $preferred
+    * @param list<array<string, string>> $preferred
     *
     * @return self
     */

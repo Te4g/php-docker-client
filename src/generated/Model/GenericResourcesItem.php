@@ -7,25 +7,25 @@ class GenericResourcesItem
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var GenericResourcesItemNamedResourceSpec
      */
     protected $namedResourceSpec;
     /**
-     *
+     * 
      *
      * @var GenericResourcesItemDiscreteResourceSpec
      */
     protected $discreteResourceSpec;
     /**
-     *
+     * 
      *
      * @return GenericResourcesItemNamedResourceSpec
      */
@@ -34,7 +34,7 @@ class GenericResourcesItem
         return $this->namedResourceSpec;
     }
     /**
-     *
+     * 
      *
      * @param GenericResourcesItemNamedResourceSpec $namedResourceSpec
      *
@@ -47,7 +47,7 @@ class GenericResourcesItem
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return GenericResourcesItemDiscreteResourceSpec
      */
@@ -56,7 +56,7 @@ class GenericResourcesItem
         return $this->discreteResourceSpec;
     }
     /**
-     *
+     * 
      *
      * @param GenericResourcesItemDiscreteResourceSpec $discreteResourceSpec
      *

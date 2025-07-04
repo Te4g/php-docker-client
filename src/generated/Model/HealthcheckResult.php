@@ -7,7 +7,7 @@ class HealthcheckResult
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class HealthcheckResult
     /**
     * Date and time at which this check started in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @var \DateTime
     */
@@ -23,19 +23,19 @@ class HealthcheckResult
     /**
     * Date and time at which this check ended in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @var string
     */
     protected $end;
     /**
     * ExitCode meanings:
-
+    
     - `0` healthy
     - `1` unhealthy
     - `2` reserved (considered unhealthy)
     - other values: error running probe
-
+    
     *
     * @var int
     */
@@ -49,7 +49,7 @@ class HealthcheckResult
     /**
     * Date and time at which this check started in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @return \DateTime
     */
@@ -60,7 +60,7 @@ class HealthcheckResult
     /**
     * Date and time at which this check started in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @param \DateTime $start
     *
@@ -75,7 +75,7 @@ class HealthcheckResult
     /**
     * Date and time at which this check ended in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @return string
     */
@@ -86,7 +86,7 @@ class HealthcheckResult
     /**
     * Date and time at which this check ended in
     [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt) format with nano-seconds.
-
+    
     *
     * @param string $end
     *
@@ -100,12 +100,12 @@ class HealthcheckResult
     }
     /**
     * ExitCode meanings:
-
+    
     - `0` healthy
     - `1` unhealthy
     - `2` reserved (considered unhealthy)
     - other values: error running probe
-
+    
     *
     * @return int
     */
@@ -115,12 +115,12 @@ class HealthcheckResult
     }
     /**
     * ExitCode meanings:
-
+    
     - `0` healthy
     - `1` unhealthy
     - `2` reserved (considered unhealthy)
     - other values: error running probe
-
+    
     *
     * @param int $exitCode
     *

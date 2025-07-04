@@ -7,7 +7,7 @@ class ClusterVolume
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -16,7 +16,7 @@ class ClusterVolume
     * The Swarm ID of this volume. Because cluster volumes are Swarm
     objects, they have an ID, unlike non-cluster volumes. This ID can
     be used to refer to the Volume instead of the name.
-
+    
     *
     * @var string
     */
@@ -25,26 +25,26 @@ class ClusterVolume
     * The version number of the object such as node, service, etc. This is needed
     to avoid conflicting writes. The client must send the version number along
     with the modified specification when updating these objects.
-
+    
     This approach ensures safe concurrency and determinism in that the change
     on the object may not be applied if the version number has changed from the
     last read. In other words, if two update requests specify the same base
     version, only one of the requests can succeed. As a result, two separate
     update requests that happen at the same time will not unintentionally
     overwrite each other.
-
+    
     *
     * @var ObjectVersion
     */
     protected $version;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $createdAt;
     /**
-     *
+     * 
      *
      * @var string
      */
@@ -64,16 +64,16 @@ class ClusterVolume
     /**
     * The status of the volume as it pertains to its publishing and use on
     specific nodes
-
+    
     *
-    * @var ClusterVolumePublishStatusItem[]
+    * @var list<ClusterVolumePublishStatusItem>
     */
     protected $publishStatus;
     /**
     * The Swarm ID of this volume. Because cluster volumes are Swarm
     objects, they have an ID, unlike non-cluster volumes. This ID can
     be used to refer to the Volume instead of the name.
-
+    
     *
     * @return string
     */
@@ -85,7 +85,7 @@ class ClusterVolume
     * The Swarm ID of this volume. Because cluster volumes are Swarm
     objects, they have an ID, unlike non-cluster volumes. This ID can
     be used to refer to the Volume instead of the name.
-
+    
     *
     * @param string $iD
     *
@@ -101,14 +101,14 @@ class ClusterVolume
     * The version number of the object such as node, service, etc. This is needed
     to avoid conflicting writes. The client must send the version number along
     with the modified specification when updating these objects.
-
+    
     This approach ensures safe concurrency and determinism in that the change
     on the object may not be applied if the version number has changed from the
     last read. In other words, if two update requests specify the same base
     version, only one of the requests can succeed. As a result, two separate
     update requests that happen at the same time will not unintentionally
     overwrite each other.
-
+    
     *
     * @return ObjectVersion
     */
@@ -120,14 +120,14 @@ class ClusterVolume
     * The version number of the object such as node, service, etc. This is needed
     to avoid conflicting writes. The client must send the version number along
     with the modified specification when updating these objects.
-
+    
     This approach ensures safe concurrency and determinism in that the change
     on the object may not be applied if the version number has changed from the
     last read. In other words, if two update requests specify the same base
     version, only one of the requests can succeed. As a result, two separate
     update requests that happen at the same time will not unintentionally
     overwrite each other.
-
+    
     *
     * @param ObjectVersion $version
     *
@@ -140,7 +140,7 @@ class ClusterVolume
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -149,7 +149,7 @@ class ClusterVolume
         return $this->createdAt;
     }
     /**
-     *
+     * 
      *
      * @param string $createdAt
      *
@@ -162,7 +162,7 @@ class ClusterVolume
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -171,7 +171,7 @@ class ClusterVolume
         return $this->updatedAt;
     }
     /**
-     *
+     * 
      *
      * @param string $updatedAt
      *
@@ -230,9 +230,9 @@ class ClusterVolume
     /**
     * The status of the volume as it pertains to its publishing and use on
     specific nodes
-
+    
     *
-    * @return ClusterVolumePublishStatusItem[]
+    * @return list<ClusterVolumePublishStatusItem>
     */
     public function getPublishStatus(): array
     {
@@ -241,9 +241,9 @@ class ClusterVolume
     /**
     * The status of the volume as it pertains to its publishing and use on
     specific nodes
-
+    
     *
-    * @param ClusterVolumePublishStatusItem[] $publishStatus
+    * @param list<ClusterVolumePublishStatusItem> $publishStatus
     *
     * @return self
     */

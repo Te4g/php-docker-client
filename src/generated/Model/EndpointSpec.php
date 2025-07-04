@@ -7,7 +7,7 @@ class EndpointSpec
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -21,9 +21,9 @@ class EndpointSpec
     /**
     * List of exposed ports that this service is accessible on from the
     outside. Ports can only be provided if `vip` resolution mode is used.
-
+    
     *
-    * @var EndpointPortConfig[]
+    * @var list<EndpointPortConfig>
     */
     protected $ports;
     /**
@@ -51,9 +51,9 @@ class EndpointSpec
     /**
     * List of exposed ports that this service is accessible on from the
     outside. Ports can only be provided if `vip` resolution mode is used.
-
+    
     *
-    * @return EndpointPortConfig[]
+    * @return list<EndpointPortConfig>
     */
     public function getPorts(): array
     {
@@ -62,9 +62,9 @@ class EndpointSpec
     /**
     * List of exposed ports that this service is accessible on from the
     outside. Ports can only be provided if `vip` resolution mode is used.
-
+    
     *
-    * @param EndpointPortConfig[] $ports
+    * @param list<EndpointPortConfig> $ports
     *
     * @return self
     */

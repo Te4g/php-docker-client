@@ -4,10 +4,9 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class VolumeInspect extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $name;
     /**
-     *
+     * 
      *
      * @param string $name Volume name or ID
      */
@@ -15,21 +14,22 @@ class VolumeInspect extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoin
     {
         $this->name = $name;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'GET';
     }
     public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/volumes/{name}');
+        return str_replace(['{name}'], [$this->name], '/volumes/{name}');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -44,17 +44,17 @@ class VolumeInspect extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoin
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
         if (200 === $status) {
-            return $serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\Volume', 'json');
+            return $serializer->deserialize($body, 'Vendor\Library\Generated\Model\Volume', 'json');
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\VolumeInspectNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\VolumeInspectNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\VolumeInspectInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\VolumeInspectInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

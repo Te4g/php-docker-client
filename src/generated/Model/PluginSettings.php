@@ -7,48 +7,48 @@ class PluginSettings
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
+     * 
      *
-     *
-     * @var PluginMount[]
+     * @var list<PluginMount>
      */
     protected $mounts;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $env;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $args;
     /**
+     * 
      *
-     *
-     * @var PluginDevice[]
+     * @var list<PluginDevice>
      */
     protected $devices;
     /**
+     * 
      *
-     *
-     * @return PluginMount[]
+     * @return list<PluginMount>
      */
     public function getMounts(): array
     {
         return $this->mounts;
     }
     /**
+     * 
      *
-     *
-     * @param PluginMount[] $mounts
+     * @param list<PluginMount> $mounts
      *
      * @return self
      */
@@ -59,18 +59,18 @@ class PluginSettings
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getEnv(): array
     {
         return $this->env;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $env
+     * @param list<string> $env
      *
      * @return self
      */
@@ -81,18 +81,18 @@ class PluginSettings
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getArgs(): array
     {
         return $this->args;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $args
+     * @param list<string> $args
      *
      * @return self
      */
@@ -103,18 +103,18 @@ class PluginSettings
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return PluginDevice[]
+     * @return list<PluginDevice>
      */
     public function getDevices(): array
     {
         return $this->devices;
     }
     /**
+     * 
      *
-     *
-     * @param PluginDevice[] $devices
+     * @param list<PluginDevice> $devices
      *
      * @return self
      */

@@ -7,7 +7,7 @@ class ServicesCreatePostBody
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -49,10 +49,13 @@ class ServicesCreatePostBody
      */
     protected $rollbackConfig;
     /**
-     * Specifies which networks the service should attach to.
-     *
-     * @var NetworkAttachmentConfig[]
-     */
+    * Specifies which networks the service should attach to.
+    
+    Deprecated: This field is deprecated since v1.44. The Networks field in TaskSpec should be used instead.
+    
+    *
+    * @var list<NetworkAttachmentConfig>
+    */
     protected $networks;
     /**
      * Properties that can be configured to access and load balance a service.
@@ -193,21 +196,27 @@ class ServicesCreatePostBody
         return $this;
     }
     /**
-     * Specifies which networks the service should attach to.
-     *
-     * @return NetworkAttachmentConfig[]
-     */
+    * Specifies which networks the service should attach to.
+    
+    Deprecated: This field is deprecated since v1.44. The Networks field in TaskSpec should be used instead.
+    
+    *
+    * @return list<NetworkAttachmentConfig>
+    */
     public function getNetworks(): array
     {
         return $this->networks;
     }
     /**
-     * Specifies which networks the service should attach to.
-     *
-     * @param NetworkAttachmentConfig[] $networks
-     *
-     * @return self
-     */
+    * Specifies which networks the service should attach to.
+    
+    Deprecated: This field is deprecated since v1.44. The Networks field in TaskSpec should be used instead.
+    
+    *
+    * @param list<NetworkAttachmentConfig> $networks
+    *
+    * @return self
+    */
     public function setNetworks(array $networks): self
     {
         $this->initialized['networks'] = true;

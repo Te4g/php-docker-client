@@ -7,7 +7,7 @@ class ClusterVolumeSpecAccessModeCapacityRange
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class ClusterVolumeSpecAccessModeCapacityRange
     /**
     * The volume must be at least this big. The value of 0
     indicates an unspecified minimum
-
+    
     *
     * @var int
     */
@@ -23,7 +23,7 @@ class ClusterVolumeSpecAccessModeCapacityRange
     /**
     * The volume must not be bigger than this. The value of 0
     indicates an unspecified maximum.
-
+    
     *
     * @var int
     */
@@ -31,7 +31,7 @@ class ClusterVolumeSpecAccessModeCapacityRange
     /**
     * The volume must be at least this big. The value of 0
     indicates an unspecified minimum
-
+    
     *
     * @return int
     */
@@ -42,7 +42,7 @@ class ClusterVolumeSpecAccessModeCapacityRange
     /**
     * The volume must be at least this big. The value of 0
     indicates an unspecified minimum
-
+    
     *
     * @param int $requiredBytes
     *
@@ -57,7 +57,7 @@ class ClusterVolumeSpecAccessModeCapacityRange
     /**
     * The volume must not be bigger than this. The value of 0
     indicates an unspecified maximum.
-
+    
     *
     * @return int
     */
@@ -68,7 +68,7 @@ class ClusterVolumeSpecAccessModeCapacityRange
     /**
     * The volume must not be bigger than this. The value of 0
     indicates an unspecified maximum.
-
+    
     *
     * @param int $limitBytes
     *

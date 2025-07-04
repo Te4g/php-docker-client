@@ -14,7 +14,7 @@ class NetworkConnectForbiddenException extends ForbiddenException
     private $response;
     public function __construct(\Vendor\Library\Generated\Model\ErrorResponse $errorResponse, \Psr\Http\Message\ResponseInterface $response)
     {
-        parent::__construct('Operation not supported for swarm scoped networks');
+        parent::__construct('Operation forbidden');
         $this->errorResponse = $errorResponse;
         $this->response = $response;
     }

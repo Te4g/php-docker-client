@@ -7,32 +7,32 @@ class ImageSummary
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
     * ID is the content-addressable ID of an image.
-
+    
     This identifier is a content-addressable digest calculated from the
     image's configuration (which includes the digests of layers used by
     the image).
-
+    
     Note that this digest differs from the `RepoDigests` below, which
     holds digests of image manifests that reference the image.
-
+    
     *
     * @var string
     */
     protected $id;
     /**
     * ID of the parent image.
-
+    
     Depending on how the image was created, this field may be empty and
     is only set for images that were built/created locally. This field
     is empty if the image was pulled from an image registry.
-
+    
     *
     * @var string
     */
@@ -40,32 +40,32 @@ class ImageSummary
     /**
     * List of image names/tags in the local image cache that reference this
     image.
-
+    
     Multiple image tags can refer to the same image, and this list may be
     empty if no tags reference the image, in which case the image is
     "untagged", in which case it can still be referenced by its ID.
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $repoTags;
     /**
     * List of content-addressable digests of locally available image manifests
     that the image is referenced from. Multiple manifests can refer to the
     same image.
-
+    
     These digests are usually only available if the image was either pulled
     from a registry, or if the image was pushed to a registry, which is when
     the manifest is generated and its digest calculated.
-
+    
     *
-    * @var string[]
+    * @var list<string>
     */
     protected $repoDigests;
     /**
     * Date and time at which the image was created as a Unix timestamp
-    (number of seconds sinds EPOCH).
-
+    (number of seconds since EPOCH).
+    
     *
     * @var int
     */
@@ -79,23 +79,18 @@ class ImageSummary
     /**
     * Total size of image layers that are shared between this image and other
     images.
-
+    
     This size is not calculated by default. `-1` indicates that the value
     has not been set / calculated.
-
+    
     *
     * @var int
     */
     protected $sharedSize;
     /**
     * Total size of the image including all layers it is composed of.
-
-    In versions of Docker before v1.10, this field was calculated from
-    the image itself and all of its parent images. Images are now stored
-    self-contained, and no longer use a parent-chain, making this field
-    an equivalent of the Size field.
-
-    Deprecated: this field is kept for backward compatibility, and will be removed in API v1.44.
+    
+    Deprecated: this field is omitted in API v1.44, but kept for backward compatibility. Use Size instead.
     *
     * @var int
     */
@@ -109,24 +104,43 @@ class ImageSummary
     /**
     * Number of containers using this image. Includes both stopped and running
     containers.
-
-    This size is not calculated by default, and depends on which API endpoint
-    is used. `-1` indicates that the value has not been set / calculated.
-
+    
+    `-1` indicates that the value has not been set / calculated.
+    
     *
     * @var int
     */
     protected $containers;
     /**
+    * Manifests is a list of manifests available in this image.
+    It provides a more detailed view of the platform-specific image manifests
+    or other image-attached data like build attestations.
+    
+    WARNING: This is experimental and may change at any time without any backward
+    compatibility.
+    
+    *
+    * @var list<ImageManifestSummary>
+    */
+    protected $manifests;
+    /**
+    * A descriptor struct containing digest, media type, and size, as defined in
+    the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
+    
+    *
+    * @var OCIDescriptor
+    */
+    protected $descriptor;
+    /**
     * ID is the content-addressable ID of an image.
-
+    
     This identifier is a content-addressable digest calculated from the
     image's configuration (which includes the digests of layers used by
     the image).
-
+    
     Note that this digest differs from the `RepoDigests` below, which
     holds digests of image manifests that reference the image.
-
+    
     *
     * @return string
     */
@@ -136,14 +150,14 @@ class ImageSummary
     }
     /**
     * ID is the content-addressable ID of an image.
-
+    
     This identifier is a content-addressable digest calculated from the
     image's configuration (which includes the digests of layers used by
     the image).
-
+    
     Note that this digest differs from the `RepoDigests` below, which
     holds digests of image manifests that reference the image.
-
+    
     *
     * @param string $id
     *
@@ -157,11 +171,11 @@ class ImageSummary
     }
     /**
     * ID of the parent image.
-
+    
     Depending on how the image was created, this field may be empty and
     is only set for images that were built/created locally. This field
     is empty if the image was pulled from an image registry.
-
+    
     *
     * @return string
     */
@@ -171,11 +185,11 @@ class ImageSummary
     }
     /**
     * ID of the parent image.
-
+    
     Depending on how the image was created, this field may be empty and
     is only set for images that were built/created locally. This field
     is empty if the image was pulled from an image registry.
-
+    
     *
     * @param string $parentId
     *
@@ -190,13 +204,13 @@ class ImageSummary
     /**
     * List of image names/tags in the local image cache that reference this
     image.
-
+    
     Multiple image tags can refer to the same image, and this list may be
     empty if no tags reference the image, in which case the image is
     "untagged", in which case it can still be referenced by its ID.
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getRepoTags(): array
     {
@@ -205,13 +219,13 @@ class ImageSummary
     /**
     * List of image names/tags in the local image cache that reference this
     image.
-
+    
     Multiple image tags can refer to the same image, and this list may be
     empty if no tags reference the image, in which case the image is
     "untagged", in which case it can still be referenced by its ID.
-
+    
     *
-    * @param string[] $repoTags
+    * @param list<string> $repoTags
     *
     * @return self
     */
@@ -225,13 +239,13 @@ class ImageSummary
     * List of content-addressable digests of locally available image manifests
     that the image is referenced from. Multiple manifests can refer to the
     same image.
-
+    
     These digests are usually only available if the image was either pulled
     from a registry, or if the image was pushed to a registry, which is when
     the manifest is generated and its digest calculated.
-
+    
     *
-    * @return string[]
+    * @return list<string>
     */
     public function getRepoDigests(): array
     {
@@ -241,13 +255,13 @@ class ImageSummary
     * List of content-addressable digests of locally available image manifests
     that the image is referenced from. Multiple manifests can refer to the
     same image.
-
+    
     These digests are usually only available if the image was either pulled
     from a registry, or if the image was pushed to a registry, which is when
     the manifest is generated and its digest calculated.
-
+    
     *
-    * @param string[] $repoDigests
+    * @param list<string> $repoDigests
     *
     * @return self
     */
@@ -259,8 +273,8 @@ class ImageSummary
     }
     /**
     * Date and time at which the image was created as a Unix timestamp
-    (number of seconds sinds EPOCH).
-
+    (number of seconds since EPOCH).
+    
     *
     * @return int
     */
@@ -270,8 +284,8 @@ class ImageSummary
     }
     /**
     * Date and time at which the image was created as a Unix timestamp
-    (number of seconds sinds EPOCH).
-
+    (number of seconds since EPOCH).
+    
     *
     * @param int $created
     *
@@ -308,10 +322,10 @@ class ImageSummary
     /**
     * Total size of image layers that are shared between this image and other
     images.
-
+    
     This size is not calculated by default. `-1` indicates that the value
     has not been set / calculated.
-
+    
     *
     * @return int
     */
@@ -322,10 +336,10 @@ class ImageSummary
     /**
     * Total size of image layers that are shared between this image and other
     images.
-
+    
     This size is not calculated by default. `-1` indicates that the value
     has not been set / calculated.
-
+    
     *
     * @param int $sharedSize
     *
@@ -339,13 +353,8 @@ class ImageSummary
     }
     /**
     * Total size of the image including all layers it is composed of.
-
-    In versions of Docker before v1.10, this field was calculated from
-    the image itself and all of its parent images. Images are now stored
-    self-contained, and no longer use a parent-chain, making this field
-    an equivalent of the Size field.
-
-    Deprecated: this field is kept for backward compatibility, and will be removed in API v1.44.
+    
+    Deprecated: this field is omitted in API v1.44, but kept for backward compatibility. Use Size instead.
     *
     * @return int
     */
@@ -355,13 +364,8 @@ class ImageSummary
     }
     /**
     * Total size of the image including all layers it is composed of.
-
-    In versions of Docker before v1.10, this field was calculated from
-    the image itself and all of its parent images. Images are now stored
-    self-contained, and no longer use a parent-chain, making this field
-    an equivalent of the Size field.
-
-    Deprecated: this field is kept for backward compatibility, and will be removed in API v1.44.
+    
+    Deprecated: this field is omitted in API v1.44, but kept for backward compatibility. Use Size instead.
     *
     * @param int $virtualSize
     *
@@ -398,10 +402,9 @@ class ImageSummary
     /**
     * Number of containers using this image. Includes both stopped and running
     containers.
-
-    This size is not calculated by default, and depends on which API endpoint
-    is used. `-1` indicates that the value has not been set / calculated.
-
+    
+    `-1` indicates that the value has not been set / calculated.
+    
     *
     * @return int
     */
@@ -412,10 +415,9 @@ class ImageSummary
     /**
     * Number of containers using this image. Includes both stopped and running
     containers.
-
-    This size is not calculated by default, and depends on which API endpoint
-    is used. `-1` indicates that the value has not been set / calculated.
-
+    
+    `-1` indicates that the value has not been set / calculated.
+    
     *
     * @param int $containers
     *
@@ -425,6 +427,66 @@ class ImageSummary
     {
         $this->initialized['containers'] = true;
         $this->containers = $containers;
+        return $this;
+    }
+    /**
+    * Manifests is a list of manifests available in this image.
+    It provides a more detailed view of the platform-specific image manifests
+    or other image-attached data like build attestations.
+    
+    WARNING: This is experimental and may change at any time without any backward
+    compatibility.
+    
+    *
+    * @return list<ImageManifestSummary>
+    */
+    public function getManifests(): array
+    {
+        return $this->manifests;
+    }
+    /**
+    * Manifests is a list of manifests available in this image.
+    It provides a more detailed view of the platform-specific image manifests
+    or other image-attached data like build attestations.
+    
+    WARNING: This is experimental and may change at any time without any backward
+    compatibility.
+    
+    *
+    * @param list<ImageManifestSummary> $manifests
+    *
+    * @return self
+    */
+    public function setManifests(array $manifests): self
+    {
+        $this->initialized['manifests'] = true;
+        $this->manifests = $manifests;
+        return $this;
+    }
+    /**
+    * A descriptor struct containing digest, media type, and size, as defined in
+    the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
+    
+    *
+    * @return OCIDescriptor
+    */
+    public function getDescriptor(): OCIDescriptor
+    {
+        return $this->descriptor;
+    }
+    /**
+    * A descriptor struct containing digest, media type, and size, as defined in
+    the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
+    
+    *
+    * @param OCIDescriptor $descriptor
+    *
+    * @return self
+    */
+    public function setDescriptor(OCIDescriptor $descriptor): self
+    {
+        $this->initialized['descriptor'] = true;
+        $this->descriptor = $descriptor;
         return $this;
     }
 }

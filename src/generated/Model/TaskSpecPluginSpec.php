@@ -7,7 +7,7 @@ class TaskSpecPluginSpec
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -31,9 +31,9 @@ class TaskSpecPluginSpec
      */
     protected $disabled;
     /**
+     * 
      *
-     *
-     * @var PluginPrivilege[]
+     * @var list<PluginPrivilege>
      */
     protected $pluginPrivilege;
     /**
@@ -103,18 +103,18 @@ class TaskSpecPluginSpec
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return PluginPrivilege[]
+     * @return list<PluginPrivilege>
      */
     public function getPluginPrivilege(): array
     {
         return $this->pluginPrivilege;
     }
     /**
+     * 
      *
-     *
-     * @param PluginPrivilege[] $pluginPrivilege
+     * @param list<PluginPrivilege> $pluginPrivilege
      *
      * @return self
      */

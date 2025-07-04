@@ -7,45 +7,45 @@ class DeviceRequest
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $driver;
     /**
-     *
+     * 
      *
      * @var int
      */
     protected $count;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $deviceIDs;
     /**
      * A list of capabilities; an OR list of AND lists of capabilities.
      *
-     * @var string[][]
+     * @var list<list<string>>
      */
     protected $capabilities;
     /**
     * Driver-specific options, specified as a key/value pairs. These options
     are passed directly to the driver.
-
+    
     *
     * @var array<string, string>
     */
     protected $options;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -54,7 +54,7 @@ class DeviceRequest
         return $this->driver;
     }
     /**
-     *
+     * 
      *
      * @param string $driver
      *
@@ -67,7 +67,7 @@ class DeviceRequest
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return int
      */
@@ -76,7 +76,7 @@ class DeviceRequest
         return $this->count;
     }
     /**
-     *
+     * 
      *
      * @param int $count
      *
@@ -89,18 +89,18 @@ class DeviceRequest
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getDeviceIDs(): array
     {
         return $this->deviceIDs;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $deviceIDs
+     * @param list<string> $deviceIDs
      *
      * @return self
      */
@@ -113,7 +113,7 @@ class DeviceRequest
     /**
      * A list of capabilities; an OR list of AND lists of capabilities.
      *
-     * @return string[][]
+     * @return list<list<string>>
      */
     public function getCapabilities(): array
     {
@@ -122,7 +122,7 @@ class DeviceRequest
     /**
      * A list of capabilities; an OR list of AND lists of capabilities.
      *
-     * @param string[][] $capabilities
+     * @param list<list<string>> $capabilities
      *
      * @return self
      */
@@ -135,7 +135,7 @@ class DeviceRequest
     /**
     * Driver-specific options, specified as a key/value pairs. These options
     are passed directly to the driver.
-
+    
     *
     * @return array<string, string>
     */
@@ -146,7 +146,7 @@ class DeviceRequest
     /**
     * Driver-specific options, specified as a key/value pairs. These options
     are passed directly to the driver.
-
+    
     *
     * @param array<string, string> $options
     *

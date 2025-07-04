@@ -7,19 +7,19 @@ class ObjectVersion
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var int
      */
     protected $index;
     /**
-     *
+     * 
      *
      * @return int
      */
@@ -28,7 +28,7 @@ class ObjectVersion
         return $this->index;
     }
     /**
-     *
+     * 
      *
      * @param int $index
      *

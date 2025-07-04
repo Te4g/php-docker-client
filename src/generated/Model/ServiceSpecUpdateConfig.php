@@ -7,7 +7,7 @@ class ServiceSpecUpdateConfig
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class ServiceSpecUpdateConfig
     /**
     * Maximum number of tasks to be updated in one iteration (0 means
     unlimited parallelism).
-
+    
     *
     * @var int
     */
@@ -29,7 +29,7 @@ class ServiceSpecUpdateConfig
     /**
     * Action to take if an updated task fails to run, or stops running
     during the update.
-
+    
     *
     * @var string
     */
@@ -37,7 +37,7 @@ class ServiceSpecUpdateConfig
     /**
     * Amount of time to monitor each updated task for failures, in
     nanoseconds.
-
+    
     *
     * @var int
     */
@@ -46,7 +46,7 @@ class ServiceSpecUpdateConfig
     * The fraction of tasks that may fail during an update before the
     failure action is invoked, specified as a floating point number
     between 0 and 1.
-
+    
     *
     * @var float
     */
@@ -55,7 +55,7 @@ class ServiceSpecUpdateConfig
     * The order of operations when rolling out an updated task. Either
     the old task is shut down before the new task is started, or the
     new task is started before the old task is shut down.
-
+    
     *
     * @var string
     */
@@ -63,7 +63,7 @@ class ServiceSpecUpdateConfig
     /**
     * Maximum number of tasks to be updated in one iteration (0 means
     unlimited parallelism).
-
+    
     *
     * @return int
     */
@@ -74,7 +74,7 @@ class ServiceSpecUpdateConfig
     /**
     * Maximum number of tasks to be updated in one iteration (0 means
     unlimited parallelism).
-
+    
     *
     * @param int $parallelism
     *
@@ -111,7 +111,7 @@ class ServiceSpecUpdateConfig
     /**
     * Action to take if an updated task fails to run, or stops running
     during the update.
-
+    
     *
     * @return string
     */
@@ -122,7 +122,7 @@ class ServiceSpecUpdateConfig
     /**
     * Action to take if an updated task fails to run, or stops running
     during the update.
-
+    
     *
     * @param string $failureAction
     *
@@ -137,7 +137,7 @@ class ServiceSpecUpdateConfig
     /**
     * Amount of time to monitor each updated task for failures, in
     nanoseconds.
-
+    
     *
     * @return int
     */
@@ -148,7 +148,7 @@ class ServiceSpecUpdateConfig
     /**
     * Amount of time to monitor each updated task for failures, in
     nanoseconds.
-
+    
     *
     * @param int $monitor
     *
@@ -164,7 +164,7 @@ class ServiceSpecUpdateConfig
     * The fraction of tasks that may fail during an update before the
     failure action is invoked, specified as a floating point number
     between 0 and 1.
-
+    
     *
     * @return float
     */
@@ -176,7 +176,7 @@ class ServiceSpecUpdateConfig
     * The fraction of tasks that may fail during an update before the
     failure action is invoked, specified as a floating point number
     between 0 and 1.
-
+    
     *
     * @param float $maxFailureRatio
     *
@@ -192,7 +192,7 @@ class ServiceSpecUpdateConfig
     * The order of operations when rolling out an updated task. Either
     the old task is shut down before the new task is started, or the
     new task is started before the old task is shut down.
-
+    
     *
     * @return string
     */
@@ -204,7 +204,7 @@ class ServiceSpecUpdateConfig
     * The order of operations when rolling out an updated task. Either
     the old task is shut down before the new task is started, or the
     new task is started before the old task is shut down.
-
+    
     *
     * @param string $order
     *

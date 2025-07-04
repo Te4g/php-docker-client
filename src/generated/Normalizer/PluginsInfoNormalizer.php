@@ -12,104 +12,201 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
-class PluginsInfoNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-    use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()): bool
+use Symfony\Component\HttpKernel\Kernel;
+if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
+    class PluginsInfoNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return $type === 'Vendor\\Library\\Generated\\Model\\PluginsInfo';
-    }
-    public function supportsNormalization($data, $format = null, array $context = array()): bool
-    {
-        return is_object($data) && get_class($data) === 'Vendor\\Library\\Generated\\Model\\PluginsInfo';
-    }
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = array())
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\PluginsInfo::class;
         }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\PluginsInfo::class;
         }
-        $object = new \Vendor\Library\Generated\Model\PluginsInfo();
-        if (null === $data || false === \is_array($data)) {
+        public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \Vendor\Library\Generated\Model\PluginsInfo();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('Volume', $data)) {
+                $values = [];
+                foreach ($data['Volume'] as $value) {
+                    $values[] = $value;
+                }
+                $object->setVolume($values);
+            }
+            if (\array_key_exists('Network', $data)) {
+                $values_1 = [];
+                foreach ($data['Network'] as $value_1) {
+                    $values_1[] = $value_1;
+                }
+                $object->setNetwork($values_1);
+            }
+            if (\array_key_exists('Authorization', $data)) {
+                $values_2 = [];
+                foreach ($data['Authorization'] as $value_2) {
+                    $values_2[] = $value_2;
+                }
+                $object->setAuthorization($values_2);
+            }
+            if (\array_key_exists('Log', $data)) {
+                $values_3 = [];
+                foreach ($data['Log'] as $value_3) {
+                    $values_3[] = $value_3;
+                }
+                $object->setLog($values_3);
+            }
             return $object;
         }
-        if (\array_key_exists('Volume', $data)) {
-            $values = array();
-            foreach ($data['Volume'] as $value) {
-                $values[] = $value;
+        public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('volume') && null !== $object->getVolume()) {
+                $values = [];
+                foreach ($object->getVolume() as $value) {
+                    $values[] = $value;
+                }
+                $data['Volume'] = $values;
             }
-            $object->setVolume($values);
-        }
-        if (\array_key_exists('Network', $data)) {
-            $values_1 = array();
-            foreach ($data['Network'] as $value_1) {
-                $values_1[] = $value_1;
+            if ($object->isInitialized('network') && null !== $object->getNetwork()) {
+                $values_1 = [];
+                foreach ($object->getNetwork() as $value_1) {
+                    $values_1[] = $value_1;
+                }
+                $data['Network'] = $values_1;
             }
-            $object->setNetwork($values_1);
-        }
-        if (\array_key_exists('Authorization', $data)) {
-            $values_2 = array();
-            foreach ($data['Authorization'] as $value_2) {
-                $values_2[] = $value_2;
+            if ($object->isInitialized('authorization') && null !== $object->getAuthorization()) {
+                $values_2 = [];
+                foreach ($object->getAuthorization() as $value_2) {
+                    $values_2[] = $value_2;
+                }
+                $data['Authorization'] = $values_2;
             }
-            $object->setAuthorization($values_2);
-        }
-        if (\array_key_exists('Log', $data)) {
-            $values_3 = array();
-            foreach ($data['Log'] as $value_3) {
-                $values_3[] = $value_3;
+            if ($object->isInitialized('log') && null !== $object->getLog()) {
+                $values_3 = [];
+                foreach ($object->getLog() as $value_3) {
+                    $values_3[] = $value_3;
+                }
+                $data['Log'] = $values_3;
             }
-            $object->setLog($values_3);
+            return $data;
         }
-        return $object;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\PluginsInfo::class => false];
+        }
     }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = array())
+} else {
+    class PluginsInfoNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        $data = array();
-        if ($object->isInitialized('volume') && null !== $object->getVolume()) {
-            $values = array();
-            foreach ($object->getVolume() as $value) {
-                $values[] = $value;
-            }
-            $data['Volume'] = $values;
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization($data, $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\PluginsInfo::class;
         }
-        if ($object->isInitialized('network') && null !== $object->getNetwork()) {
-            $values_1 = array();
-            foreach ($object->getNetwork() as $value_1) {
-                $values_1[] = $value_1;
-            }
-            $data['Network'] = $values_1;
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\PluginsInfo::class;
         }
-        if ($object->isInitialized('authorization') && null !== $object->getAuthorization()) {
-            $values_2 = array();
-            foreach ($object->getAuthorization() as $value_2) {
-                $values_2[] = $value_2;
+        /**
+         * @return mixed
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
             }
-            $data['Authorization'] = $values_2;
-        }
-        if ($object->isInitialized('log') && null !== $object->getLog()) {
-            $values_3 = array();
-            foreach ($object->getLog() as $value_3) {
-                $values_3[] = $value_3;
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
             }
-            $data['Log'] = $values_3;
+            $object = new \Vendor\Library\Generated\Model\PluginsInfo();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('Volume', $data)) {
+                $values = [];
+                foreach ($data['Volume'] as $value) {
+                    $values[] = $value;
+                }
+                $object->setVolume($values);
+            }
+            if (\array_key_exists('Network', $data)) {
+                $values_1 = [];
+                foreach ($data['Network'] as $value_1) {
+                    $values_1[] = $value_1;
+                }
+                $object->setNetwork($values_1);
+            }
+            if (\array_key_exists('Authorization', $data)) {
+                $values_2 = [];
+                foreach ($data['Authorization'] as $value_2) {
+                    $values_2[] = $value_2;
+                }
+                $object->setAuthorization($values_2);
+            }
+            if (\array_key_exists('Log', $data)) {
+                $values_3 = [];
+                foreach ($data['Log'] as $value_3) {
+                    $values_3[] = $value_3;
+                }
+                $object->setLog($values_3);
+            }
+            return $object;
         }
-        return $data;
-    }
-    public function getSupportedTypes(?string $format = null): array
-    {
-        return array('Vendor\\Library\\Generated\\Model\\PluginsInfo' => false);
+        /**
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('volume') && null !== $object->getVolume()) {
+                $values = [];
+                foreach ($object->getVolume() as $value) {
+                    $values[] = $value;
+                }
+                $data['Volume'] = $values;
+            }
+            if ($object->isInitialized('network') && null !== $object->getNetwork()) {
+                $values_1 = [];
+                foreach ($object->getNetwork() as $value_1) {
+                    $values_1[] = $value_1;
+                }
+                $data['Network'] = $values_1;
+            }
+            if ($object->isInitialized('authorization') && null !== $object->getAuthorization()) {
+                $values_2 = [];
+                foreach ($object->getAuthorization() as $value_2) {
+                    $values_2[] = $value_2;
+                }
+                $data['Authorization'] = $values_2;
+            }
+            if ($object->isInitialized('log') && null !== $object->getLog()) {
+                $values_3 = [];
+                foreach ($object->getLog() as $value_3) {
+                    $values_3[] = $value_3;
+                }
+                $data['Log'] = $values_3;
+            }
+            return $data;
+        }
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\PluginsInfo::class => false];
+        }
     }
 }

@@ -7,19 +7,19 @@ class SystemVersionPlatform
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $name;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -28,7 +28,7 @@ class SystemVersionPlatform
         return $this->name;
     }
     /**
-     *
+     * 
      *
      * @param string $name
      *

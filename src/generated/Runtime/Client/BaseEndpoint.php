@@ -6,9 +6,9 @@ use Http\Message\MultipartStream\MultipartStreamBuilder;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Serializer\SerializerInterface;
-
 abstract class BaseEndpoint implements Endpoint
 {
+    protected $formParameters = [];
     protected $queryParameters = [];
     protected $headerParameters = [];
     protected $body;

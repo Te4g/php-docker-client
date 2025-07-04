@@ -7,37 +7,37 @@ class IPAMConfig
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $subnet;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $iPRange;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $gateway;
     /**
-     *
+     * 
      *
      * @var array<string, string>
      */
     protected $auxiliaryAddresses;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -46,7 +46,7 @@ class IPAMConfig
         return $this->subnet;
     }
     /**
-     *
+     * 
      *
      * @param string $subnet
      *
@@ -59,7 +59,7 @@ class IPAMConfig
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -68,7 +68,7 @@ class IPAMConfig
         return $this->iPRange;
     }
     /**
-     *
+     * 
      *
      * @param string $iPRange
      *
@@ -81,7 +81,7 @@ class IPAMConfig
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -90,7 +90,7 @@ class IPAMConfig
         return $this->gateway;
     }
     /**
-     *
+     * 
      *
      * @param string $gateway
      *
@@ -103,7 +103,7 @@ class IPAMConfig
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return array<string, string>
      */
@@ -112,7 +112,7 @@ class IPAMConfig
         return $this->auxiliaryAddresses;
     }
     /**
-     *
+     * 
      *
      * @param array<string, string> $auxiliaryAddresses
      *

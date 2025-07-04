@@ -7,43 +7,48 @@ class ImagesSearchGetResponse200Item
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $description;
     /**
-     *
+     * 
      *
      * @var bool
      */
     protected $isOfficial;
     /**
-     *
-     *
-     * @var bool
-     */
+    * Whether this repository has automated builds enabled.
+    
+    <p><br /></p>
+    
+    > **Deprecated**: This field is deprecated and will always be "false".
+    
+    *
+    * @var bool
+    */
     protected $isAutomated;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $name;
     /**
-     *
+     * 
      *
      * @var int
      */
     protected $starCount;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -52,7 +57,7 @@ class ImagesSearchGetResponse200Item
         return $this->description;
     }
     /**
-     *
+     * 
      *
      * @param string $description
      *
@@ -65,7 +70,7 @@ class ImagesSearchGetResponse200Item
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return bool
      */
@@ -74,7 +79,7 @@ class ImagesSearchGetResponse200Item
         return $this->isOfficial;
     }
     /**
-     *
+     * 
      *
      * @param bool $isOfficial
      *
@@ -87,21 +92,31 @@ class ImagesSearchGetResponse200Item
         return $this;
     }
     /**
-     *
-     *
-     * @return bool
-     */
+    * Whether this repository has automated builds enabled.
+    
+    <p><br /></p>
+    
+    > **Deprecated**: This field is deprecated and will always be "false".
+    
+    *
+    * @return bool
+    */
     public function getIsAutomated(): bool
     {
         return $this->isAutomated;
     }
     /**
-     *
-     *
-     * @param bool $isAutomated
-     *
-     * @return self
-     */
+    * Whether this repository has automated builds enabled.
+    
+    <p><br /></p>
+    
+    > **Deprecated**: This field is deprecated and will always be "false".
+    
+    *
+    * @param bool $isAutomated
+    *
+    * @return self
+    */
     public function setIsAutomated(bool $isAutomated): self
     {
         $this->initialized['isAutomated'] = true;
@@ -109,7 +124,7 @@ class ImagesSearchGetResponse200Item
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -118,7 +133,7 @@ class ImagesSearchGetResponse200Item
         return $this->name;
     }
     /**
-     *
+     * 
      *
      * @param string $name
      *
@@ -131,7 +146,7 @@ class ImagesSearchGetResponse200Item
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return int
      */
@@ -140,7 +155,7 @@ class ImagesSearchGetResponse200Item
         return $this->starCount;
     }
     /**
-     *
+     * 
      *
      * @param int $starCount
      *

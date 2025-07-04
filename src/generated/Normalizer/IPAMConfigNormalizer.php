@@ -12,80 +12,153 @@ use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-
-class IPAMConfigNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
-{
-    use DenormalizerAwareTrait;
-    use NormalizerAwareTrait;
-    use CheckArray;
-    use ValidatorTrait;
-    public function supportsDenormalization($data, $type, $format = null, array $context = array()): bool
+use Symfony\Component\HttpKernel\Kernel;
+if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
+    class IPAMConfigNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return $type === 'Vendor\\Library\\Generated\\Model\\IPAMConfig';
-    }
-    public function supportsNormalization($data, $format = null, array $context = array()): bool
-    {
-        return is_object($data) && get_class($data) === 'Vendor\\Library\\Generated\\Model\\IPAMConfig';
-    }
-    /**
-     * @return mixed
-     */
-    public function denormalize($data, $class, $format = null, array $context = array())
-    {
-        if (isset($data['$ref'])) {
-            return new Reference($data['$ref'], $context['document-origin']);
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization(mixed $data, string $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\IPAMConfig::class;
         }
-        if (isset($data['$recursiveRef'])) {
-            return new Reference($data['$recursiveRef'], $context['document-origin']);
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\IPAMConfig::class;
         }
-        $object = new \Vendor\Library\Generated\Model\IPAMConfig();
-        if (null === $data || false === \is_array($data)) {
+        public function denormalize(mixed $data, string $type, string $format = null, array $context = []): mixed
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \Vendor\Library\Generated\Model\IPAMConfig();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('Subnet', $data)) {
+                $object->setSubnet($data['Subnet']);
+            }
+            if (\array_key_exists('IPRange', $data)) {
+                $object->setIPRange($data['IPRange']);
+            }
+            if (\array_key_exists('Gateway', $data)) {
+                $object->setGateway($data['Gateway']);
+            }
+            if (\array_key_exists('AuxiliaryAddresses', $data)) {
+                $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                foreach ($data['AuxiliaryAddresses'] as $key => $value) {
+                    $values[$key] = $value;
+                }
+                $object->setAuxiliaryAddresses($values);
+            }
             return $object;
         }
-        if (\array_key_exists('Subnet', $data)) {
-            $object->setSubnet($data['Subnet']);
-        }
-        if (\array_key_exists('IPRange', $data)) {
-            $object->setIPRange($data['IPRange']);
-        }
-        if (\array_key_exists('Gateway', $data)) {
-            $object->setGateway($data['Gateway']);
-        }
-        if (\array_key_exists('AuxiliaryAddresses', $data)) {
-            $values = new \ArrayObject(array(), \ArrayObject::ARRAY_AS_PROPS);
-            foreach ($data['AuxiliaryAddresses'] as $key => $value) {
-                $values[$key] = $value;
+        public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+        {
+            $data = [];
+            if ($object->isInitialized('subnet') && null !== $object->getSubnet()) {
+                $data['Subnet'] = $object->getSubnet();
             }
-            $object->setAuxiliaryAddresses($values);
-        }
-        return $object;
-    }
-    /**
-     * @return array|string|int|float|bool|\ArrayObject|null
-     */
-    public function normalize($object, $format = null, array $context = array())
-    {
-        $data = array();
-        if ($object->isInitialized('subnet') && null !== $object->getSubnet()) {
-            $data['Subnet'] = $object->getSubnet();
-        }
-        if ($object->isInitialized('iPRange') && null !== $object->getIPRange()) {
-            $data['IPRange'] = $object->getIPRange();
-        }
-        if ($object->isInitialized('gateway') && null !== $object->getGateway()) {
-            $data['Gateway'] = $object->getGateway();
-        }
-        if ($object->isInitialized('auxiliaryAddresses') && null !== $object->getAuxiliaryAddresses()) {
-            $values = array();
-            foreach ($object->getAuxiliaryAddresses() as $key => $value) {
-                $values[$key] = $value;
+            if ($object->isInitialized('iPRange') && null !== $object->getIPRange()) {
+                $data['IPRange'] = $object->getIPRange();
             }
-            $data['AuxiliaryAddresses'] = $values;
+            if ($object->isInitialized('gateway') && null !== $object->getGateway()) {
+                $data['Gateway'] = $object->getGateway();
+            }
+            if ($object->isInitialized('auxiliaryAddresses') && null !== $object->getAuxiliaryAddresses()) {
+                $values = [];
+                foreach ($object->getAuxiliaryAddresses() as $key => $value) {
+                    $values[$key] = $value;
+                }
+                $data['AuxiliaryAddresses'] = $values;
+            }
+            return $data;
         }
-        return $data;
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\IPAMConfig::class => false];
+        }
     }
-    public function getSupportedTypes(?string $format = null): array
+} else {
+    class IPAMConfigNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
     {
-        return array('Vendor\\Library\\Generated\\Model\\IPAMConfig' => false);
+        use DenormalizerAwareTrait;
+        use NormalizerAwareTrait;
+        use CheckArray;
+        use ValidatorTrait;
+        public function supportsDenormalization($data, $type, string $format = null, array $context = []): bool
+        {
+            return $type === \Vendor\Library\Generated\Model\IPAMConfig::class;
+        }
+        public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
+        {
+            return is_object($data) && get_class($data) === \Vendor\Library\Generated\Model\IPAMConfig::class;
+        }
+        /**
+         * @return mixed
+         */
+        public function denormalize($data, $type, $format = null, array $context = [])
+        {
+            if (isset($data['$ref'])) {
+                return new Reference($data['$ref'], $context['document-origin']);
+            }
+            if (isset($data['$recursiveRef'])) {
+                return new Reference($data['$recursiveRef'], $context['document-origin']);
+            }
+            $object = new \Vendor\Library\Generated\Model\IPAMConfig();
+            if (null === $data || false === \is_array($data)) {
+                return $object;
+            }
+            if (\array_key_exists('Subnet', $data)) {
+                $object->setSubnet($data['Subnet']);
+            }
+            if (\array_key_exists('IPRange', $data)) {
+                $object->setIPRange($data['IPRange']);
+            }
+            if (\array_key_exists('Gateway', $data)) {
+                $object->setGateway($data['Gateway']);
+            }
+            if (\array_key_exists('AuxiliaryAddresses', $data)) {
+                $values = new \ArrayObject([], \ArrayObject::ARRAY_AS_PROPS);
+                foreach ($data['AuxiliaryAddresses'] as $key => $value) {
+                    $values[$key] = $value;
+                }
+                $object->setAuxiliaryAddresses($values);
+            }
+            return $object;
+        }
+        /**
+         * @return array|string|int|float|bool|\ArrayObject|null
+         */
+        public function normalize($object, $format = null, array $context = [])
+        {
+            $data = [];
+            if ($object->isInitialized('subnet') && null !== $object->getSubnet()) {
+                $data['Subnet'] = $object->getSubnet();
+            }
+            if ($object->isInitialized('iPRange') && null !== $object->getIPRange()) {
+                $data['IPRange'] = $object->getIPRange();
+            }
+            if ($object->isInitialized('gateway') && null !== $object->getGateway()) {
+                $data['Gateway'] = $object->getGateway();
+            }
+            if ($object->isInitialized('auxiliaryAddresses') && null !== $object->getAuxiliaryAddresses()) {
+                $values = [];
+                foreach ($object->getAuxiliaryAddresses() as $key => $value) {
+                    $values[$key] = $value;
+                }
+                $data['AuxiliaryAddresses'] = $values;
+            }
+            return $data;
+        }
+        public function getSupportedTypes(?string $format = null): array
+        {
+            return [\Vendor\Library\Generated\Model\IPAMConfig::class => false];
+        }
     }
 }

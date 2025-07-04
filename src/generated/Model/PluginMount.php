@@ -7,55 +7,55 @@ class PluginMount
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $name;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $description;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $settable;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $source;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $destination;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $type;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $options;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -64,7 +64,7 @@ class PluginMount
         return $this->name;
     }
     /**
-     *
+     * 
      *
      * @param string $name
      *
@@ -77,7 +77,7 @@ class PluginMount
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -86,7 +86,7 @@ class PluginMount
         return $this->description;
     }
     /**
-     *
+     * 
      *
      * @param string $description
      *
@@ -99,18 +99,18 @@ class PluginMount
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getSettable(): array
     {
         return $this->settable;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $settable
+     * @param list<string> $settable
      *
      * @return self
      */
@@ -121,7 +121,7 @@ class PluginMount
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -130,7 +130,7 @@ class PluginMount
         return $this->source;
     }
     /**
-     *
+     * 
      *
      * @param string $source
      *
@@ -143,7 +143,7 @@ class PluginMount
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -152,7 +152,7 @@ class PluginMount
         return $this->destination;
     }
     /**
-     *
+     * 
      *
      * @param string $destination
      *
@@ -165,7 +165,7 @@ class PluginMount
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -174,7 +174,7 @@ class PluginMount
         return $this->type;
     }
     /**
-     *
+     * 
      *
      * @param string $type
      *
@@ -187,18 +187,18 @@ class PluginMount
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getOptions(): array
     {
         return $this->options;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $options
+     * @param list<string> $options
      *
      * @return self
      */

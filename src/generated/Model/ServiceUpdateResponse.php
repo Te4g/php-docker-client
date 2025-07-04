@@ -7,7 +7,7 @@ class ServiceUpdateResponse
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,13 +15,13 @@ class ServiceUpdateResponse
     /**
      * Optional warning messages
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $warnings;
     /**
      * Optional warning messages
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getWarnings(): array
     {
@@ -30,7 +30,7 @@ class ServiceUpdateResponse
     /**
      * Optional warning messages
      *
-     * @param string[] $warnings
+     * @param list<string> $warnings
      *
      * @return self
      */

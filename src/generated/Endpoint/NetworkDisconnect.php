@@ -4,26 +4,26 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class NetworkDisconnect extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $id;
     /**
-     *
+     * 
      *
      * @param string $id Network ID or name
-     * @param \Vendor\Library\Generated\Model\NetworksIdDisconnectPostBody $container
+     * @param \Vendor\Library\Generated\Model\NetworksIdDisconnectPostBody $container 
      */
     public function __construct(string $id, \Vendor\Library\Generated\Model\NetworksIdDisconnectPostBody $container)
     {
         $this->id = $id;
         $this->body = $container;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'POST';
     }
     public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/networks/{id}/disconnect');
+        return str_replace(['{id}'], [$this->id], '/networks/{id}/disconnect');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
@@ -31,7 +31,7 @@ class NetworkDisconnect extends \Vendor\Library\Generated\Runtime\Client\BaseEnd
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -50,17 +50,17 @@ class NetworkDisconnect extends \Vendor\Library\Generated\Runtime\Client\BaseEnd
             return null;
         }
         if (403 === $status) {
-            throw new \Vendor\Library\Generated\Exception\NetworkDisconnectForbiddenException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\NetworkDisconnectForbiddenException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\NetworkDisconnectNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\NetworkDisconnectNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\NetworkDisconnectInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\NetworkDisconnectInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

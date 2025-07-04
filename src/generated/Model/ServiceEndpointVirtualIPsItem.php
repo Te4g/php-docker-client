@@ -7,25 +7,25 @@ class ServiceEndpointVirtualIPsItem
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $networkID;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $addr;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -34,7 +34,7 @@ class ServiceEndpointVirtualIPsItem
         return $this->networkID;
     }
     /**
-     *
+     * 
      *
      * @param string $networkID
      *
@@ -47,7 +47,7 @@ class ServiceEndpointVirtualIPsItem
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -56,7 +56,7 @@ class ServiceEndpointVirtualIPsItem
         return $this->addr;
     }
     /**
-     *
+     * 
      *
      * @param string $addr
      *

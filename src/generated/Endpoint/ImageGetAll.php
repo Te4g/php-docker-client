@@ -4,28 +4,35 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ImageGetAll extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     /**
     * Get a tarball containing all images and metadata for several image
     repositories.
-
+    
     For each value of the `names` parameter: if it is a specific name and
     tag (e.g. `ubuntu:latest`), then only that image (and its parents) are
     returned; if it is an image ID, similarly only that image (and its parents)
     are returned and there would be no names referenced in the 'repositories'
     file for this image ID.
-
+    
     For details on the format, see the [export image endpoint](#operation/ImageGet).
-
+    
     *
     * @param array $queryParameters {
     *     @var array $names Image names to filter by
+    *     @var string $platform JSON encoded OCI platform describing a platform which will be used
+    to select a platform-specific image to be saved if the image is
+    multi-platform.
+    If not provided, the full multi-platform image will be saved.
+    
+    Example: `{"os": "linux", "architecture": "arm", "variant": "v5"}`
+    
     * }
     */
-    public function __construct(array $queryParameters = array())
+    public function __construct(array $queryParameters = [])
     {
         $this->queryParameters = $queryParameters;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'GET';
@@ -36,19 +43,20 @@ class ImageGetAll extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint 
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('names'));
-        $optionsResolver->setRequired(array());
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('names', array('array'));
+        $optionsResolver->setDefined(['names', 'platform']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('names', ['array']);
+        $optionsResolver->addAllowedTypes('platform', ['string']);
         return $optionsResolver;
     }
     /**
@@ -66,11 +74,11 @@ class ImageGetAll extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint 
             return json_decode($body);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ImageGetAllInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ImageGetAllInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

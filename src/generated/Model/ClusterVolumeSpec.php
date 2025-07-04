@@ -7,7 +7,7 @@ class ClusterVolumeSpec
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -19,7 +19,7 @@ class ClusterVolumeSpec
     volumes in that group interchangeably for the purpose of scheduling.
     Volumes with an empty string for a group technically all belong to
     the same, emptystring group.
-
+    
     *
     * @var string
     */
@@ -37,7 +37,7 @@ class ClusterVolumeSpec
     volumes in that group interchangeably for the purpose of scheduling.
     Volumes with an empty string for a group technically all belong to
     the same, emptystring group.
-
+    
     *
     * @return string
     */
@@ -52,7 +52,7 @@ class ClusterVolumeSpec
     volumes in that group interchangeably for the purpose of scheduling.
     Volumes with an empty string for a group technically all belong to
     the same, emptystring group.
-
+    
     *
     * @param string $group
     *

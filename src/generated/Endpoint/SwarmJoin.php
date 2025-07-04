@@ -4,16 +4,16 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class SwarmJoin extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     /**
+     * 
      *
-     *
-     * @param \Vendor\Library\Generated\Model\SwarmJoinPostBody $body
+     * @param \Vendor\Library\Generated\Model\SwarmJoinPostBody $body 
      */
     public function __construct(\Vendor\Library\Generated\Model\SwarmJoinPostBody $body)
     {
         $this->body = $body;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'POST';
@@ -28,7 +28,7 @@ class SwarmJoin extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint im
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -47,17 +47,17 @@ class SwarmJoin extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint im
             return null;
         }
         if (400 === $status) {
-            throw new \Vendor\Library\Generated\Exception\SwarmJoinBadRequestException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\SwarmJoinBadRequestException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\SwarmJoinInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\SwarmJoinInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (503 === $status) {
-            throw new \Vendor\Library\Generated\Exception\SwarmJoinServiceUnavailableException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\SwarmJoinServiceUnavailableException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

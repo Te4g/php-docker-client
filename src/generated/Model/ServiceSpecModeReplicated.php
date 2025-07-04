@@ -7,19 +7,19 @@ class ServiceSpecModeReplicated
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var int
      */
     protected $replicas;
     /**
-     *
+     * 
      *
      * @return int
      */
@@ -28,7 +28,7 @@ class ServiceSpecModeReplicated
         return $this->replicas;
     }
     /**
-     *
+     * 
      *
      * @param int $replicas
      *

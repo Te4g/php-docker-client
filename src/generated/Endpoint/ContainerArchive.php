@@ -4,7 +4,6 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class ContainerArchive extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $id;
     /**
      * Get a tar archive of a resource in the filesystem of container id.
@@ -14,34 +13,35 @@ class ContainerArchive extends \Vendor\Library\Generated\Runtime\Client\BaseEndp
      *     @var string $path Resource in the container’s filesystem to archive.
      * }
      */
-    public function __construct(string $id, array $queryParameters = array())
+    public function __construct(string $id, array $queryParameters = [])
     {
         $this->id = $id;
         $this->queryParameters = $queryParameters;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'GET';
     }
     public function getUri(): string
     {
-        return str_replace(array('{id}'), array($this->id), '/containers/{id}/archive');
+        return str_replace(['{id}'], [$this->id], '/containers/{id}/archive');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        return array(array(), null);
+        return [[], null];
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(array('path'));
-        $optionsResolver->setRequired(array('path'));
-        $optionsResolver->setDefaults(array());
-        $optionsResolver->addAllowedTypes('path', array('string'));
+        $optionsResolver->setDefined(['path']);
+        $optionsResolver->setRequired(['path']);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('path', ['string']);
         return $optionsResolver;
     }
     /**
@@ -61,17 +61,17 @@ class ContainerArchive extends \Vendor\Library\Generated\Runtime\Client\BaseEndp
             return null;
         }
         if (400 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerArchiveBadRequestException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerArchiveBadRequestException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerArchiveNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerArchiveNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\ContainerArchiveInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\ContainerArchiveInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }

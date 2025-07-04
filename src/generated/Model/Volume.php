@@ -7,7 +7,7 @@ class Volume
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -40,10 +40,10 @@ class Volume
     * Low-level details about the volume, provided by the volume driver.
     Details are returned as a map with key/value pairs:
     `{"key":"value","key2":"value2"}`.
-
+    
     The `Status` field is optional, and is omitted if the volume driver
     does not support this feature.
-
+    
     *
     * @var array<string, mixed>
     */
@@ -57,7 +57,7 @@ class Volume
     /**
     * The level at which the volume exists. Either `global` for cluster-wide,
     or `local` for machine level.
-
+    
     *
     * @var string
     */
@@ -65,7 +65,7 @@ class Volume
     /**
     * Options and information specific to, and only present on, Swarm CSI
     cluster volumes.
-
+    
     *
     * @var ClusterVolume
     */
@@ -79,7 +79,7 @@ class Volume
     /**
     * Usage details about the volume. This information is used by the
     `GET /system/df` endpoint, and omitted in other endpoints.
-
+    
     *
     * @var VolumeUsageData|null
     */
@@ -176,10 +176,10 @@ class Volume
     * Low-level details about the volume, provided by the volume driver.
     Details are returned as a map with key/value pairs:
     `{"key":"value","key2":"value2"}`.
-
+    
     The `Status` field is optional, and is omitted if the volume driver
     does not support this feature.
-
+    
     *
     * @return array<string, mixed>
     */
@@ -191,10 +191,10 @@ class Volume
     * Low-level details about the volume, provided by the volume driver.
     Details are returned as a map with key/value pairs:
     `{"key":"value","key2":"value2"}`.
-
+    
     The `Status` field is optional, and is omitted if the volume driver
     does not support this feature.
-
+    
     *
     * @param array<string, mixed> $status
     *
@@ -231,7 +231,7 @@ class Volume
     /**
     * The level at which the volume exists. Either `global` for cluster-wide,
     or `local` for machine level.
-
+    
     *
     * @return string
     */
@@ -242,7 +242,7 @@ class Volume
     /**
     * The level at which the volume exists. Either `global` for cluster-wide,
     or `local` for machine level.
-
+    
     *
     * @param string $scope
     *
@@ -257,7 +257,7 @@ class Volume
     /**
     * Options and information specific to, and only present on, Swarm CSI
     cluster volumes.
-
+    
     *
     * @return ClusterVolume
     */
@@ -268,7 +268,7 @@ class Volume
     /**
     * Options and information specific to, and only present on, Swarm CSI
     cluster volumes.
-
+    
     *
     * @param ClusterVolume $clusterVolume
     *
@@ -305,7 +305,7 @@ class Volume
     /**
     * Usage details about the volume. This information is used by the
     `GET /system/df` endpoint, and omitted in other endpoints.
-
+    
     *
     * @return VolumeUsageData|null
     */
@@ -316,7 +316,7 @@ class Volume
     /**
     * Usage details about the volume. This information is used by the
     `GET /system/df` endpoint, and omitted in other endpoints.
-
+    
     *
     * @param VolumeUsageData|null $usageData
     *

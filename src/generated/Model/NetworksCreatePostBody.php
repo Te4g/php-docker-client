@@ -7,7 +7,7 @@ class NetworksCreatePostBody
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -19,24 +19,19 @@ class NetworksCreatePostBody
      */
     protected $name;
     /**
-    * Check for networks with duplicate names. Since Network is
-    primarily keyed based on a random ID and not on the name, and
-    network name is strictly a user-friendly alias to the network
-    which is uniquely identified using ID, there is no guaranteed
-    way to check for duplicates. CheckDuplicate is there to provide
-    a best effort checking of any networks which has the same name
-    but it is not guaranteed to catch all name collisions.
-
-    *
-    * @var bool
-    */
-    protected $checkDuplicate;
-    /**
      * Name of the network driver plugin to use.
      *
      * @var string
      */
     protected $driver = 'bridge';
+    /**
+    * The level at which the network exists (e.g. `swarm` for cluster-wide
+    or `local` for machine level).
+    
+    *
+    * @var string
+    */
+    protected $scope;
     /**
      * Restrict external access to the network.
      *
@@ -46,7 +41,7 @@ class NetworksCreatePostBody
     /**
     * Globally scoped network is manually attachable by regular
     containers from workers in swarm mode.
-
+    
     *
     * @var bool
     */
@@ -54,17 +49,41 @@ class NetworksCreatePostBody
     /**
     * Ingress network is the network which provides the routing-mesh
     in swarm mode.
-
+    
     *
     * @var bool
     */
     protected $ingress;
     /**
-     *
+    * Creates a config-only network. Config-only networks are placeholder
+    networks for network configurations to be used by other networks.
+    Config-only networks cannot be used directly to run containers
+    or services.
+    
+    *
+    * @var bool
+    */
+    protected $configOnly = false;
+    /**
+    * The config-only network source to provide the configuration for
+    this network.
+    
+    *
+    * @var ConfigReference
+    */
+    protected $configFrom;
+    /**
+     * 
      *
      * @var IPAM
      */
     protected $iPAM;
+    /**
+     * Enable IPv4 on the network.
+     *
+     * @var bool
+     */
+    protected $enableIPv4;
     /**
      * Enable IPv6 on the network.
      *
@@ -106,42 +125,6 @@ class NetworksCreatePostBody
         return $this;
     }
     /**
-    * Check for networks with duplicate names. Since Network is
-    primarily keyed based on a random ID and not on the name, and
-    network name is strictly a user-friendly alias to the network
-    which is uniquely identified using ID, there is no guaranteed
-    way to check for duplicates. CheckDuplicate is there to provide
-    a best effort checking of any networks which has the same name
-    but it is not guaranteed to catch all name collisions.
-
-    *
-    * @return bool
-    */
-    public function getCheckDuplicate(): bool
-    {
-        return $this->checkDuplicate;
-    }
-    /**
-    * Check for networks with duplicate names. Since Network is
-    primarily keyed based on a random ID and not on the name, and
-    network name is strictly a user-friendly alias to the network
-    which is uniquely identified using ID, there is no guaranteed
-    way to check for duplicates. CheckDuplicate is there to provide
-    a best effort checking of any networks which has the same name
-    but it is not guaranteed to catch all name collisions.
-
-    *
-    * @param bool $checkDuplicate
-    *
-    * @return self
-    */
-    public function setCheckDuplicate(bool $checkDuplicate): self
-    {
-        $this->initialized['checkDuplicate'] = true;
-        $this->checkDuplicate = $checkDuplicate;
-        return $this;
-    }
-    /**
      * Name of the network driver plugin to use.
      *
      * @return string
@@ -161,6 +144,32 @@ class NetworksCreatePostBody
     {
         $this->initialized['driver'] = true;
         $this->driver = $driver;
+        return $this;
+    }
+    /**
+    * The level at which the network exists (e.g. `swarm` for cluster-wide
+    or `local` for machine level).
+    
+    *
+    * @return string
+    */
+    public function getScope(): string
+    {
+        return $this->scope;
+    }
+    /**
+    * The level at which the network exists (e.g. `swarm` for cluster-wide
+    or `local` for machine level).
+    
+    *
+    * @param string $scope
+    *
+    * @return self
+    */
+    public function setScope(string $scope): self
+    {
+        $this->initialized['scope'] = true;
+        $this->scope = $scope;
         return $this;
     }
     /**
@@ -188,7 +197,7 @@ class NetworksCreatePostBody
     /**
     * Globally scoped network is manually attachable by regular
     containers from workers in swarm mode.
-
+    
     *
     * @return bool
     */
@@ -199,7 +208,7 @@ class NetworksCreatePostBody
     /**
     * Globally scoped network is manually attachable by regular
     containers from workers in swarm mode.
-
+    
     *
     * @param bool $attachable
     *
@@ -214,7 +223,7 @@ class NetworksCreatePostBody
     /**
     * Ingress network is the network which provides the routing-mesh
     in swarm mode.
-
+    
     *
     * @return bool
     */
@@ -225,7 +234,7 @@ class NetworksCreatePostBody
     /**
     * Ingress network is the network which provides the routing-mesh
     in swarm mode.
-
+    
     *
     * @param bool $ingress
     *
@@ -238,7 +247,63 @@ class NetworksCreatePostBody
         return $this;
     }
     /**
-     *
+    * Creates a config-only network. Config-only networks are placeholder
+    networks for network configurations to be used by other networks.
+    Config-only networks cannot be used directly to run containers
+    or services.
+    
+    *
+    * @return bool
+    */
+    public function getConfigOnly(): bool
+    {
+        return $this->configOnly;
+    }
+    /**
+    * Creates a config-only network. Config-only networks are placeholder
+    networks for network configurations to be used by other networks.
+    Config-only networks cannot be used directly to run containers
+    or services.
+    
+    *
+    * @param bool $configOnly
+    *
+    * @return self
+    */
+    public function setConfigOnly(bool $configOnly): self
+    {
+        $this->initialized['configOnly'] = true;
+        $this->configOnly = $configOnly;
+        return $this;
+    }
+    /**
+    * The config-only network source to provide the configuration for
+    this network.
+    
+    *
+    * @return ConfigReference
+    */
+    public function getConfigFrom(): ConfigReference
+    {
+        return $this->configFrom;
+    }
+    /**
+    * The config-only network source to provide the configuration for
+    this network.
+    
+    *
+    * @param ConfigReference $configFrom
+    *
+    * @return self
+    */
+    public function setConfigFrom(ConfigReference $configFrom): self
+    {
+        $this->initialized['configFrom'] = true;
+        $this->configFrom = $configFrom;
+        return $this;
+    }
+    /**
+     * 
      *
      * @return IPAM
      */
@@ -247,7 +312,7 @@ class NetworksCreatePostBody
         return $this->iPAM;
     }
     /**
-     *
+     * 
      *
      * @param IPAM $iPAM
      *
@@ -257,6 +322,28 @@ class NetworksCreatePostBody
     {
         $this->initialized['iPAM'] = true;
         $this->iPAM = $iPAM;
+        return $this;
+    }
+    /**
+     * Enable IPv4 on the network.
+     *
+     * @return bool
+     */
+    public function getEnableIPv4(): bool
+    {
+        return $this->enableIPv4;
+    }
+    /**
+     * Enable IPv4 on the network.
+     *
+     * @param bool $enableIPv4
+     *
+     * @return self
+     */
+    public function setEnableIPv4(bool $enableIPv4): self
+    {
+        $this->initialized['enableIPv4'] = true;
+        $this->enableIPv4 = $enableIPv4;
         return $this;
     }
     /**

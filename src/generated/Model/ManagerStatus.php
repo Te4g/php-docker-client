@@ -7,13 +7,13 @@ class ManagerStatus
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var bool
      */
@@ -31,7 +31,7 @@ class ManagerStatus
      */
     protected $addr;
     /**
-     *
+     * 
      *
      * @return bool
      */
@@ -40,7 +40,7 @@ class ManagerStatus
         return $this->leader;
     }
     /**
-     *
+     * 
      *
      * @param bool $leader
      *

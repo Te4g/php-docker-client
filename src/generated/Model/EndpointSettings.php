@@ -7,7 +7,7 @@ class EndpointSettings
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -19,17 +19,42 @@ class EndpointSettings
      */
     protected $iPAMConfig;
     /**
+     * 
      *
-     *
-     * @var string[]
+     * @var list<string>
      */
     protected $links;
     /**
+     * MAC address for the endpoint on this network. The network driver might ignore this parameter.
      *
+     * @var string
+     */
+    protected $macAddress;
+    /**
+     * 
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $aliases;
+    /**
+    * DriverOpts is a mapping of driver options and values. These options
+    are passed directly to the driver and are driver specific.
+    
+    *
+    * @var array<string, string>|null
+    */
+    protected $driverOpts;
+    /**
+    * This property determines which endpoint will provide the default
+    gateway for a container. The endpoint with the highest priority will
+    be used. If multiple endpoints have the same priority, endpoints are
+    lexicographically sorted based on their network name, and the one
+    that sorts first is picked.
+    
+    *
+    * @var float
+    */
+    protected $gwPriority;
     /**
      * Unique ID of the network.
      *
@@ -79,19 +104,20 @@ class EndpointSettings
      */
     protected $globalIPv6PrefixLen;
     /**
-     * MAC address for the endpoint on this network.
-     *
-     * @var string
-     */
-    protected $macAddress;
-    /**
-    * DriverOpts is a mapping of driver options and values. These options
-    are passed directly to the driver and are driver specific.
-
+    * List of all DNS names an endpoint has on a specific network. This
+    list is based on the container name, network aliases, container short
+    ID, and hostname.
+    
+    These DNS names are non-fully qualified but can contain several dots.
+    You can get fully qualified DNS names by appending `.<network-name>`.
+    For instance, if container name is `my.ctr` and the network is named
+    `testnet`, `DNSNames` will contain `my.ctr` and the FQDN will be
+    `my.ctr.testnet`.
+    
     *
-    * @var array<string, string>|null
+    * @var list<string>
     */
-    protected $driverOpts;
+    protected $dNSNames;
     /**
      * EndpointIPAMConfig represents an endpoint's IPAM configuration.
      *
@@ -115,18 +141,18 @@ class EndpointSettings
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return string[]
+     * @return list<string>
      */
     public function getLinks(): array
     {
         return $this->links;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $links
+     * @param list<string> $links
      *
      * @return self
      */
@@ -137,18 +163,40 @@ class EndpointSettings
         return $this;
     }
     /**
+     * MAC address for the endpoint on this network. The network driver might ignore this parameter.
      *
+     * @return string
+     */
+    public function getMacAddress(): string
+    {
+        return $this->macAddress;
+    }
+    /**
+     * MAC address for the endpoint on this network. The network driver might ignore this parameter.
      *
-     * @return string[]
+     * @param string $macAddress
+     *
+     * @return self
+     */
+    public function setMacAddress(string $macAddress): self
+    {
+        $this->initialized['macAddress'] = true;
+        $this->macAddress = $macAddress;
+        return $this;
+    }
+    /**
+     * 
+     *
+     * @return list<string>
      */
     public function getAliases(): array
     {
         return $this->aliases;
     }
     /**
+     * 
      *
-     *
-     * @param string[] $aliases
+     * @param list<string> $aliases
      *
      * @return self
      */
@@ -156,6 +204,64 @@ class EndpointSettings
     {
         $this->initialized['aliases'] = true;
         $this->aliases = $aliases;
+        return $this;
+    }
+    /**
+    * DriverOpts is a mapping of driver options and values. These options
+    are passed directly to the driver and are driver specific.
+    
+    *
+    * @return array<string, string>|null
+    */
+    public function getDriverOpts(): ?iterable
+    {
+        return $this->driverOpts;
+    }
+    /**
+    * DriverOpts is a mapping of driver options and values. These options
+    are passed directly to the driver and are driver specific.
+    
+    *
+    * @param array<string, string>|null $driverOpts
+    *
+    * @return self
+    */
+    public function setDriverOpts(?iterable $driverOpts): self
+    {
+        $this->initialized['driverOpts'] = true;
+        $this->driverOpts = $driverOpts;
+        return $this;
+    }
+    /**
+    * This property determines which endpoint will provide the default
+    gateway for a container. The endpoint with the highest priority will
+    be used. If multiple endpoints have the same priority, endpoints are
+    lexicographically sorted based on their network name, and the one
+    that sorts first is picked.
+    
+    *
+    * @return float
+    */
+    public function getGwPriority(): float
+    {
+        return $this->gwPriority;
+    }
+    /**
+    * This property determines which endpoint will provide the default
+    gateway for a container. The endpoint with the highest priority will
+    be used. If multiple endpoints have the same priority, endpoints are
+    lexicographically sorted based on their network name, and the one
+    that sorts first is picked.
+    
+    *
+    * @param float $gwPriority
+    *
+    * @return self
+    */
+    public function setGwPriority(float $gwPriority): self
+    {
+        $this->initialized['gwPriority'] = true;
+        $this->gwPriority = $gwPriority;
         return $this;
     }
     /**
@@ -335,51 +441,43 @@ class EndpointSettings
         return $this;
     }
     /**
-     * MAC address for the endpoint on this network.
-     *
-     * @return string
-     */
-    public function getMacAddress(): string
-    {
-        return $this->macAddress;
-    }
-    /**
-     * MAC address for the endpoint on this network.
-     *
-     * @param string $macAddress
-     *
-     * @return self
-     */
-    public function setMacAddress(string $macAddress): self
-    {
-        $this->initialized['macAddress'] = true;
-        $this->macAddress = $macAddress;
-        return $this;
-    }
-    /**
-    * DriverOpts is a mapping of driver options and values. These options
-    are passed directly to the driver and are driver specific.
-
+    * List of all DNS names an endpoint has on a specific network. This
+    list is based on the container name, network aliases, container short
+    ID, and hostname.
+    
+    These DNS names are non-fully qualified but can contain several dots.
+    You can get fully qualified DNS names by appending `.<network-name>`.
+    For instance, if container name is `my.ctr` and the network is named
+    `testnet`, `DNSNames` will contain `my.ctr` and the FQDN will be
+    `my.ctr.testnet`.
+    
     *
-    * @return array<string, string>|null
+    * @return list<string>
     */
-    public function getDriverOpts(): ?iterable
+    public function getDNSNames(): array
     {
-        return $this->driverOpts;
+        return $this->dNSNames;
     }
     /**
-    * DriverOpts is a mapping of driver options and values. These options
-    are passed directly to the driver and are driver specific.
-
+    * List of all DNS names an endpoint has on a specific network. This
+    list is based on the container name, network aliases, container short
+    ID, and hostname.
+    
+    These DNS names are non-fully qualified but can contain several dots.
+    You can get fully qualified DNS names by appending `.<network-name>`.
+    For instance, if container name is `my.ctr` and the network is named
+    `testnet`, `DNSNames` will contain `my.ctr` and the FQDN will be
+    `my.ctr.testnet`.
+    
     *
-    * @param array<string, string>|null $driverOpts
+    * @param list<string> $dNSNames
     *
     * @return self
     */
-    public function setDriverOpts(?iterable $driverOpts): self
+    public function setDNSNames(array $dNSNames): self
     {
-        $this->initialized['driverOpts'] = true;
-        $this->driverOpts = $driverOpts;
+        $this->initialized['dNSNames'] = true;
+        $this->dNSNames = $dNSNames;
         return $this;
     }
 }

@@ -7,7 +7,7 @@ class ContainerCreateResponse
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -21,7 +21,7 @@ class ContainerCreateResponse
     /**
      * Warnings encountered when creating the container
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $warnings;
     /**
@@ -49,7 +49,7 @@ class ContainerCreateResponse
     /**
      * Warnings encountered when creating the container
      *
-     * @return string[]
+     * @return list<string>
      */
     public function getWarnings(): array
     {
@@ -58,7 +58,7 @@ class ContainerCreateResponse
     /**
      * Warnings encountered when creating the container
      *
-     * @param string[] $warnings
+     * @param list<string> $warnings
      *
      * @return self
      */

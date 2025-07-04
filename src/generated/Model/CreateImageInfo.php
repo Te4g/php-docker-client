@@ -7,49 +7,55 @@ class CreateImageInfo
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
     }
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $id;
     /**
-     *
-     *
-     * @var string
-     */
+    * errors encountered during the operation.
+    
+    
+    > **Deprecated**: This field is deprecated since API v1.4, and will be omitted in a future API version. Use the information in errorDetail instead.
+    *
+    * @var string|null
+    */
     protected $error;
     /**
-     *
+     * 
      *
      * @var ErrorDetail
      */
     protected $errorDetail;
     /**
-     *
+     * 
      *
      * @var string
      */
     protected $status;
     /**
-     *
-     *
-     * @var string
-     */
+    * Progress is a pre-formatted presentation of progressDetail.
+    
+    
+    > **Deprecated**: This field is deprecated since API v1.8, and will be omitted in a future API version. Use the information in progressDetail instead.
+    *
+    * @var string|null
+    */
     protected $progress;
     /**
-     *
+     * 
      *
      * @var ProgressDetail
      */
     protected $progressDetail;
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -58,7 +64,7 @@ class CreateImageInfo
         return $this->id;
     }
     /**
-     *
+     * 
      *
      * @param string $id
      *
@@ -71,29 +77,35 @@ class CreateImageInfo
         return $this;
     }
     /**
-     *
-     *
-     * @return string
-     */
-    public function getError(): string
+    * errors encountered during the operation.
+    
+    
+    > **Deprecated**: This field is deprecated since API v1.4, and will be omitted in a future API version. Use the information in errorDetail instead.
+    *
+    * @return string|null
+    */
+    public function getError(): ?string
     {
         return $this->error;
     }
     /**
-     *
-     *
-     * @param string $error
-     *
-     * @return self
-     */
-    public function setError(string $error): self
+    * errors encountered during the operation.
+    
+    
+    > **Deprecated**: This field is deprecated since API v1.4, and will be omitted in a future API version. Use the information in errorDetail instead.
+    *
+    * @param string|null $error
+    *
+    * @return self
+    */
+    public function setError(?string $error): self
     {
         $this->initialized['error'] = true;
         $this->error = $error;
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return ErrorDetail
      */
@@ -102,7 +114,7 @@ class CreateImageInfo
         return $this->errorDetail;
     }
     /**
-     *
+     * 
      *
      * @param ErrorDetail $errorDetail
      *
@@ -115,7 +127,7 @@ class CreateImageInfo
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return string
      */
@@ -124,7 +136,7 @@ class CreateImageInfo
         return $this->status;
     }
     /**
-     *
+     * 
      *
      * @param string $status
      *
@@ -137,29 +149,35 @@ class CreateImageInfo
         return $this;
     }
     /**
-     *
-     *
-     * @return string
-     */
-    public function getProgress(): string
+    * Progress is a pre-formatted presentation of progressDetail.
+    
+    
+    > **Deprecated**: This field is deprecated since API v1.8, and will be omitted in a future API version. Use the information in progressDetail instead.
+    *
+    * @return string|null
+    */
+    public function getProgress(): ?string
     {
         return $this->progress;
     }
     /**
-     *
-     *
-     * @param string $progress
-     *
-     * @return self
-     */
-    public function setProgress(string $progress): self
+    * Progress is a pre-formatted presentation of progressDetail.
+    
+    
+    > **Deprecated**: This field is deprecated since API v1.8, and will be omitted in a future API version. Use the information in progressDetail instead.
+    *
+    * @param string|null $progress
+    *
+    * @return self
+    */
+    public function setProgress(?string $progress): self
     {
         $this->initialized['progress'] = true;
         $this->progress = $progress;
         return $this;
     }
     /**
-     *
+     * 
      *
      * @return ProgressDetail
      */
@@ -168,7 +186,7 @@ class CreateImageInfo
         return $this->progressDetail;
     }
     /**
-     *
+     * 
      *
      * @param ProgressDetail $progressDetail
      *

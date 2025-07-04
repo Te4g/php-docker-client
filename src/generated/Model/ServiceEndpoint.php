@@ -7,7 +7,7 @@ class ServiceEndpoint
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -19,15 +19,15 @@ class ServiceEndpoint
      */
     protected $spec;
     /**
+     * 
      *
-     *
-     * @var EndpointPortConfig[]
+     * @var list<EndpointPortConfig>
      */
     protected $ports;
     /**
+     * 
      *
-     *
-     * @var ServiceEndpointVirtualIPsItem[]
+     * @var list<ServiceEndpointVirtualIPsItem>
      */
     protected $virtualIPs;
     /**
@@ -53,18 +53,18 @@ class ServiceEndpoint
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return EndpointPortConfig[]
+     * @return list<EndpointPortConfig>
      */
     public function getPorts(): array
     {
         return $this->ports;
     }
     /**
+     * 
      *
-     *
-     * @param EndpointPortConfig[] $ports
+     * @param list<EndpointPortConfig> $ports
      *
      * @return self
      */
@@ -75,18 +75,18 @@ class ServiceEndpoint
         return $this;
     }
     /**
+     * 
      *
-     *
-     * @return ServiceEndpointVirtualIPsItem[]
+     * @return list<ServiceEndpointVirtualIPsItem>
      */
     public function getVirtualIPs(): array
     {
         return $this->virtualIPs;
     }
     /**
+     * 
      *
-     *
-     * @param ServiceEndpointVirtualIPsItem[] $virtualIPs
+     * @param list<ServiceEndpointVirtualIPsItem> $virtualIPs
      *
      * @return self
      */

@@ -7,7 +7,7 @@ class DistributionInspect
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -15,7 +15,7 @@ class DistributionInspect
     /**
     * A descriptor struct containing digest, media type, and size, as defined in
     the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
-
+    
     *
     * @var OCIDescriptor
     */
@@ -23,13 +23,13 @@ class DistributionInspect
     /**
      * An array containing all platforms supported by the image.
      *
-     * @var OCIPlatform[]
+     * @var list<OCIPlatform>
      */
     protected $platforms;
     /**
     * A descriptor struct containing digest, media type, and size, as defined in
     the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
-
+    
     *
     * @return OCIDescriptor
     */
@@ -40,7 +40,7 @@ class DistributionInspect
     /**
     * A descriptor struct containing digest, media type, and size, as defined in
     the [OCI Content Descriptors Specification](https://github.com/opencontainers/image-spec/blob/v1.0.1/descriptor.md).
-
+    
     *
     * @param OCIDescriptor $descriptor
     *
@@ -55,7 +55,7 @@ class DistributionInspect
     /**
      * An array containing all platforms supported by the image.
      *
-     * @return OCIPlatform[]
+     * @return list<OCIPlatform>
      */
     public function getPlatforms(): array
     {
@@ -64,7 +64,7 @@ class DistributionInspect
     /**
      * An array containing all platforms supported by the image.
      *
-     * @param OCIPlatform[] $platforms
+     * @param list<OCIPlatform> $platforms
      *
      * @return self
      */

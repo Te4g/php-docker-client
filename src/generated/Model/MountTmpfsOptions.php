@@ -7,7 +7,7 @@ class MountTmpfsOptions
     /**
      * @var array
      */
-    protected $initialized = array();
+    protected $initialized = [];
     public function isInitialized($property): bool
     {
         return array_key_exists($property, $this->initialized);
@@ -24,6 +24,16 @@ class MountTmpfsOptions
      * @var int
      */
     protected $mode;
+    /**
+    * The options to be passed to the tmpfs mount. An array of arrays.
+    Flag options should be provided as 1-length arrays. Other types
+    should be provided as as 2-length arrays, where the first item is
+    the key and the second the value.
+    
+    *
+    * @var list<list<string>>
+    */
+    protected $options;
     /**
      * The size for the tmpfs mount in bytes.
      *
@@ -66,6 +76,36 @@ class MountTmpfsOptions
     {
         $this->initialized['mode'] = true;
         $this->mode = $mode;
+        return $this;
+    }
+    /**
+    * The options to be passed to the tmpfs mount. An array of arrays.
+    Flag options should be provided as 1-length arrays. Other types
+    should be provided as as 2-length arrays, where the first item is
+    the key and the second the value.
+    
+    *
+    * @return list<list<string>>
+    */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+    /**
+    * The options to be passed to the tmpfs mount. An array of arrays.
+    Flag options should be provided as 1-length arrays. Other types
+    should be provided as as 2-length arrays, where the first item is
+    the key and the second the value.
+    
+    *
+    * @param list<list<string>> $options
+    *
+    * @return self
+    */
+    public function setOptions(array $options): self
+    {
+        $this->initialized['options'] = true;
+        $this->options = $options;
         return $this;
     }
 }

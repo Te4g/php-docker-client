@@ -4,28 +4,28 @@ namespace Vendor\Library\Generated\Endpoint;
 
 class PluginSet extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint implements \Vendor\Library\Generated\Runtime\Client\Endpoint
 {
-    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     protected $name;
     /**
-    *
+    * 
     *
     * @param string $name The name of the plugin. The `:latest` tag is optional, and is the
     default if omitted.
-
-    * @param array $body
+    
+    * @param array $body 
     */
     public function __construct(string $name, array $body)
     {
         $this->name = $name;
         $this->body = $body;
     }
+    use \Vendor\Library\Generated\Runtime\Client\EndpointTrait;
     public function getMethod(): string
     {
         return 'POST';
     }
     public function getUri(): string
     {
-        return str_replace(array('{name}'), array($this->name), '/plugins/{name}/set');
+        return str_replace(['{name}'], [$this->name], '/plugins/{name}/set');
     }
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
@@ -33,7 +33,7 @@ class PluginSet extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint im
     }
     public function getExtraHeaders(): array
     {
-        return array('Accept' => array('application/json'));
+        return ['Accept' => ['application/json']];
     }
     /**
      * {@inheritdoc}
@@ -51,14 +51,14 @@ class PluginSet extends \Vendor\Library\Generated\Runtime\Client\BaseEndpoint im
             return null;
         }
         if (404 === $status) {
-            throw new \Vendor\Library\Generated\Exception\PluginSetNotFoundException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\PluginSetNotFoundException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
         if (500 === $status) {
-            throw new \Vendor\Library\Generated\Exception\PluginSetInternalServerErrorException($serializer->deserialize($body, 'Vendor\\Library\\Generated\\Model\\ErrorResponse', 'json'), $response);
+            throw new \Vendor\Library\Generated\Exception\PluginSetInternalServerErrorException($serializer->deserialize($body, 'Vendor\Library\Generated\Model\ErrorResponse', 'json'), $response);
         }
     }
     public function getAuthenticationScopes(): array
     {
-        return array();
+        return [];
     }
 }
